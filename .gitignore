@@ -1,0 +1,6 @@
+#Ignoring Mac files of DS_Store type. Also class files, html files, and it ignores the bin.
+
+*.DS_Store
+*.class
+*.html
+bin/
