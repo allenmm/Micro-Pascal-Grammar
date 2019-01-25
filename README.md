@@ -1,0 +1,1 @@
+This folder contains a scanner project, called allenscanner, that converts the input program into a sequence of tokens. The allenscanner program reads the input characters and produces a sequence of tokens for the parser. This project itself contains a README.md, four java class files, two versions of the SDD, a jflex file, and it will contain two input text files for testing.
