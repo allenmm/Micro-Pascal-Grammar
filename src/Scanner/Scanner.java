@@ -13,6 +13,7 @@
 /* Declarations */
 
 package scanner;
+import java.util.HashMap;
 
 
 /**
@@ -45,9 +46,10 @@ public class Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\1\1\1\1\2\1\2\1\2\22\0\1\1\15\0\1\5"+
-    "\1\0\12\4\7\0\32\3\6\0\32\3\12\0\1\2\u1fa2\0\1\2"+
-    "\1\2\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\11\0\1\1\1\1\1\2\1\2\1\2\22\0\1\1\12\0\1\7"+
+    "\1\0\1\7\1\5\1\0\12\4\7\0\4\3\1\6\25\3\6\0"+
+    "\4\3\1\6\25\3\1\0\1\7\10\0\1\2\u1fa2\0\1\2\1\2"+
+    "\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -60,11 +62,11 @@ public class Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\0"+
-    "\1\7";
+    "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\2\0"+
+    "\2\7\1\0\1\10\1\0";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[9];
+    int [] result = new int[14];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -89,11 +91,11 @@ public class Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\6\0\6\0\14\0\22\0\30\0\22\0\36"+
-    "\0\36";
+    "\0\0\0\10\0\10\0\20\0\30\0\40\0\50\0\60"+
+    "\0\70\0\100\0\70\0\110\0\120\0\120";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[9];
+    int [] result = new int[14];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -116,12 +118,14 @@ public class Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\0\1\4\1\5\1\2\11\0\1\4"+
-    "\1\6\5\0\1\7\1\10\3\0\2\6\5\0\1\11"+
-    "\1\0";
+    "\1\2\1\3\1\0\1\4\1\5\1\2\1\4\1\2"+
+    "\13\0\1\4\1\6\1\0\1\4\5\0\1\7\1\10"+
+    "\5\0\2\6\1\0\1\6\5\0\1\7\1\11\6\0"+
+    "\1\12\7\0\1\13\7\0\1\12\1\0\1\14\5\0"+
+    "\1\15\2\0\1\16\4\0\1\15\3\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[36];
+    int [] result = new int[88];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -159,10 +163,10 @@ public class Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\11\4\1\1\0\1\1";
+    "\1\0\2\11\4\1\2\0\2\1\1\0\1\1\1\0";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[9];
+    int [] result = new int[14];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -237,6 +241,11 @@ public class Scanner {
    */
   private int zzFinalHighSurrogate = 0;
 
+  /* user code: */
+	/*Copies the HashMap code inside the brackets and puts it 
+	inside the class itself. */
+	private HashMap<String, TokenType> lookupTable;
+
 
   /**
    * Creates a new scanner
@@ -244,6 +253,10 @@ public class Scanner {
    * @param   in  the java.io.Reader to read input from.
    */
   public Scanner(java.io.Reader in) {
+  	lookupTable = new HashMap<String, TokenType>();
+	lookupTable.put("plus", TokenType.PLUS);
+	lookupTable.put("minus", TokenType.MINUS);
+	
     this.zzReader = in;
   }
 
@@ -258,7 +271,7 @@ public class Scanner {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 76) {
+    while (i < 94) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -559,45 +572,52 @@ public class Scanner {
              return "";
             } 
             // fall through
-          case 8: break;
+          case 9: break;
           case 2: 
             { /* Ignore Whitespace */ 
                  return "";
             } 
             // fall through
-          case 9: break;
+          case 10: break;
           case 3: 
             { System.out.println("Found a word: " + yytext());
              return( yytext());
             } 
             // fall through
-          case 10: break;
+          case 11: break;
           case 4: 
             { System.out.println("Found a digit: " + yytext());
 		  return( yytext());
             } 
             // fall through
-          case 11: break;
+          case 12: break;
           case 5: 
             { System.out.println("Found an identifier: "
              + yytext());
              return( yytext());
             } 
             // fall through
-          case 12: break;
+          case 13: break;
           case 6: 
             { System.out.println("Found some digits: " + yytext());
 		   return( yytext());
             } 
             // fall through
-          case 13: break;
+          case 14: break;
           case 7: 
             { System.out.println("Found a float: "
              + yytext());
              return( yytext());
             } 
             // fall through
-          case 14: break;
+          case 15: break;
+          case 8: 
+            { System.out.println("Found a scientific notation: "
+             + yytext());
+             return( yytext());
+            } 
+            // fall through
+          case 16: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
