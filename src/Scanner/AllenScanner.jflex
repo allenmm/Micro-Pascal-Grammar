@@ -64,7 +64,7 @@ optional_exponent = (((E|e)[\+|\-]?){digits})?  /*Matches optional
 											optional because of the ?
 											where it will match the empty
 											input.*/
-scientific_notation = {float}{optional_exponent}
+scientific_notation = {digit}\.{digits}{optional_exponent}
 
 
 
