@@ -58,7 +58,8 @@ id 		= {letter}({letter}|{digit})* /*Encapsulates the letter and
 										digits ids. Matches a letter 
 										pattern followed by a number or
 										letter zero or more times. */
-optional_exponent = ((E[\+|\-]?){digits})?   /*Matches optional exponents.
+optional_exponent = (((E|e)[\+|\-]?){digits})?  /*Matches optional
+											exponents.
 											The entire exponent is
 											optional because of the ?
 											where it will match the empty
@@ -108,6 +109,14 @@ scientific_notation = {float}{optional_exponent}
              + yytext());
              return( yytext());
             } 
+            
+             /*Print out the id that was found and returns it.*/ 
+{scientific_notation}  		
+			{
+             System.out.println("Found a scientific notation: "
+             + yytext());
+             return( yytext());
+            }
             			
 			/*Print out an illegal character that was found 
 			and returns it.*/
