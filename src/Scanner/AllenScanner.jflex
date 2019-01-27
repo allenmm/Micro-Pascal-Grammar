@@ -112,9 +112,9 @@ optional_exponent = (((E|e)[\+|\-]?){digits})?  /*Matches optional
 scientific_notation = {digit}\.{digits}{optional_exponent}  /*Matches a
 															single digit,
 															followed by a
-															period and
-															optional
-															exponents.*/
+															period and an
+															exponent with
+															digits.*/
 
 %%
 /* Lexical Rules */
