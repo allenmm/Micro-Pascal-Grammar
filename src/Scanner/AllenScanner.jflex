@@ -11,6 +11,7 @@
 /* Declarations */
 
 package scanner;
+import java.util.HashMap;
 
 %%
 
@@ -45,6 +46,19 @@ id 		= {letter}({letter}|{digit})* /*Encapsulates the letter and
 										digits ids. Matches a letter 
 										pattern followed by a number or
 										letter zero or more times. */
+
+%{
+	/*Copies the HashMap code inside the brackets and puts it 
+	inside the class itself. */
+	private HashMap<String, TokenType> lookupTable;
+%}
+
+%init{
+	lookupTable = new HashMap<String, TokenType>();
+	lookupTable.put("plus", TokenType.PLUS);
+	lookupTable.put("minus", TokenType.MINUS);
+	
+%init}
 
 
 %%
