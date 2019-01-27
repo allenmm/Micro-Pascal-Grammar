@@ -27,6 +27,18 @@ Tells Jflex what to return, null. */
   return null;
 %eofval}
 
+%{
+	/*Copies the HashMap code inside the brackets and puts it 
+	inside the class itself. */
+	private HashMap<String, TokenType> lookupTable;
+%}
+
+%init{
+	lookupTable = new HashMap<String, TokenType>();
+	lookupTable.put("plus", TokenType.PLUS);
+	lookupTable.put("minus", TokenType.MINUS);
+	
+%init}
 
 /* Patterns */
 
@@ -46,19 +58,13 @@ id 		= {letter}({letter}|{digit})* /*Encapsulates the letter and
 										digits ids. Matches a letter 
 										pattern followed by a number or
 										letter zero or more times. */
+optional_exponent = ((E[\+|\-]?){digits})?   /*Matches optional exponents.
+											The entire exponent is
+											optional because of the ?
+											where it will match the empty
+											input.*/
+scientific_notation = {float}{optional_exponent}
 
-%{
-	/*Copies the HashMap code inside the brackets and puts it 
-	inside the class itself. */
-	private HashMap<String, TokenType> lookupTable;
-%}
-
-%init{
-	lookupTable = new HashMap<String, TokenType>();
-	lookupTable.put("plus", TokenType.PLUS);
-	lookupTable.put("minus", TokenType.MINUS);
-	
-%init}
 
 
 %%
