@@ -20,7 +20,7 @@ import java.util.HashMap;
 /*Makes all of the generated methods and fields of the class private, except for the constructor and the next_token method.*/
 
 %function nextToken /* Renames the yylex() function. */
-%type   String     /* Defines the return type of the scanning function.*/
+%type   Token     /* Defines the return type of the scanning function.*/
 /* The code to be executed at the end of the file. 
 Tells Jflex what to return, null. */
 %eofval{
@@ -115,61 +115,54 @@ scientific_notation = {digit}\.{digits}{optional_exponent}  /*Matches a
 															period and an
 															exponent with
 															digits.*/
+optional_fraction = (\.{digits})?
+
+num = {digits}{optional_fraction}{optional_exponent}
 
 %%
 /* Lexical Rules */
 
-		 /*Print out the digit that was found. */
-{digit} { System.out.println("Found a digit: " + yytext());
-		  return( yytext());}
-			
-		  /*Print out the digits that were found. */
-{digits}  { System.out.println("Found some digits: " + yytext());
-		   return( yytext());}
+	
+		 /*Print out the digit that was found. Invokes the constructor
+		 with two arguments, the lexeme and the token type.*/
+{num} { return(Token token = new Token(yytext(), TokenType.NUMBER));}
 
-			 /*Print out a letter that was found and returns it.*/
-{letter}     {
-             System.out.println("Found a word: " + yytext());
-             return( yytext());
-            }
+			 /*Print out a letter that was found and returns it. Invokes
+			 the constructor with two arguments, the lexeme and the token
+			 type.*/
+{letter}     { return(Token token = new Token(yytext(),
+			   lookupTable.get(yytext())));}
 			
-			/*Print out the word that was found and returns it.*/
-{word}     {
-             System.out.println("Found a word: " + yytext());
-             return( yytext());
-            }
+			/*Print out the word that was found and returns it. Invokes
+			the constructor with two arguments, the lexeme and the token
+			type.*/
+{word}     { return(Token token = new Token(yytext(),
+			 lookupTable.get(yytext())));}
             
-{whitespace}  {  /* Ignore Whitespace */ 
-                 return "";
+{whitespace}  {  /* Ignore whitespace, do nothing. */ 
               }
               
-             /*Print out the id that was found and returns it.*/ 
-{id}  		{
-             System.out.println("Found an identifier: "
-             + yytext());
-             return( yytext());
-            }           
+             /*Print out the id that was found and returns it. Invokes the
+             constructor with two arguments, the lexeme and the token
+             type.*/
+{id}  		{ return(Token token = new Token(yytext(),
+              TokenType.ID));}       
 		
 		
-             /*Print out the id that was found and returns it.*/ 
-{float}  		{
-             System.out.println("Found a float: "
-             + yytext());
-             return( yytext());
-            } 
+             /*Print out the id that was found and returns it. Invokes the
+             constructor with two arguments, the lexeme and the token
+             type.*/
+{float}  	{ return(Token token = new Token(yytext(),
+			  lookupTable.get(yytext())));}
             
-             /*Print out the id that was found and returns it.*/ 
+             /*Print out the id that was found and returns it.
+             Invokes the constructor with two arguments, the lexeme and
+             the token type.*/
 {scientific_notation}  		
-			{
-             System.out.println("Found a scientific notation: "
-             + yytext());
-             return( yytext());
-            }
+			{ return(Token token = new Token(yytext(),
+			  lookupTable.get(yytext())));}
             			
 			/*Print out an illegal character that was found 
-			and returns it.*/
-{other}    { 
-             System.out.println("Illegal char: '" + yytext() 
-             + "' found.");
-             return "";
-           }
+			and returns it. Invokes the constructor
+		 with two arguments, the lexeme and the token type.*/
+{other}    {System.out.println("Unidentified Token: " + yytext());}
