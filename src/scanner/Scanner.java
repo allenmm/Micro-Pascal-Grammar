@@ -46,10 +46,10 @@ public class Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\1\1\1\1\2\1\2\1\2\22\0\1\1\12\0\1\7"+
-    "\1\0\1\7\1\5\1\0\12\4\7\0\4\3\1\6\25\3\6\0"+
-    "\4\3\1\6\25\3\1\0\1\7\10\0\1\2\u1fa2\0\1\2\1\2"+
-    "\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\11\0\1\1\1\1\1\2\1\2\1\2\22\0\1\1\7\0\3\14"+
+    "\1\15\1\14\1\15\1\5\1\14\12\4\1\13\1\14\1\10\1\12"+
+    "\1\11\2\0\4\3\1\6\25\3\1\14\1\0\1\14\3\0\4\3"+
+    "\1\6\25\3\1\0\1\7\10\0\1\2\u1fa2\0\1\2\1\2\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -62,8 +62,8 @@ public class Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\2\0"+
-    "\2\7\1\0\1\10\1\0";
+    "\1\0\1\1\1\2\1\3\1\4\3\5\1\6\2\0"+
+    "\2\4\1\0";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[14];
@@ -91,8 +91,8 @@ public class Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\10\0\10\0\20\0\30\0\40\0\50\0\60"+
-    "\0\70\0\100\0\70\0\110\0\120\0\120";
+    "\0\0\0\16\0\16\0\34\0\52\0\16\0\70\0\106"+
+    "\0\34\0\124\0\142\0\160\0\176\0\176";
 
   private static int [] zzUnpackRowMap() {
     int [] result = new int[14];
@@ -118,14 +118,14 @@ public class Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\0\1\4\1\5\1\2\1\4\1\2"+
-    "\13\0\1\4\1\6\1\0\1\4\5\0\1\7\1\10"+
-    "\5\0\2\6\1\0\1\6\5\0\1\7\1\11\6\0"+
-    "\1\12\7\0\1\13\7\0\1\12\1\0\1\14\5\0"+
-    "\1\15\2\0\1\16\4\0\1\15\3\0";
+    "\1\2\1\3\1\0\1\4\1\5\1\6\1\4\1\2"+
+    "\1\7\1\10\1\6\1\10\2\6\21\0\2\11\1\0"+
+    "\1\11\13\0\1\5\1\12\1\13\20\0\2\6\15\0"+
+    "\1\6\7\0\1\14\15\0\1\15\2\0\1\16\5\0"+
+    "\1\16\4\0\1\14\1\0\1\13\13\0\1\15\11\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[88];
+    int [] result = new int[140];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -163,7 +163,7 @@ public class Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\11\4\1\2\0\2\1\1\0\1\1\1\0";
+    "\1\0\2\11\2\1\1\11\3\1\2\0\2\1\1\0";
 
   private static int [] zzUnpackAttribute() {
     int [] result = new int[14];
@@ -242,7 +242,8 @@ public class Scanner {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-	/*Copies the HashMap code inside the brackets and puts it 
+	/*Declaring an instance variable of a HashMap called lookupTable
+	Copies the HashMap code inside the brackets and puts it 
 	inside the class itself. */
 	private HashMap<String, TokenType> lookupTable;
 
@@ -253,9 +254,54 @@ public class Scanner {
    * @param   in  the java.io.Reader to read input from.
    */
   public Scanner(java.io.Reader in) {
-  	lookupTable = new HashMap<String, TokenType>();
-	lookupTable.put("plus", TokenType.PLUS);
-	lookupTable.put("minus", TokenType.MINUS);
+  	/*Copies the HashMap code into the constructor of the
+	generated class. Putting the lexeme and the type of the
+	token into the HashMap to be used as a lookup table for the 
+	Tokens.*/
+	
+	lookupTable = new HashMap<String, TokenType>();
+	lookupTable.put("+", TokenType.PLUS);
+	lookupTable.put("-", TokenType.MINUS);
+	lookupTable.put(";", TokenType.SEMI);
+	lookupTable.put(":=", TokenType.ASSIGN);
+	lookupTable.put("program", TokenType.PROGRAM);
+	lookupTable.put("var", TokenType.VAR);
+	lookupTable.put("array", TokenType.ARRAY);
+	lookupTable.put("of", TokenType.OF);
+	lookupTable.put("function", TokenType.FUNCTION);
+	lookupTable.put("procedure", TokenType.PROCEDURE);
+	lookupTable.put("begin", TokenType.BEGIN);
+	lookupTable.put("end", TokenType.END);
+	lookupTable.put("if", TokenType.IF);
+	lookupTable.put("then", TokenType.THEN);
+	lookupTable.put("else", TokenType.ELSE);
+	lookupTable.put("while", TokenType.WHILE);
+	lookupTable.put("do", TokenType.DO);
+	lookupTable.put("not", TokenType.NOT);
+	lookupTable.put("or", TokenType.OR);
+	lookupTable.put("and", TokenType.AND);
+	lookupTable.put("div", TokenType.DIV);
+	lookupTable.put("mod", TokenType.MOD);
+	lookupTable.put("integer", TokenType.INTEGER);
+	lookupTable.put("real", TokenType.REAL);
+	lookupTable.put("read", TokenType.READ);
+	lookupTable.put("write", TokenType.WRITE);
+	lookupTable.put("return", TokenType.RETURN);
+	lookupTable.put(",", TokenType.COMMA);
+	lookupTable.put("]", TokenType.RBRACKET);
+	lookupTable.put("[", TokenType.LBRACKET);
+	lookupTable.put(":", TokenType.COLON);
+	lookupTable.put(")", TokenType.RPAREN);
+	lookupTable.put("(", TokenType.LPAREN);
+	lookupTable.put("*", TokenType.MULTI);
+	lookupTable.put("=", TokenType.EQUIV);
+	lookupTable.put("<>", TokenType.NOTEQUAL);
+	lookupTable.put(">", TokenType.GTHAN);
+	lookupTable.put("<", TokenType.LTHAN);
+	lookupTable.put(">=", TokenType.GTHANEQUAL);
+	lookupTable.put("<=", TokenType.LTHANEQUAL);
+	lookupTable.put("/", TokenType.FSLASH);
+	lookupTable.put(".", TokenType.PERIOD);
 	
     this.zzReader = in;
   }
@@ -271,7 +317,7 @@ public class Scanner {
     char [] map = new char[0x110000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 94) {
+    while (i < 112) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -481,7 +527,7 @@ public class Scanner {
    * @return      the next token
    * @exception   java.io.IOException  if any I/O-Error occurs
    */
-  public String nextToken() throws java.io.IOException {
+  public Token nextToken() throws java.io.IOException {
     int zzInput;
     int zzAction;
 
@@ -567,57 +613,41 @@ public class Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { System.out.println("Illegal char: '" + yytext() 
-             + "' found.");
-             return "";
+            { System.out.println("Unidentified Token: " + yytext());
+            } 
+            // fall through
+          case 7: break;
+          case 2: 
+            { /* Ignore whitespace, do nothing. */
+            } 
+            // fall through
+          case 8: break;
+          case 3: 
+            { return(new Token(yytext(),
+			   lookupTable.get(yytext())));
             } 
             // fall through
           case 9: break;
-          case 2: 
-            { /* Ignore Whitespace */ 
-                 return "";
+          case 4: 
+            { return(new Token(yytext(), TokenType.NUMBER));
             } 
             // fall through
           case 10: break;
-          case 3: 
-            { System.out.println("Found a word: " + yytext());
-             return( yytext());
+          case 5: 
+            { return(new Token(yytext(),
+			 lookupTable.get(yytext())));
             } 
             // fall through
           case 11: break;
-          case 4: 
-            { System.out.println("Found a digit: " + yytext());
-		  return( yytext());
+          case 6: 
+            { if(lookupTable.get(yytext()) != null)
+				{return(new Token(yytext(), lookupTable.get(yytext())));}
+				
+				else{
+				return(new Token(yytext(), TokenType.ID));}
             } 
             // fall through
           case 12: break;
-          case 5: 
-            { System.out.println("Found an identifier: "
-             + yytext());
-             return( yytext());
-            } 
-            // fall through
-          case 13: break;
-          case 6: 
-            { System.out.println("Found some digits: " + yytext());
-		   return( yytext());
-            } 
-            // fall through
-          case 14: break;
-          case 7: 
-            { System.out.println("Found a float: "
-             + yytext());
-             return( yytext());
-            } 
-            // fall through
-          case 15: break;
-          case 8: 
-            { System.out.println("Found a scientific notation: "
-             + yytext());
-             return( yytext());
-            } 
-            // fall through
-          case 16: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
