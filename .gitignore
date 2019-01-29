@@ -11,3 +11,6 @@ AllenScannerCompiler.iml
 
 #internal libraries
 lib/*
+
+#build files used by intellij
+out/
