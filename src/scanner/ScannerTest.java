@@ -43,5 +43,28 @@ public class ScannerTest {
         } catch (Exception e) {
             System.out.println("File not found");
         }
+
+        // Initializes InputStreamReader object
+        InputStreamReader isr = new InputStreamReader(fis);
+
+        /*Creates a Scanner object to read input from the
+        InputStreamReader object. */
+        Scanner scanner = new Scanner(isr);
+        System.out.println("Token test 'program' from file: ");
+        //Expected enum Token type.
+        TokenType expected = TokenType.PROGRAM;
+
+        //Testing the program Token to see if it passes.
+        try {
+            testToken = scanner.nextToken();
+            //The actual Token type.
+            TokenType actual = testToken.getType();
+            //Testing to see if the type actually matches the TokenType enum.
+            assertEquals(expected, actual);
+            System.out.println("program passed.");
+        } catch (Exception e) {
+
+            System.out.println("Unexpected Token found: " + testToken);
+        }
     }
 }
