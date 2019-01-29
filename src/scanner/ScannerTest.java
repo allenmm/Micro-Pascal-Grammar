@@ -168,7 +168,7 @@ public class ScannerTest {
 
             System.out.println("Unexpected Token found, TokenType: " + testToken);
         }
-        
+
         String testInput = "program";
 
         //Creates a new string reader.
@@ -187,6 +187,29 @@ public class ScannerTest {
             //Testing to see if the type actually matches the TokenType enum.
             assertEquals(expected, actual);
             System.out.println("program passed.");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Unexpected Token found: " + testInput);
+        }
+
+        testInput = "foo";
+
+        testScan = new Scanner(new StringReader(testInput));
+
+        System.out.println("Token test 'foo' from string: ");
+        //Expected enum Token type.
+        expected = TokenType.ID;
+
+        //Testing the ID Token to see if it passes.
+        try
+        {
+            testToken = testScan.nextToken();
+            //The actual Token type.
+            TokenType actual = testToken.getType();
+            //Testing to see if the type actually matches the TokenType enum.
+            assertEquals(expected, actual);
+            System.out.println("foo passed.");
         }
         catch(Exception e)
         {
