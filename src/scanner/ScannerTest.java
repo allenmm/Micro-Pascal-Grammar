@@ -283,6 +283,28 @@ public class ScannerTest {
             System.out.println("Unexpected Token found: " + testInput);
         }
 
+        testInput = ".";
+        testScan = new Scanner(new StringReader(testInput));
+
+        System.out.println("Token test '.' from string: ");
+        //Expected enum Token type.
+        expected = TokenType.PERIOD;
+
+        //Testing the period Token to see if it passes.
+        try
+        {
+            testToken = testScan.nextToken();
+            //The actual Token type.
+            TokenType actual = testToken.getType();
+            //Testing to see if the type actually matches the TokenType enum.
+            assertEquals(expected, actual);
+            System.out.println(". passed.");
+        }
+        catch(Exception e)
+        {
+            System.out.println("Unexpected Token found: " + testInput);
+        }
+
         
 
     }
