@@ -4,3 +4,13 @@
 *.class
 *.html
 bin/
+
+#idea files used by intellij
+.idea/*
+AllenScannerCompiler.iml
+
+#internal libraries
+lib/*
+
+#build files used by intellij
+out/
