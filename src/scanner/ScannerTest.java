@@ -100,5 +100,22 @@ public class ScannerTest {
 
             System.out.println("Unexpected Token found: " + testToken);
         }
+
+        System.out.println("Token test 'begin' from file: ");
+        //Expected enum Token type.
+        expected = TokenType.BEGIN;
+
+        //Testing the begin Token to see if it passes.
+        try {
+            testToken = scanner.nextToken();
+            //The actual Token type.
+            TokenType actual = testToken.getType();
+            //Testing to see if the type actually matches the TokenType enum.
+            assertEquals(expected, actual);
+            System.out.println("begin passed.");
+        } catch (Exception e) {
+
+            System.out.println("Unexpected Token found: " + testToken);
+        }
     }
 }
