@@ -30,17 +30,18 @@ Tells Jflex what to return, null. */
 	inside the class itself. */
 	private HashMap<String, TokenType> lookupTable;
 
-  /* user code: */
   /**
-   * Gets the line number of the most recent lexeme.
-   * @return The current line number.
+   * Gets the line number of the most recent lexeme to be used in
+   * generating error messages.
+   * @return - returns the current line number.
    */
   public int getLine() { return yyline;}
 
   /**
-   * Gets the column number of the most recent lexeme.
-   * This is the number of chars since the most recent newline char.
-   * @return The current column number.
+   * Gets the column number of the most recent lexeme to be used in
+   * generating error messages. This is the number of chars since the
+   * most recent newline char.
+   * @return - returns the current column number.
    */
   public int getColumn() { return yycolumn;}
 %}
