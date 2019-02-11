@@ -12,13 +12,9 @@ import scanner.Token;
 import scanner.TokenType;
 
 /**
- * The parser recognizes whether an input string of tokens
- * is an expression.
- * To use a parser, create an instance pointing at a file,
- * and then call the top-level function, <code>exp()</code>.
- * If the functions returns without an error, the file
- * contains an acceptable expression.
- * @author Erik Steinmetz
+ * A Java Program that illustrates reading from a text file or strings.
+ * This program creates a
+ * @author Marissa Allen
  */
 public class Parser {
 
@@ -34,22 +30,41 @@ public class Parser {
     //       Constructors
     ///////////////////////////////
 
-    public Parser( String text, boolean isFilename) {
-        if( isFilename) {
+    /**
+     * The parser constructor that takes in a file path or text
+     * containing tokens.
+     *
+     * If isFilename is true, it signifies that the parser is looking
+     * at a file. If false, it signifies that the parser is looking at a
+     * lexeme and not a file.
+     *
+     * @param text - file path or text containing tokens to be
+     * recognized.
+     * @param isFilename - boolean expression to  help recognize if it
+     * is a file path or text.
+     */
+    public Parser( String text, boolean isFilename)
+    {
+        if( isFilename)
+        {
             FileInputStream fis = null;
-            try {
-                fis = new FileInputStream("expressions/simplest.pas");
-            } catch (FileNotFoundException ex) {
+            try
+            {
+                fis = new FileInputStream("src/parser/simplest.pas");
+            }
+            catch (FileNotFoundException ex)
+            {
                 error( "No file");
             }
             InputStreamReader isr = new InputStreamReader( fis);
             scanner = new Scanner( isr);
-
         }
-        else {
+        else
+            {
             scanner = new Scanner( new StringReader( text));
-        }
-        try {
+            }
+        try
+        {
             lookahead = scanner.nextToken();
         } catch (IOException ex) {
             error( "Scan error");
@@ -62,8 +77,7 @@ public class Parser {
     ///////////////////////////////
 
     /**
-     * Executes the rule for the exp non-terminal symbol in
-     * the expression grammar.
+     *
      */
     public void exp() {
         term();
@@ -71,8 +85,7 @@ public class Parser {
     }
 
     /**
-     * Executes the rule for the exp&prime; non-terminal symbol in
-     * the expression grammar.
+     *
      */
     public void exp_prime() {
         if( lookahead.getType() == TokenType.PLUS ||
@@ -82,13 +95,12 @@ public class Parser {
             exp_prime();
         }
         else{
-            // lambda option
+            // Do nothing. The empty lambda option.
         }
     }
 
     /**
-     * Executes the rule for the addop non-terminal symbol in
-     * the expression grammar.
+     *
      */
     public void addop() {
         if( lookahead.getType() == TokenType.PLUS) {
@@ -103,8 +115,7 @@ public class Parser {
     }
 
     /**
-     * Executes the rule for the term non-terminal symbol in
-     * the expression grammar.
+     *
      */
     public void term() {
         factor();
@@ -112,8 +123,7 @@ public class Parser {
     }
 
     /**
-     * Executes the rule for the term&prime; non-terminal symbol in
-     * the expression grammar.
+     *
      */
     public void term_prime() {
         if( isMulop( lookahead) ) {
@@ -127,10 +137,11 @@ public class Parser {
     }
 
     /**
-     * Determines whether or not the given token is
-     * a mulop token.
-     * @param token The token to check.
-     * @return true if the token is a mulop, false otherwise
+     * Checks to see if the token from the input string is a mulop token
+     * or not and returns a boolean expression if it's true or false.
+     * @param token - The token to check against from the input string.
+     * @return - If the token is a mulop it will be returned, otherwise
+     * it's false and nothing will be returned.
      */
     private boolean isMulop( Token token) {
         boolean answer = false;
@@ -142,8 +153,7 @@ public class Parser {
     }
 
     /**
-     * Executes the rule for the mulop non-terminal symbol in
-     * the expression grammar.
+     *
      */
     public void mulop() {
         if( lookahead.getType() == TokenType.MULTI) {
@@ -158,8 +168,7 @@ public class Parser {
     }
 
     /**
-     * Executes the rule for the factor non-terminal symbol in
-     * the expression grammar.
+     *
      */
     public void factor() {
         // Executed this decision as a switch instead of an
@@ -180,15 +189,9 @@ public class Parser {
     }
 
     /**
-     * Matches the expected token.
-     * If the current token in the input stream from the scanner
-     * matches the token that is expected, the current token is
-     * consumed and the scanner will move on to the next token
-     * in the input.
-     * The null at the end of the file returned by the
-     * scanner is replaced with a fake token containing no
-     * type.
-     * @param expected The expected token type.
+     *
+     *
+     * @param expected - This is the expected token type.
      */
     public void match( TokenType expected) {
         System.out.println("match( " + expected + ")");
@@ -209,9 +212,12 @@ public class Parser {
     }
 
     /**
-     * Errors out of the parser.
-     * Prints an error message and then exits the program.
-     * @param message The error message to print.
+     * A custom error method for the parser. When the parser errors, an
+     * error message is printed out and the program is exited. The error
+     * message contains the error message string from the specific
+     * function, the line number the error was on, and the column number.
+     * @param message - The error message that is printed by using the
+     * error strings from different functions.
      */
     public void error( String message) {
         System.out.println( "Error " + message + " at line " +
