@@ -148,7 +148,8 @@ public class ParserTest {
      * class by testing to see if the current token matches the
      * expected token type in the match method. This is a text string
      * test that tests the period token type as the expected token to
-     * match against the string token passed into the parser.
+     * match against the string token passed into the parser. This is a
+     * text string test.
      */
     @Test
     public void testMatch()
@@ -164,7 +165,7 @@ public class ParserTest {
 
     /**
      * This method uses JUnit to test the error method from the Parser
-     * class.
+     * class. This is a text string test.
      */
     @Test
     public void testError() {
