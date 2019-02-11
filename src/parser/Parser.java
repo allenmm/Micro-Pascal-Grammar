@@ -231,4 +231,21 @@ public class Parser {
                 this.scanner.getColumn());
         //System.exit( 1);
     }
+
+    /**
+     *
+     */
+    public void program()
+    {
+        match(TokenType.PROGRAM);
+        match(TokenType.ID);
+        match(TokenType.SEMI);
+        delcarations();
+        subprogram_declarations();
+        match(TokenType.PERIOD);
+    }
+
+
+
+
 }
