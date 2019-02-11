@@ -103,11 +103,17 @@ public class Parser {
      *
      */
     public void addop() {
-        if( lookahead.getType() == TokenType.PLUS) {
+        if( lookahead.getType() == TokenType.PLUS)
+        {
             match( TokenType.PLUS);
         }
-        else if( lookahead.getType() == TokenType.MINUS) {
+        else if( lookahead.getType() == TokenType.MINUS)
+        {
             match( TokenType.MINUS);
+        }
+        else if ( lookahead.getType() == TokenType.OR)
+        {
+            match( TokenType.OR); //need to add OR here?
         }
         else {
             error( "Addop");
