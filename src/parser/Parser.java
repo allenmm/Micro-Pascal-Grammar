@@ -242,6 +242,7 @@ public class Parser {
         match(TokenType.SEMI);
         delcarations();
         subprogram_declarations();
+        compound_statement();
         match(TokenType.PERIOD);
     }
 
