@@ -596,4 +596,24 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void procedure_statement()
+    {
+        match(TokenType.ID);
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
+        if(this.lookahead.getType() == TokenType.LPAREN)
+        {
+            match(TokenType.LPAREN);
+            expression_list();
+            match(TokenType.RPAREN);
+        }
+        else
+        {
+            //Do nothing. The empty lambda option.
+        }
+    }
+
 }
