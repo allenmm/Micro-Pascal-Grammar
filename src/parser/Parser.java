@@ -498,4 +498,22 @@ public class Parser {
         }
     }
 
+
+    /**
+     * Creating the assignop method stated in the grammar.
+     * According to the micro pascal grammar, the ASSIGN token type
+     * stands for the assignop := token.
+     */
+    public void assignop()
+    {
+        if(lookahead.getType() == TokenType.ID)
+        {
+            match(TokenType.ASSIGN);
+        }
+        else
+        {
+            error("Assignop");
+        }
+    }
+
 }
