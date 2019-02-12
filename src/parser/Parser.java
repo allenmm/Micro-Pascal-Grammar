@@ -418,4 +418,23 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void arguments()
+    {
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
+        if(this.lookahead.getType() == TokenType.LPAREN)
+        {
+            match(TokenType.LPAREN);
+            parameter_list();
+            match(TokenType.RPAREN);
+        }
+        else
+        {
+            //Do nothing. The empty lambda option.
+        }
+    }
+    
 }
