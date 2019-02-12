@@ -177,7 +177,10 @@ public class Parser {
     private boolean isMulop( Token token) {
         boolean answer = false;
         if( token.getType() == TokenType.MULTI ||
-                token.getType() == TokenType.FSLASH ) {
+                token.getType() == TokenType.FSLASH ||
+                token.getType() == TokenType.DIV ||
+                token.getType() == TokenType.MOD ||
+                token.getType() == TokenType.AND) {
             answer = true;
         }
         return answer;
@@ -187,11 +190,25 @@ public class Parser {
      *
      */
     public void mulop() {
-        if( lookahead.getType() == TokenType.MULTI) {
+        if( lookahead.getType() == TokenType.MULTI)
+        {
             match( TokenType.MULTI);
         }
-        else if( lookahead.getType() == TokenType.FSLASH) {
+        else if( lookahead.getType() == TokenType.FSLASH)
+        {
             match( TokenType.FSLASH);
+        }
+        else if( lookahead.getType() == TokenType.DIV)
+        {
+            match( TokenType.DIV);
+        }
+        else if( lookahead.getType() == TokenType.MOD)
+        {
+            match( TokenType.MOD);
+        }
+        else if( lookahead.getType() == TokenType.AND)
+        {
+            match( TokenType.AND);
         }
         else {
             error( "Mulop");
@@ -286,7 +303,7 @@ public class Parser {
         }
         else
         {
-            /* Do nothing. The empty lambda option.*/
+            //Do nothing. The empty lambda option.
         }
     }
 
