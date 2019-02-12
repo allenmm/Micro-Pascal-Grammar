@@ -200,4 +200,45 @@ public class ParserTest
         instance.error(message);
         System.out.println("Successfully tested the error.");
     }
+
+
+    /**
+     *This method uses JUnit to test the program method from the Parser
+     * class by testing to see if the current token matches the
+     * expected token type in the program method. This is a
+     * text string test.
+     */
+    @Test
+    public void testProgram()
+    {
+        //Happy path, with good pascal.
+        String s = "program food ; begin end .";
+        Parser r = new Parser( s, false); //Should be
+        try
+        {
+            r.program();
+            //If it's bad pascal it should throw an exception.
+            fail("Didn't throw exception");
+        }
+        catch (Exception e)
+        {
+            fail(e.message());
+        }
+        s = "program food begin end .";
+        r = new Parser( s, false);
+        try
+        {
+            r.program();
+            //If it's bad pascal it should throw an exception.
+            fail("Didn't throw exception");
+        }
+        catch (Exception actual)
+        {
+            Exception expected = new RuntimeException();
+            assertEquals(expected, actual);
+        }
+
+    }
+
+
 }
