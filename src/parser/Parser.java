@@ -147,20 +147,23 @@ public class Parser {
      */
     public void term() {
         factor();
-        term_prime();
+        term_part();
     }
 
     /**
      *
      */
-    public void term_prime() {
-        if( isMulop( lookahead) ) {
+    public void term_part()
+    {
+        if( isMulop( lookahead) )
+        {
             mulop();
             factor();
-            term_prime();
+            term_part();
         }
-        else{
-            // lambda option
+        else
+        {
+            //Do nothing. The empty lambda option.
         }
     }
 
