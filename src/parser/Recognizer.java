@@ -16,7 +16,8 @@ import scanner.TokenType;
  * This program creates a
  * @author Marissa Allen
  */
-public class Parser {
+public class Recognizer
+{
 
     ///////////////////////////////
     //    Instance Variables
@@ -43,7 +44,7 @@ public class Parser {
      * @param isFilename - boolean expression to  help recognize if it
      * is a file path or text.
      */
-    public Parser( String text, boolean isFilename)
+    public Recognizer( String text, boolean isFilename)
     {
         if( isFilename)
         {
@@ -371,6 +372,9 @@ public class Parser {
             match(TokenType.LPAREN);
             expression();
             match(TokenType.RPAREN);
+        }
+        else if(lookahead.getType() == TokenType.RETURN)
+        {
             match(TokenType.RETURN);
             expression();
         }
