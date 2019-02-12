@@ -295,6 +295,8 @@ public class Parser {
      */
     public void type()
     {
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
         if(this.lookahead.getType() == TokenType.INTEGER)
         {
             standard_type();
@@ -316,12 +318,19 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
     public void standard_type()
     {
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
         if(this.lookahead.getType() == TokenType.INTEGER)
         {
             match(TokenType.INTEGER);
         }
+        /* Otherwise comparing the current lookahead with a different
+        declaration.*/
         else if(this.lookahead.getType() == TokenType.REAL)
         {
             match(TokenType.REAL);
