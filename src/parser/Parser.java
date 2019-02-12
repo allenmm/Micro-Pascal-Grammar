@@ -290,6 +290,31 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void type()
+    {
+        if(this.lookahead.getType() == TokenType.INTEGER)
+        {
+            standard_type();
+        }
+        else if(this.lookahead.getType() == TokenType.ARRAY)
+        {
+            match(TokenType.ARRAY);
+            match(TokenType.LBRACKET);
+            match(TokenType.NUMBER);
+            match(TokenType.COLON);
+            match(TokenType.NUMBER);
+            match(TokenType.RBRACKET);
+            match(TokenType.OF);
+            standard_type();
+        }
+        else
+        {
+            /* Do nothing. The empty lambda option.*/
+        }
+    }
 
 
 }
