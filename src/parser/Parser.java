@@ -736,4 +736,50 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void factor()
+    {
+        if(this.lookahead.getType() == TokenType.ID)
+        {
+            match(TokenType.ID);
+            if(this.lookahead.getType() == TokenType.LBRACKET)
+            {
+                match(TokenType.LBRACKET);
+                expression();
+                match(TokenType.RBRACKET);
+            }
+            else if(this.lookahead.getType() == TokenType.LPAREN)
+            {
+                match(TokenType.LPAREN);
+                expression_list();
+                match(TokenType.RPAREN);
+            }
+            else
+            {
+                //Do nothing. The empty lambda option.
+            }
+        }
+        else if(this.lookahead.getType() == TokenType.NUMBER)
+        {
+            match(TokenType.NUMBER);
+        }
+        else if(this.lookahead.getType() == TokenType.LPAREN)
+        {
+            match(TokenType.LPAREN);
+            expression();
+            match(TokenType.RPAREN);
+        }
+        else if(this.lookahead.getType() == TokenType.NOT)
+        {
+            match(TokenType.NOT);
+            factor();
+        }
+        else
+        {
+            error("Factor");
+        }
+    }
+
 }
