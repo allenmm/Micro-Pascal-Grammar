@@ -52,20 +52,20 @@ public class ParserTest
     }
 
     /**
-     * This method uses JUnit to test the exp_prime method from the Parser
+     * This method uses JUnit to test the simple_part method from the Parser
      * class by testing to see if the current token matches the
-     * expected token type in the exp_prime method. This is a text string
+     * expected token type in the simple_part method. This is a text string
      * test.
      */
     @Test
-    public void testExp_prime() {
+    public void testSimple_part() {
         System.out.println("\n" + "######################" + "\n" +
-                "#   Test exp_prime   #" + "\n" +
+                "#   Test simple part   #" + "\n" +
                 "######################" + "\n");
         Parser instance = new Parser( "+ 34", false);
-        //Calls Parser Object method exp_prime. Constructor is automatically
+        //Calls Parser Object method simple_part. Constructor is automatically
         //called when an object of the class is created.
-        instance.exp_prime();
+        instance.simple_part();
         System.out.println("It Parsed!");
     }
 
