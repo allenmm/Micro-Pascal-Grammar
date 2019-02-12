@@ -465,5 +465,20 @@ public class Parser {
         optional_statements();
         match(TokenType.END);
     }
-    
+
+    /**
+     *
+     */
+    public void optional_statements()
+    {
+        if(lookahead.getType() == TokenType.ID)
+        {
+            statement_list();
+        }
+        else
+        {
+            //Do nothing. The empty lambda option.
+        }
+    }
+
 }
