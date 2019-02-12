@@ -616,4 +616,23 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void expression_list()
+    {
+        expression();
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
+        if(this.lookahead.getType() == TokenType.COMMA)
+        {
+            match(TokenType.COMMA);
+            expression_list();
+        }
+        else
+        {
+            //Do nothing. The empty lambda option.
+        }
+    }
+
 }
