@@ -16,17 +16,21 @@ import scanner.TokenType;
  *
  * @author Marissa Allen
  */
-public class ParserTest {
+public class ParserTest
+{
 
     public ParserTest() {
+        //do we need?
     }
 
     @BeforeClass
     public static void setUpClass() {
+        //do we need?
     }
 
     @AfterClass
     public static void tearDownClass() {
+        //do we need?
     }
 
     /**
@@ -41,6 +45,8 @@ public class ParserTest {
                 "#      Test exp      #" + "\n" +
                 "######################" + "\n");
         Parser instance = new Parser( "src/parser/simplest.pas", true);
+        //Calls Parser Object method exp. Constructor is automatically
+        //called when an object of the class is created.
         instance.exp();
         System.out.println("It Parsed!");
     }
@@ -57,6 +63,8 @@ public class ParserTest {
                 "#   Test exp_prime   #" + "\n" +
                 "######################" + "\n");
         Parser instance = new Parser( "+ 34", false);
+        //Calls Parser Object method exp_prime. Constructor is automatically
+        //called when an object of the class is created.
         instance.exp_prime();
         System.out.println("It Parsed!");
     }
@@ -74,6 +82,8 @@ public class ParserTest {
                     "######################" + "\n");
         TokenType plus = TokenType.PLUS;
         Parser instance = new Parser( "+", false);
+        //Calls Parser Object method match. Constructor is automatically
+        //called when an object of the class is created.
         instance.match(plus);
         System.out.println("Recognized the single addop.");
     }
@@ -90,6 +100,8 @@ public class ParserTest {
                 "#     Test term      #" + "\n" +
                 "######################" + "\n");
         Parser instance = new Parser("23 / 17", false);
+        //Calls Parser Object method term. Constructor is automatically
+        //called when an object of the class is created.
         instance.term();
         System.out.println("Parsed a term.");
     }
@@ -106,6 +118,8 @@ public class ParserTest {
                 "#   Test term_prime   #" + "\n" +
                 "######################" + "\n");
         Parser instance = new Parser( "* foo /", false);
+        //Calls Parser Object method term_prime. Constructor is automatically
+        //called when an object of the class is created.
         instance.term_prime();
         System.out.println("Parsed a term.");
     }
@@ -123,6 +137,8 @@ public class ParserTest {
                 "#     Test mulop     #" + "\n" +
                 "######################" + "\n");
         Parser instance = new Parser( "*", false);
+        //Calls Parser Object method mulop. Constructor is automatically
+        //called when an object of the class is created.
         instance.mulop();
         System.out.println("Recognized the single mulop.");
     }
@@ -139,6 +155,8 @@ public class ParserTest {
                 "#   Test factor   #" + "\n" +
                 "######################" + "\n");
         Parser instance = new Parser( "87654321", false);
+        //Calls Parser Object method factor. Constructor is automatically
+        //called when an object of the class is created.
         instance.factor();
         System.out.println("Recognized the factor token.");
     }
@@ -159,6 +177,8 @@ public class ParserTest {
                 "######################" + "\n");
         TokenType ett = TokenType.PERIOD;
         Parser instance = new Parser( ".", false);
+        //Calls Parser Object method match. Constructor is automatically
+        //called when an object of the class is created.
         instance.match(ett);
         System.out.println("It matches!");
     }
@@ -174,6 +194,9 @@ public class ParserTest {
                 "######################" + "\n");
         String message = ", error test";
         Parser instance = new Parser( "", false);
+        //Calls Parser Object method error and passes the message
+        //directly into it. Constructor is automatically called when an
+        //object of the class is created.
         instance.error(message);
         System.out.println("Successfully tested the error.");
     }
