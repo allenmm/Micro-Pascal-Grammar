@@ -516,4 +516,64 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void statement()
+    {
+        if(lookahead.getType() == TokenType.ID)
+        {
+            if(lookahead.getType() == TokenType.LBRACKET)
+            {
+                variable();
+                assignop();
+                expression();
+            }
+            else if(lookahead.getType() == TokenType.LPAREN)
+            {
+                procedure_statement();
+            }
+        }
+        else if(lookahead.getType() == TokenType.BEGIN)
+        {
+            compound_statement();
+        }
+        else if(lookahead.getType() == TokenType.IF)
+        {
+            match(TokenType.IF);
+            expression();
+            match(TokenType.THEN);
+            statement();
+            match(TokenType.ELSE);
+            statement();
+        }
+        else if(lookahead.getType() == TokenType.WHILE)
+        {
+            match(TokenType.WHILE);
+            expression();
+            match(TokenType.DO);
+            statement();
+        }
+        else if(lookahead.getType() == TokenType.READ)
+        {
+            match(TokenType.READ);
+            match(TokenType.LPAREN);
+            match(TokenType.ID);
+            match(TokenType.RPAREN);
+        }
+        else if(lookahead.getType() == TokenType.WRITE)
+        {
+            match(TokenType.WRITE);
+            match(TokenType.LPAREN);
+            expression();
+            match(TokenType.RPAREN);
+            match(TokenType.RETURN);
+            expression();
+        }
+        else
+        {
+            //Do nothing. The empty lambda option.
+        }
+    }
+    
 }
