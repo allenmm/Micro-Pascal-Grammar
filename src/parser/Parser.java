@@ -83,8 +83,25 @@ public class Parser {
      */
     public void exp()
     {
-        term();
-        simple_part();
+       if(lookahead.getType() == TokenType.ID ||
+               lookahead.getType() == TokenType.NUMBER ||
+               lookahead.getType() == TokenType.LPAREN ||
+               lookahead.getType() == TokenType.NOT)
+       {
+           term();
+           simple_part();
+       }
+       else if(lookahead.getType() == TokenType.PLUS ||
+               lookahead.getType() == TokenType.MINUS)
+       {
+           sign();
+           term();
+           simple_part();
+       }
+       else
+       {
+           error("Simple Expression");
+       }
     }
 
     /**
