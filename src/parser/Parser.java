@@ -481,4 +481,21 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void statement_list()
+    {
+        statement();
+        if(lookahead.getType() == TokenType.SEMI)
+        {
+            match(TokenType.SEMI);
+            statement_list();
+        }
+        else
+        {
+            //Do nothing. The empty lambda option.
+        }
+    }
+
 }
