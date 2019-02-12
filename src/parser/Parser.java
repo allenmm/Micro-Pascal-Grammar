@@ -436,5 +436,24 @@ public class Parser {
             //Do nothing. The empty lambda option.
         }
     }
-    
+
+    /**
+     *
+     */
+    public void parameter_list()
+    {
+        identifier_list();
+        match(TokenType.COLON);
+        type();
+        if(lookahead.getType() == TokenType.SEMI)
+        {
+            match(TokenType.SEMI);
+            parameter_list();
+        }
+        else
+        {
+            //Do nothing. The empty lambda option.
+        }
+    }
+
 }
