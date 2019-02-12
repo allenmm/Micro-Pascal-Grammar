@@ -252,6 +252,25 @@ public class Parser {
     /**
      *
      */
+    public void identifier_list()
+    {
+        match(TokenType.ID);
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
+        if(this.lookahead.getType() == TokenType.COMMA)
+        {
+            match(TokenType.COMMA);
+            identifier_list();
+        }
+        else
+        {
+            /* Do nothing. The empty lambda option.*/
+        }
+    }
+
+    /**
+     *
+     */
     public void declarations()
     {
         /*Comparing the current lookahead with what you would
