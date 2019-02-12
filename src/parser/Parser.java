@@ -710,4 +710,30 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void simple_expression()
+    {
+        if(this.lookahead.getType() == TokenType.ID ||
+                this.lookahead.getType() == TokenType.NUMBER ||
+                this.lookahead.getType() == TokenType.LPAREN ||
+                this.lookahead.getType() == TokenType.NOT)
+        {
+            term();
+            simple_part();
+        }
+        else if(this.lookahead.getType() == TokenType.PLUS ||
+                this.lookahead.getType() == TokenType.MINUS)
+        {
+            sign();
+            term();
+            simple_part();
+        }
+        else
+        {
+            error("Simple Expression");
+        }
+    }
+
 }
