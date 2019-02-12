@@ -575,5 +575,25 @@ public class Parser {
             //Do nothing. The empty lambda option.
         }
     }
-    
+
+    /**
+     *
+     */
+    public void variable()
+    {
+        match(TokenType.ID);
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
+        if(this.lookahead.getType() == TokenType.LBRACKET)
+        {
+            match(TokenType.LBRACKET);
+            expression();
+            match(TokenType.RBRACKET);
+        }
+        else
+        {
+            //Do nothing. The empty lambda option.
+        }
+    }
+
 }
