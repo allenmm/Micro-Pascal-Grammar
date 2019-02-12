@@ -107,20 +107,20 @@ public class ParserTest
     }
 
     /**
-     *This method uses JUnit to test the term_prime method from the Parser
+     *This method uses JUnit to test the term_part method from the Parser
      * class by testing to see if the current token matches the
-     * expected token type in the term_prime method. This is a text
+     * expected token type in the term_part method. This is a text
      * string test.
      */
     @Test
     public void testTerm_prime() {
         System.out.println("\n" + "######################" + "\n" +
-                "#   Test term_prime   #" + "\n" +
+                "#   Test term_part   #" + "\n" +
                 "######################" + "\n");
         Parser instance = new Parser( "* foo /", false);
-        //Calls Parser Object method term_prime. Constructor is automatically
+        //Calls Parser Object method term_part. Constructor is automatically
         //called when an object of the class is created.
-        instance.term_prime();
+        instance.term_part();
         System.out.println("Parsed a term.");
     }
 
