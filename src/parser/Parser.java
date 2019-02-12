@@ -652,4 +652,27 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks to see if the token from the input string is a relop token
+     * or not and returns a boolean expression if it's true or false.
+     * @param token - The lookahead token to check against from the
+     * input string.
+     * @return - If the token is a relop it will be returned, otherwise
+     * it's false and nothing will be returned.
+     */
+    private boolean isRelop( Token token)
+    {
+        boolean answer = false;
+        if(token.getType() == TokenType.EQUIV ||
+                token.getType() == TokenType.NOTEQUAL ||
+                token.getType() == TokenType.LTHAN ||
+                token.getType() == TokenType.GTHAN ||
+                token.getType() == TokenType.LTHANEQUAL ||
+                token.getType() == TokenType.GTHANEQUAL)
+        {
+            answer = true;
+        }
+        return answer;
+    }
+
 }
