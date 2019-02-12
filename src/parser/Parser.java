@@ -635,4 +635,21 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void expression()
+    {
+        simple_expression();
+        if(isRelop(lookahead))
+        {
+            relop();
+            simple_expression();
+        }
+        else
+        {
+            //Do nothing. The empty lambda option.
+        }
+    }
+
 }
