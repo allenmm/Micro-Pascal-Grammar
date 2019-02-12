@@ -782,4 +782,25 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void sign()
+    {
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
+        if(this.lookahead.getType() == TokenType.PLUS)
+        {
+            match(TokenType.PLUS);
+        }
+        else if(this.lookahead.getType() == TokenType.MINUS)
+        {
+            match(TokenType.MINUS);
+        }
+        else
+        {
+            error("Sign");
+        }
+    }
+
 }
