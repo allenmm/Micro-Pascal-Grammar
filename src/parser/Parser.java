@@ -456,4 +456,14 @@ public class Parser {
         }
     }
 
+    /**
+     *
+     */
+    public void compound_statement()
+    {
+        match(TokenType.BEGIN);
+        optional_statements();
+        match(TokenType.END);
+    }
+    
 }
