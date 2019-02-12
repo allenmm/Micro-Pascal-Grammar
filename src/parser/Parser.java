@@ -523,17 +523,14 @@ public class Parser {
     {
         if(lookahead.getType() == TokenType.ID)
         {
-            if(lookahead.getType() == TokenType.LBRACKET)
-            {
                 variable();
                 assignop();
                 expression();
-            }
-            else if(lookahead.getType() == TokenType.LPAREN)
-            {
-                procedure_statement();
-            }
         }
+               /* procedure_statement() path goes here.
+               This path is future work we don't have to do yet.
+                */
+
         else if(lookahead.getType() == TokenType.BEGIN)
         {
             compound_statement();
@@ -572,7 +569,7 @@ public class Parser {
         }
         else
         {
-            //Do nothing. The empty lambda option.
+            error("Statement");
         }
     }
 
