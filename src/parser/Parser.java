@@ -380,5 +380,14 @@ public class Parser {
         }
     }
 
-
+    /**
+     *
+     */
+    public void subprogram_declaration()
+    {
+        subprogram_head();
+        declarations();
+        compound_statement();
+    }
+    
 }
