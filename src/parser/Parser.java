@@ -389,5 +389,33 @@ public class Parser {
         declarations();
         compound_statement();
     }
-    
+
+    /**
+     *
+     */
+    public void subprogram_head()
+    {
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
+        if(lookahead.getType() == TokenType.FUNCTION)
+        {
+            match(TokenType.FUNCTION);
+            match(TokenType.ID);
+            arguments();
+            match(TokenType.COLON);
+            standard_type();
+            match(TokenType.SEMI);
+        }
+        else if(lookahead.getType() == TokenType.PROCEDURE)
+        {
+            match(TokenType.PROCEDURE);
+            match(TokenType.ID);
+            arguments();
+            match(TokenType.SEMI);
+        }
+        else{
+            error("Subprogram Head");
+        }
+    }
+
 }
