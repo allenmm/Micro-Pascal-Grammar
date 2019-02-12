@@ -217,27 +217,6 @@ public class Parser {
 
     /**
      *
-     */
-    public void factor() {
-        // Executed this decision as a switch instead of an
-        // if-else chain. Either way is acceptable.
-        switch (lookahead.getType()) {
-            case LPAREN:
-                match( TokenType.LPAREN);
-                exp();
-                match( TokenType.RPAREN);
-                break;
-            case NUMBER:
-                match( TokenType.NUMBER);
-                break;
-            default:
-                error("Factor");
-                break;
-        }
-    }
-
-    /**
-     *
      *
      * @param expected - This is the expected token type.
      */
@@ -325,7 +304,7 @@ public class Parser {
         }
         else
         {
-            /* Do nothing. The empty lambda option.*/
+            //Do nothing. The empty lambda option.
         }
     }
 
@@ -354,7 +333,7 @@ public class Parser {
         }
         else
         {
-            /* Do nothing. The empty lambda option.*/
+            //Do nothing. The empty lambda option.
         }
     }
 
@@ -384,20 +363,22 @@ public class Parser {
     /**
      *
      */
-    public void sign()
+    public void subprogram_declarations()
     {
-        if(this.lookahead.getType() == TokenType.PLUS)
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
+        if(lookahead.getType() == TokenType.FUNCTION ||
+                lookahead.getType() == TokenType.PROCEDURE)
         {
-            match(TokenType.PLUS);
-        }
-        else if(this.lookahead.getType() == TokenType.MINUS)
-        {
-            match(TokenType.MINUS);
+            subprogram_declaration();
+            match(TokenType.SEMI);
+            subprogram_declarations();
         }
         else
         {
-            error("Sign");
+            //Do nothing. The empty lambda option.
         }
     }
+
 
 }
