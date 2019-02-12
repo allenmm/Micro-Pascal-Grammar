@@ -600,7 +600,7 @@ public class Recognizer
      * This method is used to compare the lookahead token with
      * a token type to see if it matches the same type.
      */
-    public void relop()
+    private void relop()
     {
         if(this.lookahead.getType() == TokenType.EQUIV)
         {
@@ -635,7 +635,7 @@ public class Recognizer
     /**
      *
      */
-    public void addop() {
+    private void addop() {
         if( lookahead.getType() == TokenType.PLUS)
         {
             match( TokenType.PLUS);
@@ -656,7 +656,7 @@ public class Recognizer
     /**
      *
      */
-    public void mulop() {
+    protected void mulop() {
         if( lookahead.getType() == TokenType.MULTI)
         {
             match( TokenType.MULTI);
@@ -687,7 +687,7 @@ public class Recognizer
      * According to the micro pascal grammar, the ASSIGN token type
      * stands for the assignop := token.
      */
-    public void assignop()
+    private void assignop()
     {
         if(lookahead.getType() == TokenType.ASSIGN)
         {
@@ -704,19 +704,26 @@ public class Recognizer
      *
      * @param expected - This is the expected token type.
      */
-    public void match( TokenType expected) {
+    protected void match( TokenType expected)
+    {
         System.out.println("match( " + expected + ")");
-        if( this.lookahead.getType() == expected) {
-            try {
+        if( this.lookahead.getType() == expected)
+        {
+            try
+            {
                 this.lookahead = scanner.nextToken();
                 if( this.lookahead == null) {
-                    this.lookahead = new Token( "End of File", null);
+                    this.lookahead = new
+                            Token( "End of File", null);
                 }
-            } catch (IOException ex) {
+            }
+            catch (IOException ex)
+            {
                 error( "Scanner exception");
             }
         }
-        else {
+        else
+            {
             error("Match of " + expected + " found " + this.lookahead.getType()
                     + " instead.");
         }
@@ -730,11 +737,8 @@ public class Recognizer
      * @param message - The error message that is printed by using the
      * error strings from different functions.
      */
-    public void error( String message) {
-//        System.out.println( "Error " + message + " at line " +
-//                this.scanner.getLine() + " column " +
-//                this.scanner.getColumn());
-        //System.exit( 1);
+    protected void error( String message)
+    {
         throw new RuntimeException(message);
     }
 
@@ -746,7 +750,8 @@ public class Recognizer
      * @return - If the token is a mulop it will be returned, otherwise
      * it's false and nothing will be returned.
      */
-    private boolean isMulop( Token token) {
+    private boolean isMulop( Token token)
+    {
         boolean answer = false;
         if( token.getType() == TokenType.MULTI ||
                 token.getType() == TokenType.FSLASH ||
