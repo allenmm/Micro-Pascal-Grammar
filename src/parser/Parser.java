@@ -65,6 +65,7 @@ public class Parser {
             }
         try
         {
+            //Initializing lookahead by reading a token.
             lookahead = scanner.nextToken();
         } catch (IOException ex) {
             error( "Scan error");
@@ -77,9 +78,10 @@ public class Parser {
     ///////////////////////////////
 
     /**
-     *
+     * This method is used to parse an expression.
      */
-    public void exp() {
+    public void exp()
+    {
         term();
         exp_prime();
     }
@@ -87,7 +89,8 @@ public class Parser {
     /**
      *
      */
-    public void exp_prime() {
+    public void exp_prime()
+    {
         if( lookahead.getType() == TokenType.PLUS ||
                 lookahead.getType() == TokenType.MINUS ) {
             addop();
@@ -233,14 +236,14 @@ public class Parser {
     }
 
     /**
-     *
+     * Recognizes a pascal program.
      */
     public void program()
     {
         match(TokenType.PROGRAM);
         match(TokenType.ID);
         match(TokenType.SEMI);
-        delcarations();
+        declarations();
         subprogram_declarations();
         compound_statement();
         match(TokenType.PERIOD);
