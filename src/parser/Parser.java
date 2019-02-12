@@ -78,24 +78,26 @@ public class Parser {
     ///////////////////////////////
 
     /**
-     * This method is used to parse an expression.
+     * This method is used to parse an expression. It is the
+     * simple expression in the micro pascal grammar.
      */
     public void exp()
     {
         term();
-        exp_prime();
+        simple_part();
     }
 
     /**
-     *
+     * This is 
      */
-    public void exp_prime()
+    public void simple_part()
     {
         if( lookahead.getType() == TokenType.PLUS ||
-                lookahead.getType() == TokenType.MINUS ) {
+                lookahead.getType() == TokenType.MINUS ||
+                lookahead.getType() == TokenType.OR) {
             addop();
             term();
-            exp_prime();
+            simple_part();
         }
         else{
             // Do nothing. The empty lambda option.
