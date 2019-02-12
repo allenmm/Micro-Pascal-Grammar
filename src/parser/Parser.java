@@ -316,5 +316,20 @@ public class Parser {
         }
     }
 
+    public void standard_type()
+    {
+        if(this.lookahead.getType() == TokenType.INTEGER)
+        {
+            match(TokenType.INTEGER);
+        }
+        else if(this.lookahead.getType() == TokenType.REAL)
+        {
+            match(TokenType.REAL);
+        }
+        else
+        {
+            error("Standard Type");
+        }
+    }
 
 }
