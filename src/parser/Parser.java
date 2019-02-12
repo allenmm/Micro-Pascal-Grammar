@@ -249,6 +249,27 @@ public class Parser {
         match(TokenType.PERIOD);
     }
 
+    /**
+     *
+     */
+    public void declarations()
+    {
+        /*Comparing the current lookahead with what you would
+        expect to see if there were any declarations there.*/
+        if(this.lookahead.getType() == TokenType.VAR)
+        {
+            match(TokenType.VAR);
+            identifier_list();
+            match(TokenType.COLON);
+            type();
+            match(TokenType.SEMI);
+            declarations();
+        }
+        else
+        {
+            /* Do nothing. The empty lambda option.*/
+        }
+    }
 
 
 
