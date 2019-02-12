@@ -675,4 +675,39 @@ public class Parser {
         return answer;
     }
 
+    /**
+     *
+     */
+    public void relop()
+    {
+        if(this.lookahead.getType() == TokenType.EQUIV)
+        {
+            match(TokenType.EQUIV);
+        }
+        else if(this.lookahead.getType() == TokenType.NOTEQUAL)
+        {
+            match(TokenType.NOTEQUAL);
+        }
+        else if(this.lookahead.getType() == TokenType.LTHAN)
+        {
+            match(TokenType.LTHAN);
+        }
+        else if(this.lookahead.getType() == TokenType.GTHAN)
+        {
+            match(TokenType.GTHAN);
+        }
+        else if(this.lookahead.getType() == TokenType.LTHANEQUAL)
+        {
+            match(TokenType.LTHANEQUAL);
+        }
+        else if(this.lookahead.getType() == TokenType.GTHANEQUAL)
+        {
+            match(TokenType.GTHANEQUAL);
+        }
+        else
+        {
+            error("Relop");
+        }
+    }
+
 }
