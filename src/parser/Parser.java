@@ -297,7 +297,8 @@ public class Parser {
     {
         /*Comparing the current lookahead with what you would
         expect to see if there were any declarations there.*/
-        if(this.lookahead.getType() == TokenType.INTEGER)
+        if(this.lookahead.getType() == TokenType.INTEGER ||
+                this.lookahead.getType() == TokenType.REAL)
         {
             standard_type();
         }
