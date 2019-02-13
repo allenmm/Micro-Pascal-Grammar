@@ -6,11 +6,18 @@ import static org.junit.Assert.*;
 import scanner.TokenType;
 
 /**
- * A Java Program that illustrates reading from a text file or strings
- * using a parser class using JUnit testing. Either a string or a file
- * path name will be passed into the parser constructor from the parser
- * class and grab the . If the string file path is present and the file name is true,
- * then the JUnit test will pass the file path,  then the
+ * A JUnit Java Program that illustrates reading from a text file or
+ * strings using the Recognizer class in JUnit testing. Either a string
+ * or a file path name will be passed into the constructor from the
+ * Recognizer class when a method of the class is called. If the string
+ * file path in the constructor is present and the file name is true,
+ * then the JUnit test will pass the file path. If the text string in the
+ * constructor is present and the file name is false, then the JUnit test
+ * will pass the string. For both tests, if the method successfully
+ * returns, then the test is a happy path. It passes and prints out an
+ * expression saying if the test worked or not. If the method doesn't
+ * successfully return, then the test is a bad path. It doesn't pass and
+ * prints out the exception.
  *
  * @author Marissa Allen
  */
@@ -32,12 +39,14 @@ public class RecognizerTest
 
         //Pascal file test
         Recognizer instance = new Recognizer
-                ( "src/parser/simplest.pas", true);
+                ( "src/parser/quiz.pas", true);
+
+        //Happy path, with good pascal.
         try
         {
             instance.program();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path.");
+            System.out.println("Passed, parsed the happy path." + "\n");
         }
         catch (Exception actual)
         {
@@ -45,20 +54,55 @@ public class RecognizerTest
         }
 
 
+        //Pascal file test
+        instance = new Recognizer
+                ("src/parser/midterm.pas", true);
 
         //Happy path, with good pascal.
+        try
+        {
+            instance.program();
+            //If it's good pascal, it should print this out.
+            System.out.println("Passed, parsed the happy path." + "\n");
+        }
+        catch (Exception actual)
+        {
+            fail("Didn't want to throw exception");
+        }
+
+
+        //Pascal file test
+        instance = new Recognizer
+                ("src/parser/final.pas", true);
+
+        //Happy path, with good pascal.
+        try
+        {
+            instance.program();
+            //If it's good pascal, it should print this out.
+            System.out.println("Passed, parsed the happy path." + "\n");
+        }
+        catch (Exception actual)
+        {
+            fail("Didn't want to throw exception");
+        }
+
+
+        //Pascal string test. Happy path, with good pascal.
         String test = "program foo ; begin end .";
         instance = new Recognizer( test, false);
         try
         {
             instance.program();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path.");
+            System.out.println("Passed, parsed the happy path." + "\n");
         }
         catch (Exception actual)
         {
             fail("Didn't want to throw exception");
         }
+
+        //Pascal string test. Bad path, with bad pascal.
         test = "program foo begin end .";
         instance = new Recognizer( test, false);
         try
@@ -71,9 +115,12 @@ public class RecognizerTest
         {
             String expected = "Match of SEMI found BEGIN instead.";
             assertEquals(expected, actual.getMessage());
+            System.out.println("Passed, caught the error.");
         }
 
     }
+
+
 
     /**
      * This method uses JUnit to test the exp method from the Recognizer
@@ -87,12 +134,20 @@ public class RecognizerTest
         System.out.println("######################" + "\n" +
                 "#      Test exp      #" + "\n" +
                 "######################" + "\n");
+       String test = "34 + 17 * 7";
         Recognizer instance = new Recognizer
-                ( "src/parses", true);
-        //Calls Recognizer Object method exp. Constructor is automatically
-        //called when an object of the class is created.
-        instance.simple_expression();
-        System.out.println("It Parsed!");
+                ( test, false);
+       try
+       {
+           /*Calls Recognizer Object method exp. Constructor is
+           automatically called when an object of the class is created.*/
+           instance.simple_expression();
+           System.out.println("It Parsed!");
+       }
+       catch (Exception e)
+       {
+           fail("Didn't want to throw exception");
+       }
     }
 
     /**
@@ -106,11 +161,20 @@ public class RecognizerTest
         System.out.println("\n" + "######################" + "\n" +
                 "#   Test simple part   #" + "\n" +
                 "######################" + "\n");
-        Recognizer instance = new Recognizer( "+ 34", false);
-        //Calls Recognizer Object method simple_part. Constructor is automatically
-        //called when an object of the class is created.
-        instance.simple_part();
-        System.out.println("It Parsed!");
+        String test = "+ 34";
+        Recognizer instance = new Recognizer( test, false);
+        try
+        {
+            /*Calls Recognizer Object method simple_part. Constructor
+            is automatically called when an object of the class is
+            created. */
+            instance.simple_part();
+            System.out.println("It Parsed!");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
     }
 
     /**
@@ -126,10 +190,17 @@ public class RecognizerTest
                     "######################" + "\n");
         TokenType plus = TokenType.PLUS;
         Recognizer instance = new Recognizer( "+", false);
-        //Calls Recognizer Object method match. Constructor is
-        // automatically called when an object of the class is created.
-        instance.match(plus);
-        System.out.println("Recognized the single addop.");
+       try
+       {
+           //Calls Recognizer Object method match. Constructor is
+           // automatically called when an object of the class is created.
+           instance.match(plus);
+           System.out.println("Recognized the single addop.");
+       }
+       catch (Exception e)
+       {
+           fail("Didn't want to throw exception");
+       }
     }
 
     /**
@@ -143,17 +214,18 @@ public class RecognizerTest
         System.out.println("\n" + "######################" + "\n" +
                 "#     Test term      #" + "\n" +
                 "######################" + "\n");
-        Recognizer instance = new Recognizer("23 / 17", false);
-        //Calls Recognizer Object method term. Constructor is automatically
-        //called when an object of the class is created.
+        Recognizer instance = new Recognizer
+                ("23 / 17", false);
+        /*Calls Recognizer Object method term. Constructor is
+        automatically called when an object of the class is created.*/
         instance.term();
         System.out.println("Parsed a term.");
     }
 
     /**
-     *This method uses JUnit to test the term_part method from the Recognizer
-     * class by testing to see if the current token matches the
-     * expected token type in the term_part method. This is a text
+     *This method uses JUnit to test the term_part method from the
+     * Recognizer class by testing to see if the current token matches
+     * the expected token type in the term_part method. This is a text
      * string test.
      */
     @Test
@@ -188,10 +260,10 @@ public class RecognizerTest
     }
 
     /**
-     *This method uses JUnit to test the factor method from the Recognizer
-     * class by testing to see if the current token matches the
-     * expected token type in the factor method. This is a text string
-     * test.
+     * This method uses JUnit to test the factor method from the
+     * Recognizer class by testing to see if the current token matches
+     * the expected token type in the factor method. This is a text
+     * string test.
      */
     @Test
     public void testFactor() {
@@ -232,17 +304,25 @@ public class RecognizerTest
      * class. This is a text string test.
      */
     @Test
-    public void testError() {
+    public void testError()
+    {
         System.out.println("\n" + "######################" + "\n" +
                 "#     Test error     #" + "\n" +
                 "######################" + "\n");
-        String message = "error test";
+        String expected = "error test";
         Recognizer instance = new Recognizer( "", false);
-        //Calls Recognizer Object method error and passes the message
-        //directly into it. Constructor is automatically called when an
-        //object of the class is created.
-        instance.error(message);
-        System.out.println("Successfully tested the error.");
+        try
+        {
+            /*Calls Recognizer Object method error and passes the message
+            directly into it. Constructor is automatically called
+            when an object of the class is created.*/
+            instance.error(expected);
+            System.out.println("Did not want the error to pass.");
+        }
+        catch(Exception actual)
+        {
+            assertEquals(expected, actual.getMessage());
+            System.out.println("Successfully tested the error.");
+        }
     }
-
 }
