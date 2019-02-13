@@ -51,10 +51,11 @@ public class Recognizer
             FileInputStream fis = null;
             try
             {
-                fis = new FileInputStream("src/parser/simplest.pas");
+                fis = new FileInputStream(text);
             }
             catch (FileNotFoundException ex)
             {
+                //not a file
                 error( "No file");
             }
             InputStreamReader isr = new InputStreamReader( fis);
@@ -68,7 +69,10 @@ public class Recognizer
         {
             //Initializing lookahead by reading a token.
             lookahead = scanner.nextToken();
-        } catch (IOException ex) {
+        }
+        catch (IOException ex)
+        {
+            //not a string.
             error( "Scan error");
         }
 
@@ -99,8 +103,8 @@ public class Recognizer
     public void identifier_list()
     {
         match(TokenType.ID);
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.COMMA)
         {
             match(TokenType.COMMA);
@@ -117,8 +121,8 @@ public class Recognizer
      */
     public void declarations()
     {
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.VAR)
         {
             match(TokenType.VAR);
@@ -140,13 +144,15 @@ public class Recognizer
      */
     public void type()
     {
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.INTEGER ||
                 this.lookahead.getType() == TokenType.REAL)
         {
             standard_type();
         }
+        /* Otherwise comparing the current lookahead with a different
+        declaration.*/
         else if(this.lookahead.getType() == TokenType.ARRAY)
         {
             match(TokenType.ARRAY);
@@ -169,8 +175,8 @@ public class Recognizer
      */
     public void standard_type()
     {
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.INTEGER)
         {
             match(TokenType.INTEGER);
@@ -183,6 +189,7 @@ public class Recognizer
         }
         else
         {
+            //if not a standard type
             error("Standard Type");
         }
     }
@@ -192,8 +199,8 @@ public class Recognizer
      */
     public void subprogram_declarations()
     {
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(lookahead.getType() == TokenType.FUNCTION ||
                 lookahead.getType() == TokenType.PROCEDURE)
         {
@@ -222,8 +229,8 @@ public class Recognizer
      */
     public void subprogram_head()
     {
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(lookahead.getType() == TokenType.FUNCTION)
         {
             match(TokenType.FUNCTION);
@@ -233,6 +240,8 @@ public class Recognizer
             standard_type();
             match(TokenType.SEMI);
         }
+        /* Otherwise comparing the current lookahead with a different
+        declaration.*/
         else if(lookahead.getType() == TokenType.PROCEDURE)
         {
             match(TokenType.PROCEDURE);
@@ -240,7 +249,9 @@ public class Recognizer
             arguments();
             match(TokenType.SEMI);
         }
-        else{
+        else
+        {
+            //if not a subprogram head
             error("Subprogram Head");
         }
     }
@@ -250,8 +261,8 @@ public class Recognizer
      */
     public void arguments()
     {
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.LPAREN)
         {
             match(TokenType.LPAREN);
@@ -272,6 +283,8 @@ public class Recognizer
         identifier_list();
         match(TokenType.COLON);
         type();
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(lookahead.getType() == TokenType.SEMI)
         {
             match(TokenType.SEMI);
@@ -298,7 +311,15 @@ public class Recognizer
      */
     public void optional_statements()
     {
-        if(lookahead.getType() == TokenType.ID)
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
+        if(lookahead.getType() == TokenType.ID ||
+                lookahead.getType() == TokenType.BEGIN ||
+                lookahead.getType() == TokenType.IF ||
+                lookahead.getType() == TokenType.WHILE ||
+                lookahead.getType() == TokenType.READ ||
+                lookahead.getType() == TokenType.WRITE ||
+                lookahead.getType() == TokenType.RETURN)
         {
             statement_list();
         }
@@ -314,6 +335,8 @@ public class Recognizer
     public void statement_list()
     {
         statement();
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(lookahead.getType() == TokenType.SEMI)
         {
             match(TokenType.SEMI);
@@ -330,6 +353,8 @@ public class Recognizer
      */
     public void statement()
     {
+        /*All if/else if statements compare the lookahead token with a
+        token type to see if it matches the same type. */
         if(lookahead.getType() == TokenType.ID)
         {
             variable();
@@ -381,6 +406,7 @@ public class Recognizer
         }
         else
         {
+            //if not a statement
             error("Statement");
         }
     }
@@ -391,8 +417,8 @@ public class Recognizer
     public void variable()
     {
         match(TokenType.ID);
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.LBRACKET)
         {
             match(TokenType.LBRACKET);
@@ -411,8 +437,8 @@ public class Recognizer
     public void procedure_statement()
     {
         match(TokenType.ID);
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.LPAREN)
         {
             match(TokenType.LPAREN);
@@ -431,8 +457,8 @@ public class Recognizer
     public void expression_list()
     {
         expression();
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.COMMA)
         {
             match(TokenType.COMMA);
@@ -467,6 +493,8 @@ public class Recognizer
      */
     public void simple_expression()
     {
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.ID ||
                 this.lookahead.getType() == TokenType.NUMBER ||
                 this.lookahead.getType() == TokenType.LPAREN ||
@@ -484,6 +512,7 @@ public class Recognizer
         }
         else
         {
+            //if not a simple expression
             error("Simple Expression");
         }
     }
@@ -493,6 +522,8 @@ public class Recognizer
      */
     public void simple_part()
     {
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if( lookahead.getType() == TokenType.PLUS ||
                 lookahead.getType() == TokenType.MINUS ||
                 lookahead.getType() == TokenType.OR) {
@@ -500,8 +531,9 @@ public class Recognizer
             term();
             simple_part();
         }
-        else{
-            // Do nothing. The empty lambda option.
+        else
+        {
+            //Do nothing. The empty lambda option.
         }
     }
 
@@ -535,6 +567,8 @@ public class Recognizer
      */
     public void factor()
     {
+        /*All if/else if statements compare the lookahead token with a
+        token type to see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.ID)
         {
             match(TokenType.ID);
@@ -572,6 +606,7 @@ public class Recognizer
         }
         else
         {
+            //if not a factor
             error("Factor");
         }
     }
@@ -581,8 +616,8 @@ public class Recognizer
      */
     public void sign()
     {
-        /*Comparing the current lookahead with what you would
-        expect to see if there were any declarations there.*/
+        /*Comparing the current lookahead token with a token type to
+        see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.PLUS)
         {
             match(TokenType.PLUS);
@@ -593,16 +628,20 @@ public class Recognizer
         }
         else
         {
+            //if not a sign
             error("Sign");
         }
     }
 
     /**
-     * This method is used to compare the lookahead token with
+     * This method is based on the relop rules in the micro pascal
+     * grammar. It is used to compare the lookahead token with
      * a token type to see if it matches the same type.
      */
     private void relop()
     {
+        /*All if/else if statements compare the lookahead token with a
+        token type to see if it matches the same type. */
         if(this.lookahead.getType() == TokenType.EQUIV)
         {
             match(TokenType.EQUIV);
@@ -629,14 +668,19 @@ public class Recognizer
         }
         else
         {
+            //if not a relop
             error("Relop");
         }
     }
 
     /**
-     *
+     * This method is used to compare the lookahead token with
+     * a token type to see if it matches the same type.
      */
-    private void addop() {
+    private void addop()
+    {
+        /*All if/else if statements compare the lookahead token with a
+        token type to see if it matches the same type. */
         if( lookahead.getType() == TokenType.PLUS)
         {
             match( TokenType.PLUS);
@@ -649,15 +693,22 @@ public class Recognizer
         {
             match( TokenType.OR); //need to add OR here?
         }
-        else {
-            error( "Addop");
+        else
+        {
+            //if not an addop
+            error("Addop");
         }
     }
 
     /**
-     *
+     * Creating the mulop method. According to the micro pascal grammar,
+     * the ASSIGN token type
+     * stands for the assignop := token.
      */
-    protected void mulop() {
+    protected void mulop()
+    {
+        /*All if/else if statements compare the lookahead token with a
+        token type to see if it matches the same type. */
         if( lookahead.getType() == TokenType.MULTI)
         {
             match( TokenType.MULTI);
@@ -678,24 +729,28 @@ public class Recognizer
         {
             match( TokenType.AND);
         }
-        else {
-            error( "Mulop");
+        else
+        {
+            //if not a mulop
+            error("Mulop");
         }
     }
 
     /**
-     * Creating the assignop method stated in the grammar.
-     * According to the micro pascal grammar, the ASSIGN token type
-     * stands for the assignop := token.
+     * Creating the assignop method. According to the micro pascal
+     * grammar, the ASSIGN token type stands for the assignop := token.
      */
     private void assignop()
     {
+       /*Compares the lookahead token with a token type to see if it
+         matches the same type. */
         if(lookahead.getType() == TokenType.ASSIGN)
         {
             match(TokenType.ASSIGN);
         }
         else
         {
+            //if not an assignop
             error("Assignop");
         }
     }
@@ -708,6 +763,8 @@ public class Recognizer
     protected void match( TokenType expected)
     {
         System.out.println("match( " + expected + ")");
+        /*Compares the lookahead token with a token type to see if it
+         matches the same expected type. */
         if( this.lookahead.getType() == expected)
         {
             try
@@ -720,12 +777,13 @@ public class Recognizer
             }
             catch (IOException ex)
             {
-                error( "Scanner exception");
+                error("Scanner exception");
             }
         }
         else
         {
-            error("Match of " + expected + " found " + this.lookahead.getType()
+            error("Match of " + expected + " found " +
+                    this.lookahead.getType()
                     + " instead.");
         }
     }
@@ -754,6 +812,8 @@ public class Recognizer
     private boolean isMulop( Token token)
     {
         boolean answer = false;
+        /*Compares the lookahead token with a token type to see if it
+         matches the same type. */
         if( token.getType() == TokenType.MULTI ||
                 token.getType() == TokenType.FSLASH ||
                 token.getType() == TokenType.DIV ||
@@ -776,6 +836,8 @@ public class Recognizer
     private boolean isRelop( Token token)
     {
         boolean answer = false;
+        /*Compares the lookahead token with a token type to see if it
+         matches the same type. */
         if(token.getType() == TokenType.EQUIV ||
                 token.getType() == TokenType.NOTEQUAL ||
                 token.getType() == TokenType.LTHAN ||
