@@ -17,6 +17,10 @@ import java.util.HashMap;
 %public				/* Makes the class public. */
 %class  Scanner   /* Names the produced java file. */
 %function nextToken /* Renames the yylex() function. */
+%line  /*Line counting is turned off by default,
+        but it is activated with %line.*/
+%column /*column counting is turned off by default, but it is
+        activated with the %column directive.*/
 %type   Token     /* Defines the return type of the scanning function.*/
 %eofval{
 /* The code to be executed at the end of the file.
