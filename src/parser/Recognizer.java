@@ -61,9 +61,9 @@ public class Recognizer
             scanner = new Scanner( isr);
         }
         else
-            {
+        {
             scanner = new Scanner( new StringReader( text));
-            }
+        }
         try
         {
             //Initializing lookahead by reading a token.
@@ -79,7 +79,8 @@ public class Recognizer
     ///////////////////////////////
 
     /**
-     * Recognizes a pascal program.
+     * Executes the rule for the program non-terminal symbol in
+     * the micro pascal grammar. Recognizes a pascal program.
      */
     public void program()
     {
@@ -488,7 +489,7 @@ public class Recognizer
     }
 
     /**
-     * This is 
+     * This is
      */
     public void simple_part()
     {
@@ -549,10 +550,10 @@ public class Recognizer
                 expression_list();
                 match(TokenType.RPAREN);
             }
-            else
-            {
-                //Do nothing. The empty lambda option.
-            }
+//            else
+//            {
+//                //Do nothing. The empty lambda option.
+//            }
         }
         else if(this.lookahead.getType() == TokenType.NUMBER)
         {
@@ -723,7 +724,7 @@ public class Recognizer
             }
         }
         else
-            {
+        {
             error("Match of " + expected + " found " + this.lookahead.getType()
                     + " instead.");
         }
@@ -788,3 +789,4 @@ public class Recognizer
     }
 
 }
+
