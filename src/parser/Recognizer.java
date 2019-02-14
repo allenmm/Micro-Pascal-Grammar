@@ -14,6 +14,18 @@ import scanner.TokenType;
 /**
  * A Java Program that illustrates reading from a text file or strings.
  * This program creates a
+ *
+ * Either a string
+ * or a file path name will be passed into the constructor from the
+ * Recognizer class when a method of the class is called. If the string
+ * file path in the constructor is present and the file name is true,
+ * then the JUnit test will pass the file path. If the text string in the
+ * constructor is present and the file name is false, then the JUnit test
+ * will pass the string.
+ *
+ *
+ *
+ *
  * @author Marissa Allen
  */
 public class Recognizer
@@ -166,7 +178,8 @@ public class Recognizer
         }
         else
         {
-            //Do nothing. The empty lambda option.
+            //if not a type
+            error("Type");
         }
     }
 
