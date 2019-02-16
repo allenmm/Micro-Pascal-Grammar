@@ -165,6 +165,52 @@ public class RecognizerTest
     }
 
     /**
+     * This method uses JUnit to test the subprogram_declaration
+     * method from the Recognizer class by testing to see if the
+     * current token matches the expected token type in the
+     * subprogram_declaration method. This is a text string test.
+     */
+    @Test
+    public void testSubprogram_declaration()
+    {
+        System.out.println("\n" + "#################################" + "\n" +
+                "#  Test subprogram declaration  #" + "\n" +
+                "#################################" + "\n");
+
+        //Pascal string test. Happy path, with good pascal.
+        String test = "procedure fooz (identifier : integer) ;\n" +
+                "var declarations2 : integer ;\n" +
+                "begin read ( foo2 ) end";
+        Recognizer instance = new Recognizer( test, false);
+        try
+        {
+            instance.subprogram_declaration();
+            //If it's good pascal, it should print this out.
+            System.out.println("Passed, parsed the happy path." + "\n");
+        }
+        catch (Exception actual)
+        {
+            fail("Didn't want to throw exception");
+        }
+
+        //Pascal string test. Bad path, with bad pascal.
+        test = "procedure id";
+        instance = new Recognizer( test, false);
+        try
+        {
+            instance.subprogram_declaration();
+            //If it's bad pascal, it should throw an exception.
+            fail("Didn't throw exception");
+        }
+        catch (Exception actual)
+        {
+            String expected = "Match of SEMI found null instead.";
+            assertEquals(expected, actual.getMessage());
+            System.out.println("Passed, caught the error.");
+        }
+    }
+
+    /**
      * This method uses JUnit to test the exp method from the Recognizer
      * class by testing to see if the current token matches the
      * expected token type in the exp method. This is a text file path
