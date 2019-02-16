@@ -34,7 +34,7 @@ public class RecognizerTest
     public void testProgram()
     {
         System.out.println("\n" + "######################" + "\n" +
-                "#    Test program      #" + "\n" +
+                "#    Test program    #" + "\n" +
                 "######################" + "\n");
 
         //Pascal file test
@@ -130,7 +130,7 @@ public class RecognizerTest
     public void testDeclarations()
     {
         System.out.println("\n" + "######################" + "\n" +
-                "#    Test declarations      #" + "\n" +
+                "#  Test declarations #" + "\n" +
                 "######################" + "\n");
 
         //Pascal string test. Happy path, with good pascal.
@@ -174,7 +174,7 @@ public class RecognizerTest
     public void testSubprogram_declaration()
     {
         System.out.println("\n" + "#################################" + "\n" +
-                "#  Test subprogram declaration  #" + "\n" +
+                "#  Test subprogram_declaration  #" + "\n" +
                 "#################################" + "\n");
 
         //Pascal string test. Happy path, with good pascal.
@@ -264,8 +264,8 @@ public class RecognizerTest
     @Test
     public void testSimple_expression()
     {
-        System.out.println("##############################" + "\n" +
-                "#   Test simple expression   #" + "\n" +
+        System.out.println("\n" + "##############################" + "\n" +
+                "#   Test simple_expression   #" + "\n" +
                 "##############################" + "\n");
        String test = "34 + 17 * 7";
         Recognizer instance = new Recognizer
@@ -275,7 +275,7 @@ public class RecognizerTest
            /*Calls Recognizer Object method exp. Constructor is
            automatically called when an object of the class is created.*/
            instance.simple_expression();
-           System.out.println("It Parsed!");
+           System.out.println("It Parsed!" + "\n");
        }
        catch (Exception e)
        {
@@ -350,7 +350,7 @@ public class RecognizerTest
     @Test
     public void testSimple_part() {
         System.out.println("\n" + "######################" + "\n" +
-                "#  Test simple part  #" + "\n" +
+                "#  Test simple_part  #" + "\n" +
                 "######################" + "\n");
         String test = "+ 34";
         Recognizer instance = new Recognizer( test, false);
@@ -360,7 +360,7 @@ public class RecognizerTest
             is automatically called when an object of the class is
             created. */
             instance.simple_part();
-            System.out.println("It Parsed!");
+            System.out.println("It Parsed!" + "\n");
         }
         catch (Exception e)
         {
@@ -380,7 +380,7 @@ public class RecognizerTest
         {
             String expected = "Factor";
             assertEquals(expected, actual.getMessage());
-            System.out.println("\n"+ "Passed, caught the error.");
+            System.out.println("Passed, caught the error.");
         }
     }
 
@@ -393,7 +393,7 @@ public class RecognizerTest
     @Test
     public void testAddop() {
         System.out.println("\n" + "######################" + "\n" +
-                    "#   Test addop  #" + "\n" +
+                    "#     Test addop     #" + "\n" +
                     "######################" + "\n");
         TokenType plus = TokenType.PLUS;
         Recognizer instance = new Recognizer( "+", false);
