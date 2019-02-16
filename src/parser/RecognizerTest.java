@@ -159,7 +159,7 @@ public class RecognizerTest
     @Test
     public void testSimple_part() {
         System.out.println("\n" + "######################" + "\n" +
-                "#   Test simple part   #" + "\n" +
+                "#  Test simple part  #" + "\n" +
                 "######################" + "\n");
         String test = "+ 34";
         Recognizer instance = new Recognizer( test, false);
@@ -174,6 +174,22 @@ public class RecognizerTest
         catch (Exception e)
         {
             fail("Didn't want to throw exception");
+        }
+
+        //Pascal string test. Bad path, with bad pascal.
+        test = "+";
+        instance = new Recognizer( test, false);
+        try
+        {
+            instance.simple_part();
+            //If it's bad pascal, it should throw an exception.
+            fail("Didn't throw exception");
+        }
+        catch (Exception actual)
+        {
+            String expected = "Factor";
+            assertEquals(expected, actual.getMessage());
+            System.out.println("\n"+ "Passed, caught the error.");
         }
     }
 
@@ -210,16 +226,24 @@ public class RecognizerTest
      * test.
      */
     @Test
-    public void testTerm() {
+    public void testTerm()
+    {
         System.out.println("\n" + "######################" + "\n" +
                 "#     Test term      #" + "\n" +
                 "######################" + "\n");
         Recognizer instance = new Recognizer
                 ("23 / 17", false);
+        try
+        {
         /*Calls Recognizer Object method term. Constructor is
         automatically called when an object of the class is created.*/
-        instance.term();
-        System.out.println("Parsed a term.");
+            instance.term();
+            System.out.println("Parsed a term.");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
     }
 
     /**
@@ -235,10 +259,17 @@ public class RecognizerTest
                 "#   Test term_part   #" + "\n" +
                 "######################" + "\n");
         Recognizer instance = new Recognizer( "* foo / foo2", false);
-        //Calls Recognizer Object method term_part. Constructor is automatically
-        //called when an object of the class is created.
-        instance.term_part();
-        System.out.println("Parsed a term.");
+        try
+        {
+            //Calls Recognizer Object method term_part. Constructor is automatically
+            //called when an object of the class is created.
+            instance.term_part();
+            System.out.println("Parsed a term.");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
     }
 
     /**
@@ -253,28 +284,17 @@ public class RecognizerTest
                 "#     Test mulop     #" + "\n" +
                 "######################" + "\n");
         Recognizer instance = new Recognizer( "*", false);
-        //Calls Recognizer Object method mulop. Constructor is automatically
-        //called when an object of the class is created.
-        instance.mulop();
-        System.out.println("Recognized the single mulop.");
-    }
-
-    /**
-     * This method uses JUnit to test the factor method from the
-     * Recognizer class by testing to see if the current token matches
-     * the expected token type in the factor method. This is a text
-     * string test.
-     */
-    @Test
-    public void testFactor() {
-        System.out.println("\n" + "######################" + "\n" +
-                "#   Test factor   #" + "\n" +
-                "######################" + "\n");
-        Recognizer instance = new Recognizer( "87654321", false);
-        //Calls Recognizer Object method factor. Constructor is automatically
-        //called when an object of the class is created.
-        instance.factor();
-        System.out.println("Recognized the factor token.");
+        try
+        {
+            //Calls Recognizer Object method mulop. Constructor is automatically
+            //called when an object of the class is created.
+            instance.mulop();
+            System.out.println("Recognized the single mulop.");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
     }
 
     /**
@@ -293,10 +313,17 @@ public class RecognizerTest
                 "######################" + "\n");
         TokenType ett = TokenType.PERIOD;
         Recognizer instance = new Recognizer( ".", false);
-        //Calls Recognizer Object method match. Constructor is
-        //automatically called when an object of the class is created.
-        instance.match(ett);
-        System.out.println("It matches!");
+        try
+        {
+            //Calls Recognizer Object method match. Constructor is
+            //automatically called when an object of the class is created.
+            instance.match(ett);
+            System.out.println("It matches!");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
     }
 
     /**
