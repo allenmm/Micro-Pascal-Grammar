@@ -110,7 +110,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the identifier_list non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void identifier_list()
     {
@@ -129,7 +130,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the declarations non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void declarations()
     {
@@ -152,7 +154,8 @@ public class Recognizer
 
 
     /**
-     *
+     * Executes the rule for the type non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void type()
     {
@@ -184,7 +187,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the standard_type non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void standard_type()
     {
@@ -208,7 +212,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the subprogram_declarations non-terminal
+     * symbol in the micro pascal grammar.
      */
     public void subprogram_declarations()
     {
@@ -228,7 +233,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the subprogram_declaration non-terminal
+     * symbol in the micro pascal grammar.
      */
     public void subprogram_declaration()
     {
@@ -238,7 +244,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the subprogram_head non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void subprogram_head()
     {
@@ -270,7 +277,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the arguments non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void arguments()
     {
@@ -289,7 +297,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the parameter_list non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void parameter_list()
     {
@@ -310,7 +319,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the compound_statement non-terminal symbol
+     * in the micro pascal grammar.
      */
     public void compound_statement()
     {
@@ -320,19 +330,14 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the optional_statements non-terminal
+     * symbol in the micro pascal grammar.
      */
     public void optional_statements()
     {
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
-        if(lookahead.getType() == TokenType.ID ||
-                lookahead.getType() == TokenType.BEGIN ||
-                lookahead.getType() == TokenType.IF ||
-                lookahead.getType() == TokenType.WHILE ||
-                lookahead.getType() == TokenType.READ ||
-                lookahead.getType() == TokenType.WRITE ||
-                lookahead.getType() == TokenType.RETURN)
+        if(isStatement(lookahead))
         {
             statement_list();
         }
@@ -343,7 +348,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the statement_list non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void statement_list()
     {
@@ -362,7 +368,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the statement non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void statement()
     {
@@ -425,7 +432,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the variable non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void variable()
     {
@@ -445,7 +453,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the procedure_statement non-terminal symbol
+     * in the micro pascal grammar.
      */
     public void procedure_statement()
     {
@@ -465,7 +474,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the expression_list non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void expression_list()
     {
@@ -484,7 +494,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the expression non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void expression()
     {
@@ -501,8 +512,9 @@ public class Recognizer
     }
 
     /**
-     * This method is used to parse an expression. It is the
-     * simple expression in the micro pascal grammar.
+     * This method is used to parse an expression. Executes the rule
+     * for the simple_expression non-terminal symbol in the micro pascal
+     * grammar.
      */
     public void simple_expression()
     {
@@ -531,7 +543,8 @@ public class Recognizer
     }
 
     /**
-     * This is
+     * Executes the rule for the simple_part non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void simple_part()
     {
@@ -551,7 +564,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the term non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void term() {
         factor();
@@ -559,7 +573,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the term_part non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void term_part()
     {
@@ -576,7 +591,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the factor non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void factor()
     {
@@ -597,10 +613,10 @@ public class Recognizer
                 expression_list();
                 match(TokenType.RPAREN);
             }
-//            else
-//            {
-//                //Do nothing. The empty lambda option.
-//            }
+            else
+            {
+                //Do nothing. The empty lambda option.
+            }
         }
         else if(this.lookahead.getType() == TokenType.NUMBER)
         {
@@ -625,7 +641,8 @@ public class Recognizer
     }
 
     /**
-     *
+     * Executes the rule for the sign non-terminal symbol in
+     * the micro pascal grammar.
      */
     public void sign()
     {
@@ -769,7 +786,9 @@ public class Recognizer
     }
 
     /**
-     *
+     * Compares the token type that's expected with the actual token
+     * type. If the token type passed in is the same as the actual
+     * token type, then it is the current token or the end of the file.
      *
      * @param expected - This is the expected token type.
      */
@@ -863,5 +882,32 @@ public class Recognizer
         return answer;
     }
 
+
+    /**
+     * Checks to see if the token from the input string is a statement
+     * token or not and returns a boolean expression if it's true or
+     * false.
+     * @param token - The lookahead token to check against from the
+     * input string.
+     * @return - If the token is a statement it will be returned,
+     * otherwise it's false and nothing will be returned.
+     */
+    private boolean isStatement( Token token)
+    {
+        boolean answer = false;
+        /*Compares the lookahead token with a token type to see if it
+         matches the same type. */
+        if(token.getType() == TokenType.ID ||
+                token.getType() == TokenType.BEGIN ||
+                token.getType() == TokenType.IF ||
+                token.getType() == TokenType.WHILE ||
+                token.getType() == TokenType.READ ||
+                token.getType() == TokenType.WRITE ||
+                token.getType() == TokenType.RETURN)
+        {
+            answer = true;
+        }
+        return answer;
+    }
 }
 
