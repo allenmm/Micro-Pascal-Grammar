@@ -120,7 +120,49 @@ public class RecognizerTest
 
     }
 
+    /**
+     * This method uses JUnit to test the declarations
+     * method from the Recognizer class by testing to see if the
+     * current token matches the expected token type in the
+     * declarations method. This is a text string test.
+     */
+    @Test
+    public void testDeclarations()
+    {
+        System.out.println("\n" + "######################" + "\n" +
+                "#    Test declarations      #" + "\n" +
+                "######################" + "\n");
 
+        //Pascal string test. Happy path, with good pascal.
+        String test = "var declarations : integer ;";
+        Recognizer instance = new Recognizer( test, false);
+        try
+        {
+            instance.declarations();
+            //If it's good pascal, it should print this out.
+            System.out.println("Passed, parsed the happy path." + "\n");
+        }
+        catch (Exception actual)
+        {
+            fail("Didn't want to throw exception");
+        }
+
+        //Pascal string test. Bad path, with bad pascal.
+        test = "var declarations : integer";
+        instance = new Recognizer( test, false);
+        try
+        {
+            instance.declarations();
+            //If it's bad pascal, it should throw an exception.
+            fail("Didn't throw exception");
+        }
+        catch (Exception actual)
+        {
+            String expected = "Match of SEMI found null instead.";
+            assertEquals(expected, actual.getMessage());
+            System.out.println("Passed, caught the error.");
+        }
+    }
 
     /**
      * This method uses JUnit to test the exp method from the Recognizer
