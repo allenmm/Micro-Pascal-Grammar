@@ -1,29 +1,30 @@
-/**
- * The AllenScanner is scanner program that is going to use JFlex 
- * to generate a Java scanner that will scan through the input text
- * file and return a lexeme, yytext returns the matched lexeme. 
- * The lexeme is going to be the string containing the actual characters
- * that were read in that make up one particular token in the language. 
- *
- * @author Marissa Allen
- */
-
 /* Declarations */
 
 package scanner;
 import java.util.HashMap;
 
+/**
+ * The AllenScanner is scanner program that is going to use JFlex
+ * to generate a Java scanner that will scan through the input text
+ * file and return a lexeme, yytext returns the matched lexeme.
+ * The lexeme is going to be the string containing the actual characters
+ * that were read in that make up one particular token in the language.
+ *
+ * @author Marissa Allen
+ */
 %%
 
 %public				/* Makes the class public. */
 %class  Scanner   /* Names the produced java file. */
-/*Makes all of the generated methods and fields of the class private, except for the constructor and the next_token method.*/
-
 %function nextToken /* Renames the yylex() function. */
+%line  /*Line counting is turned off by default,
+        but it is activated with %line.*/
+%column /*column counting is turned off by default, but it is
+        activated with the %column directive.*/
 %type   Token     /* Defines the return type of the scanning function.*/
-/* The code to be executed at the end of the file. 
-Tells Jflex what to return, null. */
 %eofval{
+/* The code to be executed at the end of the file.
+Tells Jflex what to return, null. */
   return null;
 %eofval}
 
@@ -32,6 +33,21 @@ Tells Jflex what to return, null. */
 	Copies the HashMap code inside the brackets and puts it 
 	inside the class itself. */
 	private HashMap<String, TokenType> lookupTable;
+
+  /**
+   * Gets the line number of the most recent lexeme to be used in
+   * generating error messages.
+   * @return - returns the current line number.
+   */
+  public int getLine() { return yyline;}
+
+  /**
+   * Gets the column number of the most recent lexeme to be used in
+   * generating error messages. This is the number of chars since the
+   * most recent newline char.
+   * @return - returns the current column number.
+   */
+  public int getColumn() { return yycolumn;}
 %}
 
 %init{
@@ -130,48 +146,69 @@ symbols = <>|<=|>=|:=|[\;\,\[\]\:\)\(\+\-\*\=\<\>\/\.] /*Matches all of
 %%
 /* Lexical Rules */
 
-	
-		 /*Prints out the number that was found. Invokes the constructor
-		 with two arguments, the lexeme and the token type.*/
-{num} { return(new Token(yytext(), TokenType.NUMBER));}
 
-			 /*Prints out a letter that was found and returns it. Invokes
-			 the constructor with two arguments, the lexeme and the token
-			 type.*/
-{letter}     { return(new Token(yytext(),
-			   lookupTable.get(yytext())));}
+{num} {  /*Prints out the number that was found. Invokes the constructor
+         with two arguments, the lexeme and the token type.*/
+
+         return(new Token(yytext(), TokenType.NUMBER));
+      }
+
+
+{letter}     {  /*Prints out a letter that was found and returns it.
+                Invokes the constructor with two arguments, the lexeme
+                and the token type.*/
+
+                return(new Token(yytext(),
+			    lookupTable.get(yytext())));
+			 }
 			
 
             
-{whitespace}  {  /* Ignore whitespace, do nothing. */ 
+{whitespace}  {
+                /* Ignore whitespace, do nothing. */
               }
               
-             /*Prints out the id that was found and returns it. Invokes a
-             constructor with two arguments, the lexeme and the token
-             type. If the lexeme isn't empty when it returns from the
-             lookup table, then it's a Token. If it is empty, it's an
-             identifier. */
-{id}  		{ 
-				if(lookupTable.get(yytext()) != null)
-				{return(new Token(yytext(), lookupTable.get(yytext())));}
-				
-				else{
-				return(new Token(yytext(), TokenType.ID));}
-			}  
-				
-			/*Prints out the symbol that was found and returns it. Invokes
-			the constructor with two arguments, the lexeme and the token
-			type.*/	     
-{symbols}	{ return(new Token(yytext(),
-			 lookupTable.get(yytext())));}
 
-            /*Prints out the float that was found and returns it. Invokes 
-             the constructor with two arguments, the lexeme and the token
-             type.*/
-{float}  	{ return(new Token(yytext(),
-			  lookupTable.get(yytext())));}
-            			
-			/*Prints out an illegal character that was found 
-			and returns it. Invokes the constructor
-		 with two arguments, the lexeme and the token type.*/
-{other}    {System.out.println("Unidentified Token: " + yytext());}
+{id}  		{
+                /*Prints out the id that was found and returns it.
+                Invokes a constructor with two arguments, the lexeme and
+                the token type. If the lexeme isn't empty when it returns
+                from the lookup table, then it's a Token. If it is empty,
+                it's an identifier. */
+
+				if(lookupTable.get(yytext()) != null)
+				{
+				  return(new Token(yytext(), lookupTable.get(yytext())));
+				}
+				
+				else
+				{
+				  return(new Token(yytext(), TokenType.ID));
+				}
+			}  
+
+{symbols}	{
+			    /*Prints out the symbol that was found and returns it.
+			    Invokes the constructor with two arguments, the lexeme
+			    and the token type.*/
+
+                return(new Token(yytext(),
+			    lookupTable.get(yytext())));
+			}
+
+
+{float}  	{
+                /*Prints out the float that was found and returns it.
+                Invokes the constructor with two arguments, the lexeme
+                and the token type.*/
+
+                return(new Token(yytext(),
+			    lookupTable.get(yytext())));
+			}
+
+{other}     {    /*Prints out an illegal character that was found
+            	and returns it. Invokes the constructor
+            	with two arguments, the lexeme and the token type.*/
+
+                System.out.println("Unidentified Token: " + yytext());
+            }
