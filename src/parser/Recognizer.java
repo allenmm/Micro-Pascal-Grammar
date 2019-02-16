@@ -12,20 +12,18 @@ import scanner.Token;
 import scanner.TokenType;
 
 /**
- * A Java Program that illustrates reading from a text file or strings.
- * This program creates a
- *
- * Either a string
- * or a file path name will be passed into the constructor from the
- * Recognizer class when a method of the class is called. If the string
- * file path in the constructor is present and the file name is true,
- * then the JUnit test will pass the file path. If the text string in the
- * constructor is present and the file name is false, then the JUnit test
- * will pass the string.
- *
- *
- *
- *
+ * This program creates a recognizer, implemented as a top-down
+ * recursive descent parser. The recognizer doesn’t perform any
+ * syntax-directed translation. It will only say whether the input
+ * string is from the language described by the micro pascal grammar.
+ * The Recognizer class is a Java Program that illustrates reading from
+ * a text file or strings. Either a string or a file path name will be
+ * passed into the constructor in the Recognizer class when a method of
+ * the class is called. If the string file path in the constructor is
+ * present and the file name is true, then a test in the RecognizerTest
+ * JUnit class will pass the file path. If the text string in the
+ * constructor is present and the file name is false, then the JUnit
+ * test will pass the string.
  * @author Marissa Allen
  */
 public class Recognizer
@@ -96,7 +94,7 @@ public class Recognizer
 
     /**
      * Executes the rule for the program non-terminal symbol in
-     * the micro pascal grammar. Recognizes a pascal program.
+     * the micro pascal grammar if it is recognized as a pascal program.
      */
     public void program()
     {
