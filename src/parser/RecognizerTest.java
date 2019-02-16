@@ -211,10 +211,55 @@ public class RecognizerTest
     }
 
     /**
-     * This method uses JUnit to test the exp method from the Recognizer
-     * class by testing to see if the current token matches the
-     * expected token type in the exp method. This is a text file path
-     * test.
+     * This method uses JUnit to test the statement method from the
+     * Recognizer class by testing to see if the current token matches the
+     * expected token type in the statement method. This is a text
+     * string test.
+     */
+    @Test
+    public void testStatement()
+    {
+        System.out.println("\n" + "########################" + "\n" +
+                "#    Test statement    #" + "\n" +
+                "########################" + "\n");
+
+        //Pascal string test. Happy path, with good pascal.
+        String test = "read (foo)";
+        Recognizer instance = new Recognizer( test, false);
+        try
+        {
+            instance.statement();
+            //If it's good pascal, it should print this out.
+            System.out.println("Passed, parsed the happy path." + "\n");
+        }
+        catch (Exception actual)
+        {
+            fail("Didn't want to throw exception");
+        }
+
+        //Pascal string test. Bad path, with bad pascal.
+        test = "read ; (foo)";
+        instance = new Recognizer( test, false);
+        try
+        {
+            instance.statement();
+            //If it's bad pascal, it should throw an exception.
+            fail("Didn't throw exception");
+        }
+        catch (Exception actual)
+        {
+            String expected = "Match of LPAREN found SEMI instead.";
+            assertEquals(expected, actual.getMessage());
+            System.out.println("Passed, caught the error.");
+        }
+    }
+
+
+    /**
+     * This method uses JUnit to test the simple_expression method
+     * from the Recognizer class by testing to see if the current token
+     * matches the expected token type in the simple_expression method.
+     * This is a text string test.
      */
     @Test
     public void testSimple_expression()
