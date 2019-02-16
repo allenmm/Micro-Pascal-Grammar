@@ -264,9 +264,9 @@ public class RecognizerTest
     @Test
     public void testSimple_expression()
     {
-        System.out.println("######################" + "\n" +
-                "#      Test exp      #" + "\n" +
-                "######################" + "\n");
+        System.out.println("##############################" + "\n" +
+                "#   Test simple expression   #" + "\n" +
+                "##############################" + "\n");
        String test = "34 + 17 * 7";
         Recognizer instance = new Recognizer
                 ( test, false);
@@ -281,6 +281,64 @@ public class RecognizerTest
        {
            fail("Didn't want to throw exception");
        }
+
+        //Pascal string test. Bad path, with bad pascal.
+        test = "34 or";
+        instance = new Recognizer( test, false);
+        try
+        {
+            instance.simple_expression();
+            //If it's bad pascal, it should throw an exception.
+            fail("Didn't throw exception");
+        }
+        catch (Exception actual)
+        {
+            String expected = "Factor";
+            assertEquals(expected, actual.getMessage());
+            System.out.println("Passed, caught the error.");
+        }
+    }
+
+    /**
+     * This method uses JUnit to test the factor method from the
+     * Recognizer class by testing to see if the current token matches
+     * the expected token type in the factor method. This is a text
+     * string test.
+     */
+    @Test
+    public void testFactor()
+    {
+        System.out.println("\n" + "######################" + "\n" +
+                "#     Test factor    #" + "\n" +
+                "######################" + "\n");
+        Recognizer instance = new Recognizer( "87654321", false);
+        try
+        {
+        /*Calls Recognizer Object method factor. Constructor
+        is automatically called when an object of the class is created.*/
+            instance.factor();
+            System.out.println("Recognized the factor token.");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
+
+        //Pascal string test. Bad path, with bad pascal.
+        String test = "[";
+        instance = new Recognizer( test, false);
+        try
+        {
+            instance.factor();
+            //If it's bad pascal, it should throw an exception.
+            fail("Didn't throw exception");
+        }
+        catch (Exception actual)
+        {
+            String expected = "Factor";
+            assertEquals(expected, actual.getMessage());
+            System.out.println("Passed, caught the error.");
+        }
     }
 
     /**
