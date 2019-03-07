@@ -83,6 +83,16 @@ public class SymbolTable
         return false;
     }
 
+    public boolean isArrayName(String name)
+    {
+        SymbolData s = symbols.get(name);
+        if (s != null && s.kind == KindEnum.ARRAY_NAME)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     private class SymbolData
     {
