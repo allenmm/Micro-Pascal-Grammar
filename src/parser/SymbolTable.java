@@ -49,7 +49,20 @@ public class SymbolTable
         }
     }
 
-   
+    public boolean isVarName(String name)
+    {
+
+        SymbolData s = symbols.get(name);
+        if (s != null && s.kind == KindEnum.VAR_NAME)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+ 
+
     private class SymbolData
     {
         String name;
