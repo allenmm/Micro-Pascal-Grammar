@@ -33,6 +33,15 @@ public class SymbolTable
         }
     }
 
+    public void addProcedureName(String name)
+    {
+        if (!symbols.containsKey(name))
+        {
+            symbols.put(name, new SymbolData(name, KindEnum.PROCEDURE_NAME));
+        }
+    }
+
+  
 
     private class SymbolData
     {
