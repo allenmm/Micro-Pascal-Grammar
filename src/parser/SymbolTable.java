@@ -17,6 +17,15 @@ public class SymbolTable
         }
     }
 
+    public void addProgramName(String name)
+    {
+        if (!symbols.containsKey(name))
+        {
+            symbols.put(name, new SymbolData(name, KindEnum.PROGRAM_NAME));
+        }
+    }
+
+
     private class SymbolData
     {
         String name;
