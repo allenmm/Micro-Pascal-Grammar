@@ -94,6 +94,16 @@ public class SymbolTable
         return false;
     }
 
+    public boolean isFunctionName(String name)
+    {
+        SymbolData s = symbols.get(name);
+        if (s != null && s.kind == KindEnum.FUNCTION_NAME)
+        {
+            return true;
+        }
+        return false;
+    }
+
     private class SymbolData
     {
         String name;
