@@ -25,6 +25,14 @@ public class SymbolTable
         }
     }
 
+    public void addArrayName(String name)
+    {
+        if (!symbols.containsKey(name))
+        {
+            symbols.put(name, new SymbolData(name, KindEnum.ARRAY_NAME));
+        }
+    }
+
 
     private class SymbolData
     {
