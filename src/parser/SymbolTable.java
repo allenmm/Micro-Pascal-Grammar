@@ -61,7 +61,18 @@ public class SymbolTable
         return false;
     }
 
- 
+    public boolean isProcedureName(String name)
+    {
+
+        SymbolData s = symbols.get(name);
+        if (s != null && s.kind == KindEnum.PROCEDURE_NAME)
+        {
+            return true;
+        }
+
+        return false;
+    }
+  
 
     private class SymbolData
     {
