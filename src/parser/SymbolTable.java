@@ -94,9 +94,20 @@ public class SymbolTable
         return false;
     }
 
+    /**
+     * Checks to see if the Symbol Table name exists and if it is a
+     * function name.
+     *
+     * @param name - The Symbol Table name that is being checked.
+     * @return - A true will be returned if the name exists in the
+     * Symbol Table and if it's a function. A false will be returned if
+     * the name doesn't exist in the Symbol Table or it is not a
+     * function.
+     */
     public boolean isFunctionName(String name)
     {
         SymbolData s = symbols.get(name);
+        //If a function name key exists and the kind is a function name
         if (s != null && s.kind == KindEnum.FUNCTION_NAME)
         {
             return true;
@@ -104,10 +115,13 @@ public class SymbolTable
         return false;
     }
 
+    /**
+     *
+     */
     private class SymbolData
     {
-        String name;
-        KindEnum kind;
+        private String name;
+        private KindEnum kind;
 
         SymbolData(String name, KindEnum kind)
         {
