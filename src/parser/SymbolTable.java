@@ -16,7 +16,8 @@ public class SymbolTable
     private HashMap<String, SymbolData> symbols = new HashMap<>();
 
     /**
-     * Adds a variable identifier to the Symbol Table.
+     * Adds a variable identifier to the Symbol Table if the variable
+     * name doesn't exist in the table.
      *
      * @param name - lexeme containing a variable name.
      */
@@ -29,9 +30,10 @@ public class SymbolTable
     }
 
     /**
-     * Adds a program identifier to the Symbol Table.
+     * Adds a program identifier to the Symbol Table if the program
+     * name doesn't exist in the table.
      *
-     * @param name
+     * @param name - lexeme containing a program name.
      */
     public void addProgramName(String name)
     {
@@ -43,9 +45,10 @@ public class SymbolTable
     }
 
     /**
-     * Adds an array identifier to the Symbol Table.
+     * Adds an array identifier to the Symbol Table if the array name
+     * doesn't exist in the table.
      *
-     * @param name
+     * @param name - lexeme containing an array name.
      */
     public void addArrayName(String name)
     {
@@ -56,9 +59,10 @@ public class SymbolTable
     }
 
     /**
-     * Adds a procedure identifier to the Symbol Table.
+     * Adds a procedure identifier to the Symbol Table if the procedure
+     * name doesn't exist in the table.
      *
-     * @param name
+     * @param name - lexeme containing a procedure name.
      */
     public void addProcedureName(String name)
     {
@@ -70,9 +74,10 @@ public class SymbolTable
     }
 
     /**
-     * Adds a function identifier to the Symbol Table.
+     * Adds a function identifier to the Symbol Table if the function
+     * name doesn't exist in the table.
      *
-     * @param name
+     * @param name - lexeme containing a function name.
      */
     public void addFunctionName(String name)
     {
