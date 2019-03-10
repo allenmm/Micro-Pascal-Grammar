@@ -3,9 +3,9 @@ package parser;
 import java.util.HashMap;
 
 /**
- * This program creates a Symbol Table that is implemented as a hash map
- * to store information about every pascal identifier added to the Symbol
- * Table. The Symbol Table will store identifier information such as the
+ * This program creates a symbol table that is implemented as a hash map
+ * to store information about every pascal identifier added to the symbol
+ * table. The symbol table will store identifier information such as the
  * character string (or lexeme), its datatype, and its kind.
  *
  * @author Marissa Allen
@@ -16,7 +16,7 @@ public class SymbolTable
     private HashMap<String, SymbolData> symbols = new HashMap<>();
 
     /**
-     * Adds a variable identifier to the Symbol Table if the variable
+     * Adds a variable identifier to the symbol table if the variable
      * name doesn't exist in the table.
      *
      * @param name - lexeme containing a variable name.
@@ -30,7 +30,7 @@ public class SymbolTable
     }
 
     /**
-     * Adds a program identifier to the Symbol Table if the program
+     * Adds a program identifier to the symbol table if the program
      * name doesn't exist in the table.
      *
      * @param name - lexeme containing a program name.
@@ -45,7 +45,7 @@ public class SymbolTable
     }
 
     /**
-     * Adds an array identifier to the Symbol Table if the array name
+     * Adds an array identifier to the symbol table if the array name
      * doesn't exist in the table.
      *
      * @param name - lexeme containing an array name.
@@ -59,7 +59,7 @@ public class SymbolTable
     }
 
     /**
-     * Adds a procedure identifier to the Symbol Table if the procedure
+     * Adds a procedure identifier to the symbol table if the procedure
      * name doesn't exist in the table.
      *
      * @param name - lexeme containing a procedure name.
@@ -74,7 +74,7 @@ public class SymbolTable
     }
 
     /**
-     * Adds a function identifier to the Symbol Table if the function
+     * Adds a function identifier to the symbol table if the function
      * name doesn't exist in the table.
      *
      * @param name - lexeme containing a function name.
@@ -200,8 +200,8 @@ public class SymbolTable
     }
 
     /**
-     * Stores the identifier attribute values in the hash map; which are
-     * the datatype and kind information.
+     * Contains the datatype and kind information identifier attribute
+     * values that are stored in the hash map.
      *
      * @author Marissa Allen
      */
