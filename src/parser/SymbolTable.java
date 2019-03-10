@@ -45,11 +45,17 @@ public class SymbolTable
         }
     }
 
+    /**
+     * Adds a function identifier to the Symbol Table.
+     *
+     * @param name
+     */
     public void addFunctionName(String name)
     {
         if (!symbols.containsKey(name))
         {
-            symbols.put(name, new SymbolData(name, KindEnum.FUNCTION_NAME));
+            symbols.put(name, new SymbolData
+                    (name, KindEnum.FUNCTION_NAME));
         }
     }
 
