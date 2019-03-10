@@ -21,11 +21,17 @@ public class SymbolTable
         }
     }
 
+    /**
+     * Adds a program identifier to the Symbol Table.
+     *
+     * @param name
+     */
     public void addProgramName(String name)
     {
         if (!symbols.containsKey(name))
         {
-            symbols.put(name, new SymbolData(name, KindEnum.PROGRAM_NAME));
+            symbols.put(name, new SymbolData
+                    (name, KindEnum.PROGRAM_NAME));
         }
     }
 
