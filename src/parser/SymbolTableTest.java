@@ -125,4 +125,32 @@ public class SymbolTableTest
                 "because it wasn't added to the SymbolTable.");
     }
 
+    /**
+     * This method uses JUnit to test the isArrayName method from the
+     * SymbolTable class by testing to see if the identifier is an
+     * array name and was properly added to the Symbol Table.
+     */
+    @Test
+    public void testIsArrayName()
+    {
+        System.out.println("\n" + "######################" + "\n" +
+                "#  Test IsArrayName  #" + "\n" +
+                "######################" + "\n");
+        SymbolTable symbol = new SymbolTable();
+        symbol.addArrayName("foo");
+        /* Positive test to see if the identifier was added to the
+         Symbol Table */
+        assertTrue(symbol.isArrayName("foo"));
+        System.out.println("Passed, it is an array name.");
+        //Testing to make sure hash map added the correct identifier.
+        assertFalse(symbol.isArrayName("fooz"));
+        System.out.println("Passed, array name not recognized " +
+                "because it wasn't added to the SymbolTable.");
+        /* Negative test to see if an array name is accidentally
+         added as a variable name identifier.*/
+        assertFalse(symbol.isVarName("foo"));
+        System.out.println("Passed, variable name not recognized " +
+                "because it wasn't added to the SymbolTable.");
+    }
+
 }
