@@ -68,6 +68,33 @@ public class SymbolTableTest
                 "because it wasn't added to the SymbolTable.");
     }
 
-
+    /**
+     * This method uses JUnit to test the isFunctionName method from the
+     * SymbolTable class by testing to see if the identifier is a
+     * function name and was properly added to the Symbol Table.
+     */
+    @Test
+    public void testIsFunctionName()
+    {
+        System.out.println("\n" + "#########################" + "\n" +
+                "#  Test IsFunctionName  #" + "\n" +
+                "#########################" + "\n");
+        SymbolTable symbol = new SymbolTable();
+        symbol.addFunctionName("foo");
+        /* Positive test to see if the identifier was added to the
+         Symbol Table */
+        assertTrue(symbol.isFunctionName("foo"));
+        System.out.println("Passed, it is a function name.");
+        //Testing to make sure hash map added the correct identifier.
+        assertFalse(symbol.isFunctionName("fooz"));
+        System.out.println("Passed, function name not recognized because " +
+                "it wasn't added to the SymbolTable.");
+        /* Negative test to see if a function name is accidentally
+         added as a procedure name identifier.*/
+        assertFalse(symbol.isProcedureName("foo"));
+        System.out.println("Passed, procedure name not recognized because" +
+                " it wasn't added to the SymbolTable.");
+    }
+    
 
 }
