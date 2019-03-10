@@ -200,7 +200,10 @@ public class SymbolTable
     }
 
     /**
+     * Stores the identifier attribute values in the hash map; which are
+     * the datatype and kind information.
      *
+     * @author Marissa Allen
      */
     private class SymbolData
     {
