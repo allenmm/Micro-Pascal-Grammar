@@ -49,10 +49,21 @@ public class SymbolTable
         }
     }
 
+    /**
+     * Checks to see if the identifier name exists and if it is a
+     * variable name.
+     *
+     * @param name - The symbol name that is being checked.
+     * @return - A true will be returned if the name exists in the
+     * Symbol Table and if it's a variable. A false will be returned if
+     * the name doesn't exist in the Symbol Table or it is not a
+     * variable.
+     */
     public boolean isVarName(String name)
     {
 
         SymbolData s = symbols.get(name);
+        //If a variable name key exists and the kind is a variable name
         if (s != null && s.kind == KindEnum.VAR_NAME)
         {
             return true;
