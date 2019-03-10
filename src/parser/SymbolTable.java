@@ -29,6 +29,11 @@ public class SymbolTable
         }
     }
 
+    /**
+     * Adds an array identifier to the Symbol Table.
+     *
+     * @param name
+     */
     public void addArrayName(String name)
     {
         if (!symbols.containsKey(name))
