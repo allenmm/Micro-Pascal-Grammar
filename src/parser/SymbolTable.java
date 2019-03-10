@@ -8,7 +8,11 @@ public class SymbolTable
 
     private HashMap<String, SymbolData> symbols = new HashMap<>();
 
-
+    /**
+     * Adds a variable identifier to the Symbol Table.
+     *
+     * @param name - lexeme containing a variable name.
+     */
     public void addVarName(String name)
     {
         if (!symbols.containsKey(name))
