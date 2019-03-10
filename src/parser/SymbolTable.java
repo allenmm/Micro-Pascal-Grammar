@@ -72,9 +72,21 @@ public class SymbolTable
 
         return false;
     }
+
+    /**
+     * Checks to see if the identifier name exists and if it is a
+     * program name.
+     *
+     * @param name - The symbol name that is being checked.
+     * @return - A true will be returned if the name exists in the
+     * Symbol Table and if it's a program. A false will be returned if
+     * the name doesn't exist in the Symbol Table or it is not a
+     * program.
+     */
     public boolean isProgramName(String name)
     {
         SymbolData s = symbols.get(name);
+        //If a program name key exists and the kind is a program name
         if (s != null && s.kind == KindEnum.PROGRAM_NAME)
         {
             return true;
