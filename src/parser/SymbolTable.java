@@ -2,7 +2,14 @@ package parser;
 
 import java.util.HashMap;
 
-
+/**
+ * This program creates a Symbol Table that is implemented as a hash map
+ * to store information about every pascal identifier added to the Symbol
+ * Table. The Symbol Table will store identifier information such as the
+ * character string (or lexeme), its datatype, and its kind.
+ *
+ * @author Marissa Allen
+ */
 public class SymbolTable
 {
 
