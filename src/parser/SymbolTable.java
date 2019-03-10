@@ -37,11 +37,17 @@ public class SymbolTable
         }
     }
 
+    /**
+     * Adds a procedure identifier to the Symbol Table.
+     *
+     * @param name
+     */
     public void addProcedureName(String name)
     {
         if (!symbols.containsKey(name))
         {
-            symbols.put(name, new SymbolData(name, KindEnum.PROCEDURE_NAME));
+            symbols.put(name, new SymbolData
+                    (name, KindEnum.PROCEDURE_NAME));
         }
     }
 
