@@ -40,5 +40,34 @@ public class SymbolTableTest
                 "because it wasn't added to the SymbolTable.");
     }
 
+    /**
+     * This method uses JUnit to test the isVarName method from the
+     * SymbolTable class by testing to see if the identifier is a
+     * variable name and was properly added to the Symbol Table.
+     */
+    @Test
+    public void testIsVarName()
+    {
+        System.out.println("\n" + "####################" + "\n" +
+                "#  Test IsVarName  #" + "\n" +
+                "####################" + "\n");
+        SymbolTable symbol = new SymbolTable();
+        symbol.addVarName("foo");
+        /* Positive test to see if the identifier was added to the
+         Symbol Table */
+        assertTrue(symbol.isVarName("foo"));
+        System.out.println("Passed, it is a variable name.");
+        //Testing to make sure hash map added the correct identifier.
+        assertFalse(symbol.isVarName("fooz"));
+        System.out.println("Passed, procedure name not recognized " +
+                "because it wasn't added to the SymbolTable.");
+        /* Negative test to see if a variable name is accidentally
+         added as a procedure name identifier.*/
+        assertFalse(symbol.isProcedureName("foo"));
+        System.out.println("Passed, procedure name not recognized " +
+                "because it wasn't added to the SymbolTable.");
+    }
+
+
 
 }
