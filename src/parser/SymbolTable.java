@@ -200,6 +200,14 @@ public class SymbolTable
         return false;
     }
 
+    @Override
+    public String toString()
+    {
+        return "SymbolTable{" +
+                "symbols=" + symbols +
+                '}';
+    }
+
     /**
      * Contains the datatype and kind information identifier attribute
      * values that are stored in the hash map.
@@ -217,6 +225,13 @@ public class SymbolTable
             this.kind = kind;
         }
 
+        @Override
+        public String toString()
+        {
+            return "name='" + name + '\'' +
+                    ", kind=" + kind +
+                    '}';
+        }
     }
 
 }
