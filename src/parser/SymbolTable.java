@@ -200,6 +200,12 @@ public class SymbolTable
         return false;
     }
 
+    /**
+     * The string displayed for the returned SymbolTable.
+     *
+     * @return - returns the SymbolTable's lexeme and SymbolData
+     * toString().
+     */
     @Override
     public String toString()
     {
@@ -225,6 +231,11 @@ public class SymbolTable
             this.kind = kind;
         }
 
+        /**
+         * The string displayed for the returned SymbolData.
+         *
+         * @return - returns the SymbolData's name and kind.
+         */
         @Override
         public String toString()
         {
