@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import scanner.Scanner;
 import scanner.Token;
 import scanner.TokenType;
@@ -36,6 +34,8 @@ public class Recognizer
     private Token lookahead;
 
     private Scanner scanner;
+
+    private SymbolTable symbols;
 
     ///////////////////////////////
     //       Constructors
@@ -370,18 +370,22 @@ public class Recognizer
      * the micro pascal grammar.
      */
     public void statement()
-    {
+    { symbols = new SymbolTable();
         /*All if/else if statements compare the lookahead token with a
         token type to see if it matches the same type. */
         if(lookahead.getType() == TokenType.ID)
         {
-            variable();
-            assignop();
-            expression();
+            if(symbols.isVarName(lookahead.lexeme))
+            {
+                variable();
+                assignop();
+                expression();
+            }
+            else
+                {
+                    procedure_statement();
+                }
         }
-               /* procedure_statement() path goes here.
-               This path is future work we don't have to do yet.
-                */
 
         else if(lookahead.getType() == TokenType.BEGIN)
         {
