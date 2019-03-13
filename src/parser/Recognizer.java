@@ -117,7 +117,9 @@ public class Recognizer
      */
     public void identifier_list()
     {
+        String varName = lookahead.lexeme;
         match(TokenType.ID);
+        symbols.addVarName(varName);
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.COMMA)
