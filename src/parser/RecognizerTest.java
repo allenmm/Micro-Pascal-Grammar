@@ -243,6 +243,23 @@ public class RecognizerTest
             fail("Didn't want to throw exception");
         }
 
+        //Pascal string test. Happy path, with good pascal.
+        test = "food(3)";
+        instance = new Recognizer(test, false);
+        /*Adding the lexeme in the test as a variable name to the symbol
+        table to test the statement method.*/
+        instance.getSymbolTable().addProcedureName("food");
+        try
+        {
+            instance.statement();
+            //If it's good pascal, it should print this out.
+            System.out.println("Passed, parsed the happy path" + "\n");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
+
         //Pascal string test. Bad path, with bad pascal.
         test = "fooz(3)";
         instance = new Recognizer(test, false);
