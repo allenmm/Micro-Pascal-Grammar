@@ -29,12 +29,16 @@ public class CompilerMain
             into the program method. */
             String tableString = instance.getSymbolTable().toString();
             int dotIndex = fileName.indexOf(".");
+            /*The file name from the first letter of the file name up
+            to the dot. */
             String baseFileName = fileName.substring(0, dotIndex);
+            /*Changing the file extension by adding the file extension
+            on to the file name. */
             String fileOutName = baseFileName + ".table";
             try
             {
-                //
                 PrintWriter printWriter = new PrintWriter(fileOutName);
+                //Writing symbol table toString out to the .table file
                 printWriter.print(tableString);
                 printWriter.close();
             }
