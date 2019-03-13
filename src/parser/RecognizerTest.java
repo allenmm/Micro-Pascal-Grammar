@@ -2,7 +2,9 @@
 package parser;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import scanner.TokenType;
 
 /**
@@ -39,7 +41,7 @@ public class RecognizerTest
 
         //Pascal file test
         Recognizer instance = new Recognizer
-                ( "src/parser/quiz.pas", true);
+                ("src/parser/quiz.pas", true);
 
         //Happy path, with good pascal.
         try
@@ -90,7 +92,7 @@ public class RecognizerTest
 
         //Pascal string test. Happy path, with good pascal.
         String test = "program foo ; begin end .";
-        instance = new Recognizer( test, false);
+        instance = new Recognizer(test, false);
         try
         {
             instance.program();
@@ -104,7 +106,7 @@ public class RecognizerTest
 
         //Pascal string test. Bad path, with bad pascal.
         test = "program foo begin end .";
-        instance = new Recognizer( test, false);
+        instance = new Recognizer(test, false);
         try
         {
             instance.program();
@@ -135,7 +137,7 @@ public class RecognizerTest
 
         //Pascal string test. Happy path, with good pascal.
         String test = "var declarations : integer ;";
-        Recognizer instance = new Recognizer( test, false);
+        Recognizer instance = new Recognizer(test, false);
         try
         {
             instance.declarations();
@@ -149,7 +151,7 @@ public class RecognizerTest
 
         //Pascal string test. Bad path, with bad pascal.
         test = "var declarations : integer";
-        instance = new Recognizer( test, false);
+        instance = new Recognizer(test, false);
         try
         {
             instance.declarations();
@@ -181,7 +183,7 @@ public class RecognizerTest
         String test = "procedure fooz (identifier : integer) ;\n" +
                 "var declarations2 : integer ;\n" +
                 "begin read ( foo2 ) end";
-        Recognizer instance = new Recognizer( test, false);
+        Recognizer instance = new Recognizer(test, false);
         try
         {
             instance.subprogram_declaration();
@@ -195,7 +197,7 @@ public class RecognizerTest
 
         //Pascal string test. Bad path, with bad pascal.
         test = "procedure id";
-        instance = new Recognizer( test, false);
+        instance = new Recognizer(test, false);
         try
         {
             instance.subprogram_declaration();
@@ -212,9 +214,10 @@ public class RecognizerTest
 
     /**
      * This method uses JUnit to test the statement method from the
-     * Recognizer class by testing to see if the current token matches the
-     * expected token type in the statement method. This is a text
-     * string test.
+     * Recognizer class by testing to see if the current token matches
+     * the expected token type in the statement method. It also tests
+     * this method for assignment and procedure calls by testing IDs
+     * added to the symbol table. This is a text string test.
      */
     @Test
     public void testStatement()
@@ -224,8 +227,44 @@ public class RecognizerTest
                 "########################" + "\n");
 
         //Pascal string test. Happy path, with good pascal.
-        String test = "read (foo)";
-        Recognizer instance = new Recognizer( test, false);
+        String test = "foo := 3";
+        Recognizer instance = new Recognizer(test, false);
+        /*Adding the lexeme in the test as a variable name to the symbol
+        table to test the statement method.*/
+        instance.getSymbolTable().addVarName("foo");
+        try
+        {
+            instance.statement();
+            //If it's good pascal, it should print this out.
+            System.out.println("Passed, parsed the happy path." + "\n");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
+
+        //Pascal string test. Bad path, with bad pascal.
+        test = "fooz(3)";
+        instance = new Recognizer(test, false);
+        /*Adding the lexeme in the test as a variable name to the symbol
+        table to test the statement method.*/
+        instance.getSymbolTable().addVarName("fooz");
+        try
+        {
+            instance.statement();
+            //If it's bad pascal, it should throw an exception.
+            fail("Didn't want to throw exception");
+        }
+        catch (Exception actual)
+        {
+            String expected = "Assignop";
+            assertEquals(expected, actual.getMessage());
+            System.out.println("Passed, caught the error." + "\n");
+        }
+
+        //Pascal string test. Happy path, with good pascal.
+        test = "read (foo)";
+        instance = new Recognizer(test, false);
         try
         {
             instance.statement();
@@ -239,7 +278,7 @@ public class RecognizerTest
 
         //Pascal string test. Bad path, with bad pascal.
         test = "read ; (foo)";
-        instance = new Recognizer( test, false);
+        instance = new Recognizer(test, false);
         try
         {
             instance.statement();
@@ -267,24 +306,24 @@ public class RecognizerTest
         System.out.println("\n" + "##############################" + "\n" +
                 "#   Test simple_expression   #" + "\n" +
                 "##############################" + "\n");
-       String test = "34 + 17 * 7";
+        String test = "34 + 17 * 7";
         Recognizer instance = new Recognizer
-                ( test, false);
-       try
-       {
+                (test, false);
+        try
+        {
            /*Calls Recognizer Object method exp. Constructor is
            automatically called when an object of the class is created.*/
-           instance.simple_expression();
-           System.out.println("It Parsed!" + "\n");
-       }
-       catch (Exception e)
-       {
-           fail("Didn't want to throw exception");
-       }
+            instance.simple_expression();
+            System.out.println("It Parsed!" + "\n");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
 
         //Pascal string test. Bad path, with bad pascal.
         test = "34 or";
-        instance = new Recognizer( test, false);
+        instance = new Recognizer(test, false);
         try
         {
             instance.simple_expression();
@@ -311,7 +350,7 @@ public class RecognizerTest
         System.out.println("\n" + "######################" + "\n" +
                 "#     Test factor    #" + "\n" +
                 "######################" + "\n");
-        Recognizer instance = new Recognizer( "87654321", false);
+        Recognizer instance = new Recognizer("87654321", false);
         try
         {
         /*Calls Recognizer Object method factor. Constructor
@@ -326,7 +365,7 @@ public class RecognizerTest
 
         //Pascal string test. Bad path, with bad pascal.
         String test = "[";
-        instance = new Recognizer( test, false);
+        instance = new Recognizer(test, false);
         try
         {
             instance.factor();
@@ -348,12 +387,13 @@ public class RecognizerTest
      * This is a text string test.
      */
     @Test
-    public void testSimple_part() {
+    public void testSimple_part()
+    {
         System.out.println("\n" + "######################" + "\n" +
                 "#  Test simple_part  #" + "\n" +
                 "######################" + "\n");
         String test = "+ 34";
-        Recognizer instance = new Recognizer( test, false);
+        Recognizer instance = new Recognizer(test, false);
         try
         {
             /*Calls Recognizer Object method simple_part. Constructor
@@ -369,7 +409,7 @@ public class RecognizerTest
 
         //Pascal string test. Bad path, with bad pascal.
         test = "+";
-        instance = new Recognizer( test, false);
+        instance = new Recognizer(test, false);
         try
         {
             instance.simple_part();
@@ -391,23 +431,24 @@ public class RecognizerTest
      * test.
      */
     @Test
-    public void testAddop() {
+    public void testAddop()
+    {
         System.out.println("\n" + "######################" + "\n" +
-                    "#     Test addop     #" + "\n" +
-                    "######################" + "\n");
+                "#     Test addop     #" + "\n" +
+                "######################" + "\n");
         TokenType plus = TokenType.PLUS;
-        Recognizer instance = new Recognizer( "+", false);
-       try
-       {
-           //Calls Recognizer Object method match. Constructor is
-           // automatically called when an object of the class is created.
-           instance.match(plus);
-           System.out.println("Recognized the single addop.");
-       }
-       catch (Exception e)
-       {
-           fail("Didn't want to throw exception");
-       }
+        Recognizer instance = new Recognizer("+", false);
+        try
+        {
+            //Calls Recognizer Object method match. Constructor is
+            // automatically called when an object of the class is created.
+            instance.match(plus);
+            System.out.println("Recognized the single addop.");
+        }
+        catch (Exception e)
+        {
+            fail("Didn't want to throw exception");
+        }
     }
 
     /**
@@ -438,7 +479,7 @@ public class RecognizerTest
     }
 
     /**
-     *This method uses JUnit to test the term_part method from the
+     * This method uses JUnit to test the term_part method from the
      * Recognizer class by testing to see if the current token matches
      * the expected token type in the term_part method. This is a text
      * string test.
@@ -449,7 +490,7 @@ public class RecognizerTest
         System.out.println("\n" + "######################" + "\n" +
                 "#   Test term_part   #" + "\n" +
                 "######################" + "\n");
-        Recognizer instance = new Recognizer( "* foo / foo2", false);
+        Recognizer instance = new Recognizer("* foo / foo2", false);
         try
         {
             //Calls Recognizer Object method term_part. Constructor is automatically
@@ -470,11 +511,12 @@ public class RecognizerTest
      * test.
      */
     @Test
-    public void testMulop() {
+    public void testMulop()
+    {
         System.out.println("\n" + "######################" + "\n" +
                 "#     Test mulop     #" + "\n" +
                 "######################" + "\n");
-        Recognizer instance = new Recognizer( "*", false);
+        Recognizer instance = new Recognizer("*", false);
         try
         {
             //Calls Recognizer Object method mulop. Constructor is automatically
@@ -489,7 +531,7 @@ public class RecognizerTest
     }
 
     /**
-     *This method uses JUnit to test the match method from the Recognizer
+     * This method uses JUnit to test the match method from the Recognizer
      * class by testing to see if the current token matches the
      * expected token type in the match method. This is a text string
      * test that tests the period token type as the expected token to
@@ -503,7 +545,7 @@ public class RecognizerTest
                 "#     Test match     #" + "\n" +
                 "######################" + "\n");
         TokenType ett = TokenType.PERIOD;
-        Recognizer instance = new Recognizer( ".", false);
+        Recognizer instance = new Recognizer(".", false);
         try
         {
             //Calls Recognizer Object method match. Constructor is
@@ -528,7 +570,7 @@ public class RecognizerTest
                 "#     Test error     #" + "\n" +
                 "######################" + "\n");
         String expected = "error test";
-        Recognizer instance = new Recognizer( "", false);
+        Recognizer instance = new Recognizer("", false);
         try
         {
             /*Calls Recognizer Object method error and passes the message
@@ -537,7 +579,7 @@ public class RecognizerTest
             instance.error(expected);
             System.out.println("Did not want the error to pass.");
         }
-        catch(Exception actual)
+        catch (Exception actual)
         {
             assertEquals(expected, actual.getMessage());
             System.out.println("Successfully tested the error.");
