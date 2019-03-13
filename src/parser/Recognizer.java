@@ -101,7 +101,9 @@ public class Recognizer
     public void program()
     {
         match(TokenType.PROGRAM);
+        String programName = lookahead.lexeme;
         match(TokenType.ID);
+        symbols.addProgramName(programName);
         match(TokenType.SEMI);
         declarations();
         subprogram_declarations();
