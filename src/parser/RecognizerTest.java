@@ -48,7 +48,7 @@ public class RecognizerTest
         {
             instance.program();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path." + "\n");
+            System.out.println("Passed, parsed the happy path" + "\n");
         }
         catch (Exception actual)
         {
@@ -65,7 +65,7 @@ public class RecognizerTest
         {
             instance.program();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path." + "\n");
+            System.out.println("Passed, parsed the happy path" + "\n");
         }
         catch (Exception actual)
         {
@@ -82,7 +82,7 @@ public class RecognizerTest
         {
             instance.program();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path." + "\n");
+            System.out.println("Passed, parsed the happy path" + "\n");
         }
         catch (Exception actual)
         {
@@ -97,7 +97,7 @@ public class RecognizerTest
         {
             instance.program();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path." + "\n");
+            System.out.println("Passed, parsed the happy path" + "\n");
         }
         catch (Exception actual)
         {
@@ -117,7 +117,7 @@ public class RecognizerTest
         {
             String expected = "Match of SEMI found BEGIN instead.";
             assertEquals(expected, actual.getMessage());
-            System.out.println("Passed, caught the error.");
+            System.out.println("Passed, caught the error");
         }
 
     }
@@ -142,7 +142,7 @@ public class RecognizerTest
         {
             instance.declarations();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path." + "\n");
+            System.out.println("Passed, parsed the happy path" + "\n");
         }
         catch (Exception actual)
         {
@@ -162,7 +162,7 @@ public class RecognizerTest
         {
             String expected = "Match of SEMI found null instead.";
             assertEquals(expected, actual.getMessage());
-            System.out.println("Passed, caught the error.");
+            System.out.println("Passed, caught the error");
         }
     }
 
@@ -175,8 +175,8 @@ public class RecognizerTest
     @Test
     public void testSubprogram_declaration()
     {
-        System.out.println("\n" + "#################################" + "\n" +
-                "#  Test subprogram_declaration  #" + "\n" +
+        System.out.println("\n" + "#################################" +
+                "\n" + "#  Test subprogram_declaration  #" + "\n" +
                 "#################################" + "\n");
 
         //Pascal string test. Happy path, with good pascal.
@@ -188,7 +188,7 @@ public class RecognizerTest
         {
             instance.subprogram_declaration();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path." + "\n");
+            System.out.println("Passed, parsed the happy path" + "\n");
         }
         catch (Exception actual)
         {
@@ -208,7 +208,7 @@ public class RecognizerTest
         {
             String expected = "Match of SEMI found null instead.";
             assertEquals(expected, actual.getMessage());
-            System.out.println("Passed, caught the error.");
+            System.out.println("Passed, caught the error");
         }
     }
 
@@ -236,7 +236,7 @@ public class RecognizerTest
         {
             instance.statement();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path." + "\n");
+            System.out.println("Passed, parsed the happy path" + "\n");
         }
         catch (Exception e)
         {
@@ -259,7 +259,7 @@ public class RecognizerTest
         {
             String expected = "Assignop";
             assertEquals(expected, actual.getMessage());
-            System.out.println("Passed, caught the error." + "\n");
+            System.out.println("Passed, caught the error" + "\n");
         }
 
         //Pascal string test. Happy path, with good pascal.
@@ -269,7 +269,7 @@ public class RecognizerTest
         {
             instance.statement();
             //If it's good pascal, it should print this out.
-            System.out.println("Passed, parsed the happy path." + "\n");
+            System.out.println("Passed, parsed the happy path" + "\n");
         }
         catch (Exception actual)
         {
@@ -289,7 +289,7 @@ public class RecognizerTest
         {
             String expected = "Match of LPAREN found SEMI instead.";
             assertEquals(expected, actual.getMessage());
-            System.out.println("Passed, caught the error.");
+            System.out.println("Passed, caught the error");
         }
     }
 
@@ -303,8 +303,8 @@ public class RecognizerTest
     @Test
     public void testSimple_expression()
     {
-        System.out.println("\n" + "##############################" + "\n" +
-                "#   Test simple_expression   #" + "\n" +
+        System.out.println("\n" + "##############################" +
+                "\n" + "#   Test simple_expression   #" + "\n" +
                 "##############################" + "\n");
         String test = "34 + 17 * 7";
         Recognizer instance = new Recognizer
@@ -334,7 +334,7 @@ public class RecognizerTest
         {
             String expected = "Factor";
             assertEquals(expected, actual.getMessage());
-            System.out.println("Passed, caught the error.");
+            System.out.println("Passed, caught the error");
         }
     }
 
@@ -350,13 +350,14 @@ public class RecognizerTest
         System.out.println("\n" + "######################" + "\n" +
                 "#     Test factor    #" + "\n" +
                 "######################" + "\n");
-        Recognizer instance = new Recognizer("87654321", false);
+        Recognizer instance = new Recognizer
+                ("87654321", false);
         try
         {
         /*Calls Recognizer Object method factor. Constructor
         is automatically called when an object of the class is created.*/
             instance.factor();
-            System.out.println("Recognized the factor token.");
+            System.out.println("Recognized the factor token");
         }
         catch (Exception e)
         {
@@ -376,7 +377,7 @@ public class RecognizerTest
         {
             String expected = "Factor";
             assertEquals(expected, actual.getMessage());
-            System.out.println("Passed, caught the error.");
+            System.out.println("Passed, caught the error");
         }
     }
 
@@ -420,7 +421,7 @@ public class RecognizerTest
         {
             String expected = "Factor";
             assertEquals(expected, actual.getMessage());
-            System.out.println("Passed, caught the error.");
+            System.out.println("Passed, caught the error");
         }
     }
 
@@ -440,10 +441,10 @@ public class RecognizerTest
         Recognizer instance = new Recognizer("+", false);
         try
         {
-            //Calls Recognizer Object method match. Constructor is
-            // automatically called when an object of the class is created.
+            /*Calls Recognizer Object method match. Constructor is
+            automatically called when an object of the class is created.*/
             instance.match(plus);
-            System.out.println("Recognized the single addop.");
+            System.out.println("Recognized the single addop");
         }
         catch (Exception e)
         {
@@ -470,7 +471,7 @@ public class RecognizerTest
         /*Calls Recognizer Object method term. Constructor is
         automatically called when an object of the class is created.*/
             instance.term();
-            System.out.println("Parsed a term.");
+            System.out.println("Parsed a term");
         }
         catch (Exception e)
         {
@@ -490,13 +491,15 @@ public class RecognizerTest
         System.out.println("\n" + "######################" + "\n" +
                 "#   Test term_part   #" + "\n" +
                 "######################" + "\n");
-        Recognizer instance = new Recognizer("* foo / foo2", false);
+        Recognizer instance = new Recognizer
+                ("* foo / foo2", false);
         try
         {
-            //Calls Recognizer Object method term_part. Constructor is automatically
-            //called when an object of the class is created.
+            /*Calls Recognizer Object method term_part. Constructor is
+            automatically called when an object of the class is
+            created. */
             instance.term_part();
-            System.out.println("Parsed a term.");
+            System.out.println("Parsed a term");
         }
         catch (Exception e)
         {
@@ -519,10 +522,11 @@ public class RecognizerTest
         Recognizer instance = new Recognizer("*", false);
         try
         {
-            //Calls Recognizer Object method mulop. Constructor is automatically
-            //called when an object of the class is created.
+            /*Calls Recognizer Object method mulop. Constructor is
+            automatically called when an object of the class is
+            created. */
             instance.mulop();
-            System.out.println("Recognized the single mulop.");
+            System.out.println("Recognized the single mulop");
         }
         catch (Exception e)
         {
@@ -548,8 +552,9 @@ public class RecognizerTest
         Recognizer instance = new Recognizer(".", false);
         try
         {
-            //Calls Recognizer Object method match. Constructor is
-            //automatically called when an object of the class is created.
+            /*Calls Recognizer Object method match. Constructor is
+            automatically called when an object of the class is
+            created. */
             instance.match(ett);
             System.out.println("It matches!");
         }
@@ -577,12 +582,12 @@ public class RecognizerTest
             directly into it. Constructor is automatically called
             when an object of the class is created.*/
             instance.error(expected);
-            System.out.println("Did not want the error to pass.");
+            System.out.println("Did not want the error to pass");
         }
         catch (Exception actual)
         {
             assertEquals(expected, actual.getMessage());
-            System.out.println("Successfully tested the error.");
+            System.out.println("Successfully tested the error");
         }
     }
 }
