@@ -103,6 +103,8 @@ public class Recognizer
         match(TokenType.PROGRAM);
         String programName = lookahead.lexeme;
         match(TokenType.ID);
+        /* Allows the current identifier to be added as a
+        program in the symbol table. */
         symbols.addProgramName(programName);
         match(TokenType.SEMI);
         declarations();
@@ -119,6 +121,8 @@ public class Recognizer
     {
         String varName = lookahead.lexeme;
         match(TokenType.ID);
+        /* Allows the current identifier to be added as a
+        variable in the symbol table. */
         symbols.addVarName(varName);
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
@@ -260,6 +264,8 @@ public class Recognizer
             match(TokenType.FUNCTION);
             String functionName = lookahead.lexeme;
             match(TokenType.ID);
+            /* Allows the current identifier to be added as a
+            function in the symbol table. */
             symbols.addFunctionName(functionName);
             arguments();
             match(TokenType.COLON);
@@ -273,6 +279,8 @@ public class Recognizer
             match(TokenType.PROCEDURE);
             String procedureName = lookahead.lexeme;
             match(TokenType.ID);
+            /* Allows the current identifier to be added as a
+            procedure in the symbol table. */
             symbols.addProcedureName(procedureName);
             arguments();
             match(TokenType.SEMI);
@@ -385,6 +393,8 @@ public class Recognizer
         token type to see if it matches the same type. */
         if (lookahead.getType() == TokenType.ID)
         {
+            /*Checks to see if the current identifier is a variable
+            or a procedure name. */
             if (symbols.isVarName(lookahead.lexeme))
             {
                 variable();
