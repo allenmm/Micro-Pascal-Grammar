@@ -203,8 +203,8 @@ public class SymbolTable
     /**
      * The string displayed for the returned SymbolTable.
      *
-     * @return - returns the SymbolTable's lexeme and SymbolData
-     * toString().
+     * @return - returns the name and kind of the symbol table in a
+     * beautifully formatted toString().
      */
     @Override
     public String toString()
