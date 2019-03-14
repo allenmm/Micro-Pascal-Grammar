@@ -209,9 +209,16 @@ public class SymbolTable
     @Override
     public String toString()
     {
-        return "SymbolTable{" +
-                "symbols=" + symbols +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("\tSymbol Table\n\n" + "Symbols\t\t" + "Kinds\n" +
+                "--------------------------------\n");
+        for(HashMap.Entry<String, SymbolData> entry: symbols.entrySet())
+        {
+            sb.append(entry.getValue());
+            sb.append('\n');
+        }
+
+        return sb.toString();
     }
 
     /**
@@ -239,9 +246,7 @@ public class SymbolTable
         @Override
         public String toString()
         {
-            return "name='" + name + '\'' +
-                    ", kind=" + kind +
-                    '}';
+            return  name + "\t\t\t" + kind;
         }
     }
 
