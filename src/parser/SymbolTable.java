@@ -210,12 +210,12 @@ public class SymbolTable
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("\t\t\t\t\tSymbol Table\n\n" + "\t\t\tSymbols\t\t\t\t\t" +
-                "Kinds\n" +
-                "--------------------------------------------------\n");
+        sb.append("\t\tSymbol Table\n\n" + "Symbols\t\t\t\t" +
+                " Kinds\n" +
+                "-------------------------------------\n");
         for(HashMap.Entry<String, SymbolData> entry: symbols.entrySet())
         {
-            String output = String.format("%20s %20s",
+            String output = String.format("%-20s %-20s",
                     entry.getValue().name, entry.getValue().kind);
             sb.append(output);
             sb.append('\n');
