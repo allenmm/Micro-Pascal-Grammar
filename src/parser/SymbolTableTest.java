@@ -14,6 +14,37 @@ import static org.junit.Assert.*;
 public class SymbolTableTest
 {
     /**
+     * This method uses JUnit to test the toString method from the
+     * SymbolTable class by testing to see if the file passed into
+     * the program method returns a symbol table toString.
+     */
+    @Test
+    public void testToString()
+    {
+        System.out.println("\n" + "#########################" + "\n" +
+                "#  Test ToString #" + "\n" +
+                "#########################" + "\n");
+        Recognizer instance = new Recognizer
+                ("src/parser/final.pas", true);
+        /*Calls Recognizer Object method program. Constructor
+        is automatically called when an object of the class is
+        created. */
+        try
+        {
+            instance.program();
+            String actual = instance.getSymbolTable().toString();
+            String expected = "\n\nSymbol Table-------------------{fi=fi', kind=VAR_NAME}, foo=foo', kind=PROGRAM_NAME}, fee=fee', kind=VAR_NAME}, fo=fo', kind=VAR_NAME}, fum=fum', kind=VAR_NAME}}";
+            assertEquals(expected, actual);
+            //If it's good pascal, it should print this out.
+            System.out.println("Passed, parsed the happy path" + "\n");
+        }
+        catch (Exception e)
+        {
+            System.out.println("Unexpected Token found:");
+        }
+    }
+
+    /**
      * This method uses JUnit to test the isProcedureName method from the
      * SymbolTable class by testing to see if the identifier is a
      * procedure name and was properly added to the Symbol Table.
