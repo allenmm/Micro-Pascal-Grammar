@@ -210,11 +210,14 @@ public class SymbolTable
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("\tSymbol Table\n\n" + "Symbols\t\t" + "Kinds\n" +
-                "--------------------------------\n");
+        sb.append("\t\t\t\t\tSymbol Table\n\n" + "\t\t\tSymbols\t\t\t\t\t" +
+                "Kinds\n" +
+                "--------------------------------------------------\n");
         for(HashMap.Entry<String, SymbolData> entry: symbols.entrySet())
         {
-            sb.append(entry.getValue());
+            String output = String.format("%20s %20s",
+                    entry.getValue().name, entry.getValue().kind);
+            sb.append(output);
             sb.append('\n');
         }
 
@@ -229,8 +232,8 @@ public class SymbolTable
      */
     private class SymbolData
     {
-        private String name;
-        private KindEnum kind;
+        String name;
+        KindEnum kind;
 
         SymbolData(String name, KindEnum kind)
         {
@@ -246,7 +249,7 @@ public class SymbolTable
         @Override
         public String toString()
         {
-            return  name + "\t\t\t" + kind;
+            return  name + kind;
         }
     }
 
