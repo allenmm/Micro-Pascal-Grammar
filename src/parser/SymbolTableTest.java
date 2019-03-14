@@ -42,14 +42,14 @@ public class SymbolTableTest
                     "foo                  PROGRAM_NAME        \n" +
                     "declarations2        VAR_NAME            \n" +
                     "declarations         VAR_NAME            \n";
-            
+
             assertEquals(expected, actual);
             //If it's good pascal, it should print this out.
             System.out.println("Passed, parsed the happy path" + "\n");
         }
         catch (Exception e)
         {
-            System.out.println("Unexpected Token found:");
+            System.out.println("Failed, did not parse");
         }
     }
 
