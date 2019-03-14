@@ -4,15 +4,27 @@ import parser.Recognizer;
 
 import java.io.PrintWriter;
 
+
+/**
+ * This class reads a file from args and writes a formatted symbol table
+ * to a file. The file read from args is checked to see if a file was
+ * entered or not. If no file is entered then it asks the user to
+ * enter a file name, and then exits the file. If a file is present, then
+ * it is read, passed into the program method in the Recognizer class
+ * through its constructor, and a toString of the symbol table from the
+ * pascal program is generated and written to a file.
+ *
+ * @author Marissa Allen
+ */
 public class CompilerMain
 {
     public static void main(String[] args)
     {
-
+        //Tests to see if a file was entered.
         if (args.length == 0)
         {
             System.out.println("Please enter a file name");
-            System.exit(0); //or return? exit runs faster.
+            System.exit(0);
         }
         else
         {
@@ -33,7 +45,7 @@ public class CompilerMain
             to the dot. */
             String baseFileName = fileName.substring(0, dotIndex);
             /*Changing the file extension by adding the file extension
-            on to the file name. */
+            .table on to the file name. */
             String fileOutName = baseFileName + ".table";
             try
             {
