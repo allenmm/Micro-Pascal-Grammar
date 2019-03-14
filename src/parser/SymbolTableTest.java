@@ -25,7 +25,7 @@ public class SymbolTableTest
                 "#  Test ToString #" + "\n" +
                 "#########################" + "\n");
         Recognizer instance = new Recognizer
-                ("src/parser/final.pas", true);
+                ("src/parser/midterm.pas", true);
         /*Calls Recognizer Object method program. Constructor
         is automatically called when an object of the class is
         created. */
@@ -33,7 +33,16 @@ public class SymbolTableTest
         {
             instance.program();
             String actual = instance.getSymbolTable().toString();
-            String expected = "\n\nSymbol Table-------------------{fi=fi', kind=VAR_NAME}, foo=foo', kind=PROGRAM_NAME}, fee=fee', kind=VAR_NAME}, fo=fo', kind=VAR_NAME}, fum=fum', kind=VAR_NAME}}";
+            String expected = "\t\tSymbol Table\n" +
+                    "\n" +
+                    "Symbols\t\t\t\t Kinds\n" +
+                    "-------------------------------------\n" +
+                    "identifier           VAR_NAME            \n" +
+                    "fooz                 PROCEDURE_NAME      \n" +
+                    "foo                  PROGRAM_NAME        \n" +
+                    "declarations2        VAR_NAME            \n" +
+                    "declarations         VAR_NAME            \n";
+            
             assertEquals(expected, actual);
             //If it's good pascal, it should print this out.
             System.out.println("Passed, parsed the happy path" + "\n");
