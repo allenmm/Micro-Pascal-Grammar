@@ -201,6 +201,30 @@ public class SymbolTable
     }
 
     /**
+     * The string displayed for the returned SymbolTable.
+     *
+     * @return - returns the name and kind of the symbol table in a
+     * beautifully formatted toString().
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\t\tSymbol Table\n\n" + "Symbols\t\t\t\t" +
+                " Kinds\n" +
+                "-------------------------------------\n");
+        for(HashMap.Entry<String, SymbolData> entry: symbols.entrySet())
+        {
+            String output = String.format("%-20s %-20s",
+                    entry.getValue().name, entry.getValue().kind);
+            sb.append(output);
+            sb.append('\n');
+        }
+
+        return sb.toString();
+    }
+
+    /**
      * Contains the datatype and kind information identifier attribute
      * values that are stored in the hash map.
      *
@@ -208,8 +232,8 @@ public class SymbolTable
      */
     private class SymbolData
     {
-        private String name;
-        private KindEnum kind;
+        String name;
+        KindEnum kind;
 
         SymbolData(String name, KindEnum kind)
         {
@@ -217,6 +241,16 @@ public class SymbolTable
             this.kind = kind;
         }
 
+        /**
+         * The string displayed for the returned SymbolData.
+         *
+         * @return - returns the SymbolData's name and kind.
+         */
+        @Override
+        public String toString()
+        {
+            return  name + kind;
+        }
     }
 
 }
