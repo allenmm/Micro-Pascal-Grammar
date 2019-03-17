@@ -9,6 +9,7 @@ import java.io.StringReader;
 import scanner.Scanner;
 import scanner.Token;
 import scanner.TokenType;
+import syntaxtree.*;
 
 /**
  * This program creates a recognizer, implemented as a top-down
@@ -110,8 +111,10 @@ public class Parser
         ProgramNode pn = new ProgramNode(programName);
         DeclarationsNode dn = declarations();
         pn.setVariables(dn);
-        subprogram_declarations();
-        compound_statement();
+        SubProgramDeclarationsNode sdn = subprogram_declarations();
+        pn.setFunctions(sdn);
+        CompoundStatementNode csn = compound_statement();
+        pn.setMain(csn);
         match(TokenType.PERIOD);
         return pn;
     }
