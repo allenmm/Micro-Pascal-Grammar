@@ -18,16 +18,29 @@ public class ParserTest
 
     /**
      * JUnit test for the indentedToString of a pascal program.
+     *
+     * Based on the pascal program percentage below:
+     *
+     * program percentage;
+     * var percentinput, giveninteger, output: integer;
+     *
+     * begin
+     * percentinput := 10;
+     * giveninteger := 50;
+     * output := percentinput/100 * givennumber
+     * end
+     * .
      */
     @Test
-    public void programTest() {
+    public void programNodeTest()
+    {
 
-        ProgramNode pn = new ProgramNode("sample");
+        ProgramNode pn = new ProgramNode("percentageformula");
         DeclarationsNode dn = new DeclarationsNode();
         pn.setVariables(dn);
-        VariableNode vn = new VariableNode("dollars");
-        VariableNode vn2 = new VariableNode("yen");
-        VariableNode vn3 = new VariableNode("bitcoins");
+        VariableNode vn = new VariableNode("percentinput");
+        VariableNode vn2 = new VariableNode("giveninteger");
+        VariableNode vn3 = new VariableNode("output");
         dn.addVariable(vn);
         dn.addVariable(vn2);
         dn.addVariable(vn3);
@@ -35,65 +48,54 @@ public class ParserTest
         pn.setFunctions(sdn);
         CompoundStatementNode csn = new CompoundStatementNode();
         pn.setMain(csn);
+
         AssignmentStatementNode asn = new AssignmentStatementNode();
         asn.setLvalue(vn);
-        ValueNode valueNode = new ValueNode("1000000");
+        ValueNode valueNode = new ValueNode("10");
         asn.setExpression(valueNode);
         csn.addStatement(asn);
 
         AssignmentStatementNode asn2 = new AssignmentStatementNode();
         asn2.setLvalue(vn2);
-        OperationNode opn = new OperationNode(TokenType.MULTI);
-        opn.setLeft(vn);
-        ValueNode valueNode2 = new ValueNode("102");
-        opn.setRight(valueNode2);
-        asn2.setExpression(opn);
+        ValueNode valueNode2 = new ValueNode("50");
+        asn2.setExpression(valueNode2);
         csn.addStatement(asn2);
 
         AssignmentStatementNode asn3 = new AssignmentStatementNode();
         asn3.setLvalue(vn3);
-        OperationNode opn2 = new OperationNode(TokenType.DIV);
+        OperationNode opn = new OperationNode(TokenType.DIV);
         opn.setLeft(vn);
-        ValueNode valueNode3 = new ValueNode("400");
-        opn.setRight(valueNode3);
+        ValueNode valueNode3 = new ValueNode("100");
+        OperationNode opn2 = new OperationNode(TokenType.MULTI);
+        opn.setRight(opn2);
+        opn2.setLeft(valueNode3);
+        opn2.setRight(vn2);
         asn3.setExpression(opn);
         csn.addStatement(asn3);
 
         String actual = pn.indentedToString(0);
 
-//        String test = "program sample;\n" +
-//                "var dollars, yen, bitcoins: integer;\n" +
-//                "\n" +
-//                "begin\n" +
-//                "  dollars := 1000000;\n" +
-//                "  yen := dollars * 110;\n" +
-//                "  bitcoins := dollars / 3900\n" +
-//                "end\n" +
-//                ".";
-//        Parser parser = new Parser( test, false);
-//        ProgramNode actual = parser.program();
-//        String actualString = actual.indentedToString( 0);
-        String expectedString =
-                "Program: sample\n" +
+        String expected =
+                "Program: percentageformula\n" +
                         "|-- Declarations\n" +
-                        "|-- --- Name: dollars\n" +
-                        "|-- --- Name: yen\n" +
-                        "|-- --- Name: bitcoins\n" +
+                        "|-- --- Name: percentinput\n" +
+                        "|-- --- Name: giveninteger\n" +
+                        "|-- --- Name: output\n" +
                         "|-- SubProgramDeclarations\n" +
                         "|-- Compound Statement\n" +
                         "|-- --- Assignment\n" +
-                        "|-- --- --- Name: dollars\n" +
-                        "|-- --- --- Value: 1000000\n" +
+                        "|-- --- --- Name: percentinput\n" +
+                        "|-- --- --- Value: 10\n" +
                         "|-- --- Assignment\n" +
-                        "|-- --- --- Name: yen\n" +
-                        "|-- --- --- Operation: MULTIPLY\n" +
-                        "|-- --- --- --- Name: dollars\n" +
-                        "|-- --- --- --- Value: 110\n" +
+                        "|-- --- --- Name: giveninteger\n" +
+                        "|-- --- --- Value: 50\n" +
                         "|-- --- Assignment\n" +
-                        "|-- --- --- Name: bitcoins\n" +
-                        "|-- --- --- Operation: DIVIDE\n" +
-                        "|-- --- --- --- Name: dollars\n" +
-                        "|-- --- --- --- Value: 3900\n";
-        assertEquals( expectedString, actual);
+                        "|-- --- --- Name: output\n" +
+                        "|-- --- --- Operation: DIV\n" +
+                        "|-- --- --- --- Name: percentinput\n" +
+                        "|-- --- --- --- Operation: MULTI\n" +
+                        "|-- --- --- --- --- Value: 100\n" +
+                        "|-- --- --- --- --- Name: giveninteger\n";
+        assertEquals(expected, actual);
     }
 }
