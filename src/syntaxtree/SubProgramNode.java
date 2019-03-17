@@ -4,10 +4,7 @@ package syntaxtree;
  *
  * @author Marissa Allen
  */
-public class SubProgramNode
+public class SubProgramNode extends SubProgramDeclarationsNode
 {
-    public String indentedToString(int i)
-    {
-     return indentedToString(i);
-    }
+
 }
