@@ -39,15 +39,25 @@ public class ParserTest
         asn.setLvalue(vn);
         ValueNode valueNode = new ValueNode("1000000");
         asn.setExpression(valueNode);
-
-//        AssignmentStatementNode asn2 = new AssignmentStatementNode();
-//        asn2.setLvalue(vn2);
-//        OperationNode op = new OperationNode(TokenType.MULTI);
-//        ValueNode valueNode2 = new ValueNode(op);
-//        asn.setExpression(valueNode2);
-
         csn.addStatement(asn);
 
+        AssignmentStatementNode asn2 = new AssignmentStatementNode();
+        asn2.setLvalue(vn2);
+        OperationNode opn = new OperationNode(TokenType.MULTI);
+        opn.setLeft(vn);
+        ValueNode valueNode2 = new ValueNode("102");
+        opn.setRight(valueNode2);
+        asn2.setExpression(opn);
+        csn.addStatement(asn2);
+
+        AssignmentStatementNode asn3 = new AssignmentStatementNode();
+        asn3.setLvalue(vn3);
+        OperationNode opn2 = new OperationNode(TokenType.DIV);
+        opn.setLeft(vn);
+        ValueNode valueNode3 = new ValueNode("400");
+        opn.setRight(valueNode3);
+        asn3.setExpression(opn);
+        csn.addStatement(asn3);
 
         String actual = pn.indentedToString(0);
 
