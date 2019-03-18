@@ -98,6 +98,8 @@ public class Parser
     /**
      * Executes the rule for the program non-terminal symbol in
      * the micro pascal grammar if it is recognized as a pascal program.
+     *
+     * @return - The program node representing the pascal program entered.
      */
     public ProgramNode program()
     {
