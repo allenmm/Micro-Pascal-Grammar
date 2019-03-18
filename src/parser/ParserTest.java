@@ -19,7 +19,7 @@ public class ParserTest
 {
 
     /**
-     * A JUnit syntax tree test for the indentedToString() method of a
+     * A JUnit syntax tree test for the program method of a
      * pascal program. This test manually builds a syntax tree by passing
      * a pascal program into the non-terminal methods in the Parser
      * class and the nodes from the classes in the syntaxtree package.
@@ -40,7 +40,7 @@ public class ParserTest
      * .
      */
     @Test
-    public void testIndentedToString()
+    public void testProgram()
     {
         ProgramNode pn = new ProgramNode("percentageformula");
         DeclarationsNode dn = new DeclarationsNode();
