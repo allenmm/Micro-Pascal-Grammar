@@ -148,10 +148,13 @@ public class Parser
     /**
      * Executes the rule for the declarations non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - The set of declarations representing the pascal program.
      */
     public DeclarationsNode declarations()
     {
         DeclarationsNode answer = new DeclarationsNode();
+
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.VAR)
@@ -167,6 +170,7 @@ public class Parser
         {
             //Do nothing. The empty lambda option.
         }
+
         return answer;
     }
 
