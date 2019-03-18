@@ -10,6 +10,9 @@ import syntaxtree.*;
 import java.util.function.Function;
 
 /**
+ * A JUnit Java Program that illustrates building a syntax tree using the
+ * non-terminal symbols in the micro pascal grammar in the Parser class
+ * and nodes from the classes in the syntaxtree package.
  *
  * @author Marissa Allen
  */
