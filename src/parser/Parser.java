@@ -384,9 +384,14 @@ public class Parser
     /**
      * Executes the rule for the optional_statements non-terminal
      * symbol in the micro pascal grammar.
+     *
+     * @return - A a block of zero or more statements in the pascal
+     * program.
      */
-    public void optional_statements()
+    public CompoundStatementNode optional_statements()
     {
+        CompoundStatementNode answer = new CompoundStatementNode();
+
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (isStatement(lookahead))
@@ -397,6 +402,7 @@ public class Parser
         {
             //Do nothing. The empty lambda option.
         }
+        return answer;
     }
 
     /**
