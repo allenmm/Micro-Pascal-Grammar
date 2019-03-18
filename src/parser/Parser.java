@@ -366,12 +366,19 @@ public class Parser
     /**
      * Executes the rule for the compound_statement non-terminal symbol
      * in the micro pascal grammar.
+     *
+     * @return - A a block of zero or more statements in the pascal
+     * program.
      */
-    public void compound_statement()
+    public CompoundStatementNode compound_statement()
     {
+        CompoundStatementNode answer = new CompoundStatementNode();
+
         match(TokenType.BEGIN);
         optional_statements();
         match(TokenType.END);
+
+        return answer;
     }
 
     /**
