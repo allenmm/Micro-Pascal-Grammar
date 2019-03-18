@@ -265,12 +265,19 @@ public class Parser
     /**
      * Executes the rule for the subprogram_declaration non-terminal
      * symbol in the micro pascal grammar.
+     *
+     * @return - A subprogram node in the syntax tree in the
+     * pascal program.
      */
-    public void subprogram_declaration()
+    public SubProgramNode subprogram_declaration()
     {
+        SubProgramNode answer = new SubProgramNode();
+
         subprogram_head();
         declarations();
         compound_statement();
+
+        return answer;
     }
 
     /**
