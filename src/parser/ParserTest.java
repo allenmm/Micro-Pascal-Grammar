@@ -7,8 +7,6 @@ import static org.junit.Assert.*;
 import scanner.TokenType;
 import syntaxtree.*;
 
-import java.util.function.Function;
-
 /**
  * A JUnit Java Program that illustrates building a syntax tree using the
  * non-terminal symbols in the micro pascal grammar in the Parser class
@@ -50,6 +48,7 @@ public class ParserTest
         VariableNode vn = new VariableNode("percentinput");
         VariableNode vn2 = new VariableNode("giveninteger");
         VariableNode vn3 = new VariableNode("output");
+        //Adding the name of the variable associated with the node.
         dn.addVariable(vn);
         dn.addVariable(vn2);
         dn.addVariable(vn3);
@@ -59,26 +58,42 @@ public class ParserTest
         pn.setMain(csn);
 
         AssignmentStatementNode asn = new AssignmentStatementNode();
+        /* Assigns a variable node value to the left side of the
+        assignment statement node. */
         asn.setLvalue(vn);
         ValueNode valueNode = new ValueNode("10");
+        /* Assigns an expression node value to the right of the
+        assignment statement node. */
         asn.setExpression(valueNode);
         csn.addStatement(asn);
 
         AssignmentStatementNode asn2 = new AssignmentStatementNode();
+        /* Assigns a variable node value to the left side of the
+        assignment statement node. */
         asn2.setLvalue(vn2);
         ValueNode valueNode2 = new ValueNode("50");
+        /* Assigns an expression node value to the right of the
+        assignment statement node. */
         asn2.setExpression(valueNode2);
         csn.addStatement(asn2);
 
         AssignmentStatementNode asn3 = new AssignmentStatementNode();
+        /* Assigns a variable node value to the left side of the
+        assignment statement node. */
         asn3.setLvalue(vn3);
         OperationNode opn = new OperationNode(TokenType.DIV);
+        /* Assigns an expression node value to the left side of the
+        operation node. */
         opn.setLeft(vn);
         ValueNode valueNode3 = new ValueNode("100");
         OperationNode opn2 = new OperationNode(TokenType.MULTI);
+        /* Assigns an expression node value to the right side of the
+        operation node. */
         opn.setRight(opn2);
         opn2.setLeft(valueNode3);
         opn2.setRight(vn2);
+        /* Assigns an expression node value to the right of the
+        assignment statement node. */
         asn3.setExpression(opn);
         csn.addStatement(asn3);
 
