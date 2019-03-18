@@ -236,9 +236,15 @@ public class Parser
     /**
      * Executes the rule for the subprogram_declarations non-terminal
      * symbol in the micro pascal grammar.
+     *
+     * @return - The collection of subprogram declarations in the
+     * pascal program.
      */
-    public void subprogram_declarations()
+    public SubProgramDeclarationsNode subprogram_declarations()
     {
+        SubProgramDeclarationsNode answer =
+                new SubProgramDeclarationsNode();
+
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (lookahead.getType() == TokenType.FUNCTION ||
@@ -252,6 +258,8 @@ public class Parser
         {
             //Do nothing. The empty lambda option.
         }
+
+        return answer;
     }
 
     /**
