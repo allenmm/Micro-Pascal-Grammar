@@ -12,17 +12,17 @@ import scanner.TokenType;
 import syntaxtree.*;
 
 /**
- * This program creates a parser, implemented as a top-down
- * recursive descent parser. The parser builds a syntax tree using the NODES
- * input string from the language that is described by the micro pascal grammar.
- * The Recognizer class is a Java Program that illustrates reading from
- * a text file or strings. Either a string or a file path name will be
- * passed into the constructor in the Recognizer class when a method of
- * the class is called. If the string file path in the constructor is
- * present and the file name is true, then a test in the RecognizerTest
- * JUnit class will pass the file path. If the text string in the
- * constructor is present and the file name is false, then the JUnit
- * test will pass the string.
+ * This program is a Java program that illustrates reading from a text
+ * file or strings. Either a string or a file path name will be passed
+ * into the constructor in the Parser class when a method of the class
+ * is called. This class creates a parser, implemented as a top-down
+ * recursive descent parser. In the middle of the recursive decent the
+ * tree is built for the program. The parser builds a syntax tree using
+ * the non-terminal symbols from the grammar and the nodes from
+ * the classes in the syntaxtree package. Every time a node returns, it
+ * returns a part that is added to the syntax tree. The parser also tells
+ * whether an input string is from the language that is described by
+ * the micro pascal grammar or not.
  *
  * @author Marissa Allen
  */
@@ -46,7 +46,7 @@ public class Parser
     /**
      * The parser constructor that takes in a file path or text
      * containing tokens.
-     * <p>
+     *
      * If isFilename is true, it signifies that the parser is looking
      * at a file. If false, it signifies that the parser is looking at a
      * lexeme and not a file.
