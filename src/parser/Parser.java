@@ -497,9 +497,17 @@ public class Parser
     /**
      * Executes the rule for the variable non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - a variable node in the syntax tree in the
+     * pascal program.
      */
-    public void variable()
+    public VariableNode variable()
     {
+        String varName = lookahead.lexeme;
+        VariableNode answer = new VariableNode(varName);
+
+        //VariableNode answer = new VariableNode();
+
         match(TokenType.ID);
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
@@ -513,6 +521,8 @@ public class Parser
         {
             //Do nothing. The empty lambda option.
         }
+        return answer;
+
     }
 
     /**
