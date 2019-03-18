@@ -12,7 +12,8 @@ import java.util.function.Function;
 /**
  * A JUnit Java Program that illustrates building a syntax tree using the
  * non-terminal symbols in the micro pascal grammar in the Parser class
- * and nodes from the classes in the syntaxtree package.
+ * and nodes from the classes in the syntaxtree package. The resulting
+ * syntax tree is then printed out as an indentedToString.
  *
  * @author Marissa Allen
  */
@@ -20,9 +21,15 @@ public class ParserTest
 {
 
     /**
-     * JUnit test for the indentedToString of a pascal program.
+     * A JUnit syntax tree test for the indentedToString() method of a
+     * pascal program. This test manually builds a syntax tree by passing
+     * a pascal program into the non-terminal methods in the Parser
+     * class and the nodes from the classes in the syntaxtree package.
+     * to build a syntax tree. The output is an indentedToString() of
+     * the pascal program's syntax tree.
      *
-     * Based on the pascal program percentage below:
+     * The indentedToString for the syntax tree is based on the pascal
+     * program percentage below:
      *
      * program percentage;
      * var percentinput, giveninteger, output: integer;
@@ -30,14 +37,13 @@ public class ParserTest
      * begin
      * percentinput := 10;
      * giveninteger := 50;
-     * output := percentinput/100 * givennumber
+     * output := percentinput/100 * giveninteger
      * end
      * .
      */
     @Test
-    public void programNodeTest()
+    public void testIndentedToString()
     {
-
         ProgramNode pn = new ProgramNode("percentageformula");
         DeclarationsNode dn = new DeclarationsNode();
         pn.setVariables(dn);
