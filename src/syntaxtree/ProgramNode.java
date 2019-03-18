@@ -43,8 +43,8 @@ public class ProgramNode extends SyntaxTreeNode {
     /**
      * This method creates a String representation of this program node
      * and its children.
-     * @param level The tree level that the program node resides at.
-     * @return A String representing the program node.
+     * @param level - The tree level that the program node resides at.
+     * @return - A String representing the program node.
      */
     @Override
     public String indentedToString( int level) {
