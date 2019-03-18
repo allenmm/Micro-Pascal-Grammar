@@ -23,8 +23,8 @@ public class ParserTest
      * pascal program. This test manually builds a syntax tree by passing
      * a pascal program into the non-terminal methods in the Parser
      * class and the nodes from the classes in the syntaxtree package.
-     * to build a syntax tree. The output is an indentedToString() of
-     * the pascal program's syntax tree.
+     * The output is an indentedToString() of the pascal program's
+     * syntax tree.
      *
      * The indentedToString for the syntax tree is based on the pascal
      * program percentage below:
