@@ -14,6 +14,12 @@ public class ProgramNode extends SyntaxTreeNode
     private SubProgramDeclarationsNode functions;
     private CompoundStatementNode main;
 
+    /**
+     * ProgramNode constructor that takes in a string for the name of the
+     * program.
+     *
+     * @param aName - the name of the pascal program.
+     */
     public ProgramNode(String aName)
     {
         this.name = aName;
