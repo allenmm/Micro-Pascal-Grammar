@@ -549,9 +549,14 @@ public class Parser
     /**
      * Executes the rule for the expression_list non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - The general representation of any expression in the
+     * pascal program.
      */
-    public void expression_list()
+    public ExpressionNode expression_list()
     {
+        ExpressionNode answer = null;
+
         expression();
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
@@ -564,6 +569,7 @@ public class Parser
         {
             //Do nothing. The empty lambda option.
         }
+        return answer;
     }
 
     /**
