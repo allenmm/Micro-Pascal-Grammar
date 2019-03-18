@@ -12,10 +12,9 @@ import scanner.TokenType;
 import syntaxtree.*;
 
 /**
- * This program creates a recognizer, implemented as a top-down
- * recursive descent parser. The recognizer doesn’t perform any
- * syntax-directed translation. It will only say whether the input
- * string is from the language described by the micro pascal grammar.
+ * This program creates a parser, implemented as a top-down
+ * recursive descent parser. The parser builds a syntax tree using the NODES
+ * input string from the language that is described by the micro pascal grammar.
  * The Recognizer class is a Java Program that illustrates reading from
  * a text file or strings. Either a string or a file path name will be
  * passed into the constructor in the Recognizer class when a method of
@@ -575,9 +574,13 @@ public class Parser
     /**
      * Executes the rule for the expression non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - The general representation of any expression in the
+     * pascal program.
      */
-    public void expression()
+    public ExpressionNode expression()
     {
+        ExpressionNode answer = null;
         simple_expression();
         if (isRelop(lookahead))
         {
@@ -588,6 +591,7 @@ public class Parser
         {
             //Do nothing. The empty lambda option.
         }
+        return answer;
     }
 
     /**
@@ -1003,4 +1007,3 @@ public class Parser
     }
 
 }
-
