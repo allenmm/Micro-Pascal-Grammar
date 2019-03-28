@@ -81,17 +81,18 @@ public class ParserTest
         /* Assigns a variable node value to the left side of the
         assignment statement node. */
         asn3.setLvalue(vn3);
-        OperationNode opn = new OperationNode(TokenType.DIV);
+        OperationNode opn = new OperationNode(TokenType.MULTI);
         /* Assigns an expression node value to the left side of the
         operation node. */
-        opn.setLeft(vn);
+        OperationNode opn2 = new OperationNode(TokenType.DIV);
+        opn.setLeft(opn2);
         ValueNode valueNode3 = new ValueNode("100");
-        OperationNode opn2 = new OperationNode(TokenType.MULTI);
+
         /* Assigns an expression node value to the right side of the
         operation node. */
-        opn.setRight(opn2);
-        opn2.setLeft(valueNode3);
-        opn2.setRight(vn2);
+        opn.setRight(vn2);
+        opn2.setLeft(vn);
+        opn2.setRight(valueNode3);
         /* Assigns an expression node value to the right of the
         assignment statement node. */
         asn3.setExpression(opn);
@@ -102,24 +103,27 @@ public class ParserTest
         String expected =
                 "Program: percentageformula\n" +
                         "|-- Declarations\n" +
-                        "|-- --- Name: percentinput\n" +
-                        "|-- --- Name: giveninteger\n" +
-                        "|-- --- Name: output\n" +
+                        "|-- --- Variable Name: percentinput\n" +
+                        "|-- --- Variable Name: giveninteger\n" +
+                        "|-- --- Variable Name: output\n" +
                         "|-- SubProgramDeclarations\n" +
                         "|-- Compound Statement\n" +
                         "|-- --- Assignment\n" +
-                        "|-- --- --- Name: percentinput\n" +
+                        "|-- --- --- Variable Name: percentinput\n" +
                         "|-- --- --- Value: 10\n" +
                         "|-- --- Assignment\n" +
-                        "|-- --- --- Name: giveninteger\n" +
+                        "|-- --- --- Variable Name: giveninteger\n" +
                         "|-- --- --- Value: 50\n" +
                         "|-- --- Assignment\n" +
-                        "|-- --- --- Name: output\n" +
-                        "|-- --- --- Operation: DIV\n" +
-                        "|-- --- --- --- Name: percentinput\n" +
-                        "|-- --- --- --- Operation: MULTI\n" +
+                        "|-- --- --- Variable Name: output\n" +
+                        "|-- --- --- Operation: MULTI\n" +
+                        "|-- --- --- --- Operation: DIV\n" +
+                        "|-- --- --- --- --- Variable Name: " +
+                        "percentinput\n" +
                         "|-- --- --- --- --- Value: 100\n" +
-                        "|-- --- --- --- --- Name: giveninteger\n";
+                        "|-- --- --- --- Variable Name: giveninteger\n";
         assertEquals(expected, actual);
+        System.out.println(expected);
+        System.out.println("It passed!");
     }
 }
