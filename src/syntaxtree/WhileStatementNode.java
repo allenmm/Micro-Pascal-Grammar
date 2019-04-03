@@ -2,17 +2,17 @@ package syntaxtree;
 
 public class WhileStatementNode extends StatementNode
 {
-    private ExpressionNode test;
+    private ExpressionNode whileTest;
     private StatementNode statement;
 
-    public ExpressionNode getTest()
+    public ExpressionNode getWhileTest()
     {
-        return test;
+        return whileTest;
     }
 
-    public void setTest(ExpressionNode test)
+    public void setWhileTest(ExpressionNode whileTest)
     {
-        this.test = test;
+        this.whileTest = whileTest;
     }
 
     public StatementNode getStatement()
@@ -38,7 +38,7 @@ public class WhileStatementNode extends StatementNode
     {
         String answer = this.indentation(level);
         answer += "While\n";
-        answer += this.test.indentedToString(level + 1);
+        answer += this.whileTest.indentedToString(level + 1);
         answer += this.statement.indentedToString(level + 1);
         return answer;
     }
