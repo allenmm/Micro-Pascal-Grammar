@@ -722,11 +722,14 @@ public class Parser
     /**
      * Executes the rule for the term non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - Returns an ExpressionNode. The general representation of
+     * any expression in the pascal program.
      */
-    public void term()
+    public ExpressionNode term()
     {
-        factor();
-        term_part();
+        ExpressionNode left = factor();
+        return term_part(left);
     }
 
     /**
