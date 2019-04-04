@@ -192,9 +192,14 @@ public class Parser
     /**
      * Executes the rule for the type non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - A ArrayList of zero or more strings in the pascal
+     * program.
      */
-    public void type()
+    public ArrayList<String> type()
     {
+        ArrayList answer = new ArrayList();
+
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.INTEGER ||
@@ -220,6 +225,7 @@ public class Parser
             //if not a type
             error("Type");
         }
+        return answer;
     }
 
     /**
