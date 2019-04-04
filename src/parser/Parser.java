@@ -846,40 +846,51 @@ public class Parser
      * This method is based on the relop rules in the micro pascal
      * grammar. It is used to compare the lookahead token with
      * a token type to see if it matches the same type.
+     *
+     * @return - Returns an OperationNode representing any operation in
+     * an expression.
      */
-    private void relop()
+    private OperationNode relop()
     {
+        OperationNode answer = null;
         /*All if/else if statements compare the lookahead token with a
         token type to see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.EQUIV)
         {
             match(TokenType.EQUIV);
+            answer = new OperationNode(TokenType.EQUIV);
         }
         else if (this.lookahead.getType() == TokenType.NOTEQUAL)
         {
             match(TokenType.NOTEQUAL);
+            answer = new OperationNode(TokenType.NOTEQUAL);
         }
         else if (this.lookahead.getType() == TokenType.LTHAN)
         {
             match(TokenType.LTHAN);
+            answer = new OperationNode(TokenType.LTHAN);
         }
         else if (this.lookahead.getType() == TokenType.GTHAN)
         {
             match(TokenType.GTHAN);
+            answer = new OperationNode(TokenType.GTHAN);
         }
         else if (this.lookahead.getType() == TokenType.LTHANEQUAL)
         {
             match(TokenType.LTHANEQUAL);
+            answer = new OperationNode(TokenType.LTHANEQUAL);
         }
         else if (this.lookahead.getType() == TokenType.GTHANEQUAL)
         {
             match(TokenType.GTHANEQUAL);
+            answer = new OperationNode(TokenType.GTHANEQUAL);
         }
         else
         {
             //if not a relop
             error("Relop");
         }
+        return answer;
     }
 
     /**
