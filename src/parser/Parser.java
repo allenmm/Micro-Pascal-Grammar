@@ -414,7 +414,14 @@ public class Parser
         CompoundStatementNode answer = new CompoundStatementNode();
 
         match(TokenType.BEGIN);
-        optional_statements();
+        ArrayList<StatementNode> answers = optional_statements();
+        if(answers != null)
+        {
+            for (StatementNode state : answers)
+            {
+                answer.addStatement(state);
+            }
+        }
         match(TokenType.END);
 
         return answer;
