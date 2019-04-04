@@ -168,8 +168,13 @@ public class Parser
         see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.VAR)
         {
+
             match(TokenType.VAR);
-            identifier_list();
+            ArrayList<String> answers = identifier_list();
+            for (String s : answers)
+            {
+                answer.addVariable(new VariableNode(s));
+            }
             match(TokenType.COLON);
             type();
             match(TokenType.SEMI);
