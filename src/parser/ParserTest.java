@@ -32,8 +32,9 @@ public class ParserTest
         String test = "87654321";
         Parser instance = new Parser
                 (test, false);
-        ExpressionNode expected = new ValueNode("87654321");
-        ExpressionNode actual = instance.factor();
+        ExpressionNode expressionNode = instance.factor();
+        String expected = "Value: 87654321\n";
+        String actual = expressionNode.indentedToString(0);
         assertEquals(expected, actual);
         System.out.println("Parsed a factor");
         System.out.println("The factor for 87654321 is: ");
