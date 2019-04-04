@@ -735,18 +735,25 @@ public class Parser
     /**
      * Executes the rule for the term_part non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @param - Takes an ExpressionNode as its possible left child.
+     * @return - Returns an ExpressionNode. The general representation of
+     * any expression in the pascal program.
      */
-    public void term_part()
+    public ExpressionNode term_part(ExpressionNode possibleLeft)
     {
         if (isMulop(lookahead))
         {
-            mulop();
-            factor();
-            term_part();
+            OperationNode on = mulop();
+            ExpressionNode right = factor();
+            on.setLeft(possibleLeft);
+            on.setRight(right);
+            return term_part(on);
         }
         else
         {
             //Do nothing. The empty lambda option.
+            return possibleLeft;
         }
     }
 
