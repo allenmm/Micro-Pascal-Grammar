@@ -303,9 +303,13 @@ public class Parser
     /**
      * Executes the rule for the subprogram_head non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - A subprogram node in the syntax tree in the
+     * pascal program.
      */
-    public void subprogram_head()
+    public SubProgramNode subprogram_head()
     {
+        SubProgramNode answer = new SubProgramNode();
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (lookahead.getType() == TokenType.FUNCTION)
@@ -316,7 +320,8 @@ public class Parser
             /* Allows the current identifier to be added as a
             function in the symbol table. */
             symbols.addFunctionName(functionName);
-            arguments();
+            ArrayList<VariableNode> argVar = arguments();
+            argVar.add(new VariableNode(functionName));
             match(TokenType.COLON);
             standard_type();
             match(TokenType.SEMI);
@@ -331,7 +336,8 @@ public class Parser
             /* Allows the current identifier to be added as a
             procedure in the symbol table. */
             symbols.addProcedureName(procedureName);
-            arguments();
+            ArrayList<VariableNode> argVar = arguments();
+            argVar.add(new VariableNode(procedureName));
             match(TokenType.SEMI);
         }
         else
@@ -339,6 +345,7 @@ public class Parser
             //if not a subprogram head
             error("Subprogram Head");
         }
+        return answer;
     }
 
     /**
