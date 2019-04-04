@@ -351,21 +351,25 @@ public class Parser
     /**
      * Executes the rule for the arguments non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - An ArrayList of VariableNodes.
      */
-    public void arguments()
+    public ArrayList<VariableNode> arguments()
     {
+        ArrayList<VariableNode> answer = new ArrayList<>();
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.LPAREN)
         {
             match(TokenType.LPAREN);
-            parameter_list();
+            answer = parameter_list();
             match(TokenType.RPAREN);
         }
         else
         {
             //Do nothing. The empty lambda option.
         }
+        return answer;
     }
 
     /**
