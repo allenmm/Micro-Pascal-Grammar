@@ -633,17 +633,19 @@ public class Parser
      * Executes the rule for the expression non-terminal symbol in
      * the micro pascal grammar.
      *
-     * @return - The general representation of any expression in the
-     * pascal program.
+     * @return - Returns an ExpressionNode. The general representation of
+     * any expression in the pascal program.
      */
     public ExpressionNode expression()
     {
         ExpressionNode answer = null;
-        simple_expression();
+        answer = simple_expression();
         if (isRelop(lookahead))
         {
-            relop();
-            simple_expression();
+            OperationNode opAnswer = new OperationNode(lookahead.getType());
+            opAnswer.setLeft(answer);
+            opAnswer = relop();
+            opAnswer.setRight(simple_expression());
         }
         else
         {
