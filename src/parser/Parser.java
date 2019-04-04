@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.util.ArrayList;
 
 import scanner.Scanner;
 import scanner.Token;
@@ -123,25 +124,34 @@ public class Parser
     /**
      * Executes the rule for the identifier_list non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - A ArrayList of zero or more strings in the pascal
+     * program.
      */
-    public void identifier_list()
+    public ArrayList<String> identifier_list()
     {
+        ArrayList answer = new ArrayList();
+
         String varName = lookahead.lexeme;
+        /* Must add before match because match confirms token type then
+        moves onto the next token */
+        answer.add(varName);
         match(TokenType.ID);
         /* Allows the current identifier to be added as a
         variable in the symbol table. */
         symbols.addVarName(varName);
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
-        if (this.lookahead.getType() == TokenType.COMMA)
+        while (this.lookahead.getType() == TokenType.COMMA)
         {
             match(TokenType.COMMA);
-            identifier_list();
+            varName = lookahead.lexeme;
+            answer.add(varName);
+            match(TokenType.ID);
+            symbols.addVarName(varName);
         }
-        else
-        {
-            //Do nothing. The empty lambda option.
-        }
+
+        return answer;
     }
 
     /**
