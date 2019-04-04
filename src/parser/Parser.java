@@ -270,9 +270,9 @@ public class Parser
         if (lookahead.getType() == TokenType.FUNCTION ||
                 lookahead.getType() == TokenType.PROCEDURE)
         {
-            subprogram_declaration();
+            answer.addSubProgramDeclaration(subprogram_declaration());
             match(TokenType.SEMI);
-            subprogram_declarations();
+            answer = subprogram_declarations();
         }
         else
         {
@@ -293,7 +293,7 @@ public class Parser
     {
         SubProgramNode answer = new SubProgramNode();
 
-        subprogram_head();
+        answer.addSubProgramDeclaration(subprogram_head());
         declarations();
         compound_statement();
 
