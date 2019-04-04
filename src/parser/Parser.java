@@ -474,9 +474,21 @@ public class Parser
     /**
      * Executes the rule for the statement non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - A statement node representing a single statement in
+     * Pascal.
      */
-    public void statement()
+    public StatementNode statement()
     {
+        AssignmentStatementNode answer = new AssignmentStatementNode();
+
+        IfStatementNode ifAnswer = new IfStatementNode();
+
+        WhileStatementNode whileAnswer = new WhileStatementNode();
+
+        ReturnStatementNode returnAnswer = new ReturnStatementNode();
+
+        WriteStatementNode writeAnswer = new WriteStatementNode();
         /*All if/else if statements compare the lookahead token with a
         token type to see if it matches the same type. */
         if (lookahead.getType() == TokenType.ID)
@@ -485,9 +497,9 @@ public class Parser
             or a procedure name. */
             if (symbols.isVarName(lookahead.lexeme))
             {
-                variable();
+                answer.setLvalue(variable());
                 assignop();
-                expression();
+                answer.setExpression(expression());
             }
             else
             {
@@ -501,7 +513,7 @@ public class Parser
         else if (lookahead.getType() == TokenType.IF)
         {
             match(TokenType.IF);
-            expression();
+            ifAnswer.setTest(expression());
             match(TokenType.THEN);
             statement();
             match(TokenType.ELSE);
@@ -510,7 +522,7 @@ public class Parser
         else if (lookahead.getType() == TokenType.WHILE)
         {
             match(TokenType.WHILE);
-            expression();
+            whileAnswer.setWhileTest(expression());
             match(TokenType.DO);
             statement();
         }
@@ -525,19 +537,20 @@ public class Parser
         {
             match(TokenType.WRITE);
             match(TokenType.LPAREN);
-            expression();
+            writeAnswer.setWriteTest(expression());
             match(TokenType.RPAREN);
         }
         else if (lookahead.getType() == TokenType.RETURN)
         {
             match(TokenType.RETURN);
-            expression();
+            returnAnswer.setReturnTest(expression());
         }
         else
         {
             //if not a statement
             error("Statement");
         }
+        return answer;
     }
 
     /**
