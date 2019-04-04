@@ -375,10 +375,17 @@ public class Parser
     /**
      * Executes the rule for the parameter_list non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - An ArrayList of VariableNodes.
      */
-    public void parameter_list()
+    public ArrayList<VariableNode> parameter_list()
     {
-        identifier_list();
+        ArrayList<VariableNode> answer = new ArrayList<>();
+        ArrayList<String> idList = identifier_list();
+        for (String s : idList)
+        {
+            answer.add(new VariableNode(s));
+        }
         match(TokenType.COLON);
         type();
         /*Comparing the current lookahead token with a token type to
@@ -392,6 +399,7 @@ public class Parser
         {
             //Do nothing. The empty lambda option.
         }
+        return answer;
     }
 
     /**
