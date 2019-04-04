@@ -932,36 +932,46 @@ public class Parser
      * Creating the mulop method. According to the micro pascal grammar,
      * the ASSIGN token type
      * stands for the assignop := token.
+     *
+     * @return - Returns an OperationNode representing any operation in
+     * an expression.
      */
-    protected void mulop()
+    protected OperationNode mulop()
     {
+        OperationNode answer = null;
         /*All if/else if statements compare the lookahead token with a
         token type to see if it matches the same type. */
         if (lookahead.getType() == TokenType.MULTI)
         {
             match(TokenType.MULTI);
+            answer = new OperationNode(TokenType.MULTI);
         }
         else if (lookahead.getType() == TokenType.FSLASH)
         {
             match(TokenType.FSLASH);
+            answer = new OperationNode(TokenType.FSLASH);
         }
         else if (lookahead.getType() == TokenType.DIV)
         {
             match(TokenType.DIV);
+            answer = new OperationNode(TokenType.DIV);
         }
         else if (lookahead.getType() == TokenType.MOD)
         {
             match(TokenType.MOD);
+            answer = new OperationNode(TokenType.MOD);
         }
         else if (lookahead.getType() == TokenType.AND)
         {
             match(TokenType.AND);
+            answer = new OperationNode(TokenType.AND);
         }
         else
         {
             //if not a mulop
             error("Mulop");
         }
+        return answer;
     }
 
     /**
