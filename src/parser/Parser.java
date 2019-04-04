@@ -565,8 +565,6 @@ public class Parser
         String varName = lookahead.lexeme;
         VariableNode answer = new VariableNode(varName);
 
-        //VariableNode answer = new VariableNode();
-
         match(TokenType.ID);
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
@@ -609,20 +607,20 @@ public class Parser
      * Executes the rule for the expression_list non-terminal symbol in
      * the micro pascal grammar.
      *
-     * @return - The general representation of any expression in the
-     * pascal program.
+     * @return - Returns an ExpressionNode. The general representation of
+     * any expression in the pascal program.
      */
     public ExpressionNode expression_list()
     {
         ExpressionNode answer = null;
 
-        expression();
+        answer = expression();
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.COMMA)
         {
             match(TokenType.COMMA);
-            expression_list();
+            answer = expression_list();
         }
         else
         {
