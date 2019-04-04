@@ -760,14 +760,22 @@ public class Parser
     /**
      * Executes the rule for the factor non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - Returns an ExpressionNode. The general representation of
+     * any expression in the pascal program.
      */
-    public void factor()
+    public ExpressionNode factor()
     {
+        ExpressionNode answer = null;
         /*All if/else if statements compare the lookahead token with a
         token type to see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.ID)
         {
+            String varName = lookahead.getLexeme();
             match(TokenType.ID);
+            VariableNode var = new VariableNode(varName);
+            answer = var;
+
             if (this.lookahead.getType() == TokenType.LBRACKET)
             {
                 match(TokenType.LBRACKET);
@@ -787,12 +795,15 @@ public class Parser
         }
         else if (this.lookahead.getType() == TokenType.NUMBER)
         {
+            String numName = lookahead.getLexeme();
+            ValueNode val = new ValueNode(numName);
             match(TokenType.NUMBER);
+            answer = val;
         }
         else if (this.lookahead.getType() == TokenType.LPAREN)
         {
             match(TokenType.LPAREN);
-            expression();
+            answer = expression();
             match(TokenType.RPAREN);
         }
         else if (this.lookahead.getType() == TokenType.NOT)
@@ -805,6 +816,7 @@ public class Parser
             //if not a factor
             error("Factor");
         }
+        return answer;
     }
 
     /**
