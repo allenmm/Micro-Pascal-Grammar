@@ -452,21 +452,23 @@ public class Parser
     /**
      * Executes the rule for the statement_list non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - A ArrayList of statements in the pascal program.
      */
-    public void statement_list()
+    public ArrayList<StatementNode> statement_list()
     {
-        statement();
+        ArrayList<StatementNode> answer = new ArrayList<>();
+        answer.add(statement());
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
-        if (lookahead.getType() == TokenType.SEMI)
+        while (lookahead.getType() == TokenType.SEMI)
         {
             match(TokenType.SEMI);
-            statement_list();
+            //Alternatively could have done .addAll(statement_list())
+            answer.add(statement());
         }
-        else
-        {
-            //Do nothing. The empty lambda option.
-        }
+
+        return answer;
     }
 
     /**
