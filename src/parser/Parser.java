@@ -896,28 +896,36 @@ public class Parser
     /**
      * This method is used to compare the lookahead token with
      * a token type to see if it matches the same type.
+     *
+     * @return - Returns an OperationNode representing any operation in
+     * an expression.
      */
-    private void addop()
+    private OperationNode addop()
     {
+        OperationNode answer = null;
         /*All if/else if statements compare the lookahead token with a
         token type to see if it matches the same type. */
         if (lookahead.getType() == TokenType.PLUS)
         {
             match(TokenType.PLUS);
+            answer = new OperationNode(TokenType.PLUS);
         }
         else if (lookahead.getType() == TokenType.MINUS)
         {
             match(TokenType.MINUS);
+            answer = new OperationNode(TokenType.MINUS);
         }
         else if (lookahead.getType() == TokenType.OR)
         {
-            match(TokenType.OR); //need to add OR here?
+            match(TokenType.OR);
+            answer = new OperationNode(TokenType.OR);
         }
         else
         {
             //if not an addop
             error("Addop");
         }
+        return answer;
     }
 
     /**
