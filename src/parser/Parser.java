@@ -693,8 +693,12 @@ public class Parser
     /**
      * Executes the rule for the simple_part non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @param - Takes an ExpressionNode as its possible left child.
+     * @return - Returns an ExpressionNode. The general representation of
+     * any expression in the pascal program.
      */
-    public void simple_part()
+    public ExpressionNode simple_part(ExpressionNode possibleLeft)
     {
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
@@ -702,13 +706,16 @@ public class Parser
                 lookahead.getType() == TokenType.MINUS ||
                 lookahead.getType() == TokenType.OR)
         {
-            addop();
-            term();
-            simple_part();
+            OperationNode on = addop();
+            ExpressionNode right = term();
+            on.setLeft(possibleLeft);
+            on.setRight(right);
+            return simple_part(on);
         }
         else
         {
             //Do nothing. The empty lambda option.
+            return possibleLeft;
         }
     }
 
