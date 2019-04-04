@@ -658,9 +658,13 @@ public class Parser
      * This method is used to parse an expression. Executes the rule
      * for the simple_expression non-terminal symbol in the micro pascal
      * grammar.
+     *
+     * @return - Returns an ExpressionNode. The general representation of
+     * any expression in the pascal program.
      */
-    public void simple_expression()
+    public ExpressionNode simple_expression()
     {
+        ExpressionNode answer = null;
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.ID ||
@@ -668,21 +672,22 @@ public class Parser
                 this.lookahead.getType() == TokenType.LPAREN ||
                 this.lookahead.getType() == TokenType.NOT)
         {
-            term();
-            simple_part();
+            answer = term();
+            answer = simple_part(answer);
         }
         else if (this.lookahead.getType() == TokenType.PLUS ||
                 this.lookahead.getType() == TokenType.MINUS)
         {
             sign();
-            term();
-            simple_part();
+            answer = term();
+            answer = simple_part(answer);
         }
         else
         {
             //if not a simple expression
             error("Simple Expression");
         }
+        return answer;
     }
 
     /**
