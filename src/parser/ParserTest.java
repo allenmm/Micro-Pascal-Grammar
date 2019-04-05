@@ -97,5 +97,34 @@ public class ParserTest
         System.out.println("The statement for foo := 3 is: ");
         System.out.println(actual);
     }
-    
+
+    /**
+     * This method uses JUnit to test the program method from
+     * the Parser class by testing to see if the indentedToString from the
+     * call to the program method matches the expected
+     * indentedToString. This is a text string test.
+     */
+    @Test
+    public void testProgram()
+    {
+        System.out.println("\n" + "######################" + "\n" +
+                "#    Test program    #" + "\n" +
+                "######################" + "\n");
+
+        //Pascal string test.
+        String test = "program foo ; begin end .";
+        Parser instance = new Parser(test, false);
+        ProgramNode programNode = instance.program();
+        String expected = "Program: foo\n" +
+                "|-- Declarations\n" +
+                "|-- SubProgramDeclarations\n" +
+                "|-- Compound Statement\n";
+        String actual = programNode.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Parsed a program");
+        System.out.println("The program for program foo ; begin end . " +
+                "is: ");
+        System.out.println(actual);
+
+    }
 }
