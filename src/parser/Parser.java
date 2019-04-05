@@ -205,7 +205,7 @@ public class Parser
         if (this.lookahead.getType() == TokenType.INTEGER ||
                 this.lookahead.getType() == TokenType.REAL)
         {
-            standard_type();
+            answer = standard_type();
         }
         /* Otherwise comparing the current lookahead with a different
         declaration.*/
@@ -231,14 +231,19 @@ public class Parser
     /**
      * Executes the rule for the standard_type non-terminal symbol in
      * the micro pascal grammar.
+     *
+     * @return - A ArrayList of zero or more strings in the pascal
+     * program.
      */
-    public void standard_type()
+    public ArrayList<String> standard_type()
     {
+        ArrayList<String> answer = null;
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         if (this.lookahead.getType() == TokenType.INTEGER)
         {
             match(TokenType.INTEGER);
+
         }
         /* Otherwise comparing the current lookahead with a different
         declaration.*/
@@ -251,6 +256,7 @@ public class Parser
             //if not a standard type
             error("Standard Type");
         }
+        return answer;
     }
 
     /**
