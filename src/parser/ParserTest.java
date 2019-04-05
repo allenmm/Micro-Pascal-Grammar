@@ -70,5 +70,32 @@ public class ParserTest
         System.out.println(actual);
     }
 
+    /**
+     * This method uses JUnit to test the statement method from
+     * the Parser class by testing to see if the indentedToString from the
+     * call to the statement method matches the expected
+     * indentedToString. This is a text string test.
+     */
+    @Test
+    public void testStatement()
+    {
+        System.out.println("\n" + "########################" + "\n" +
+                "#    Test statement    #" + "\n" +
+                "########################" + "\n");
 
+        String test = "foo := 3";
+        Parser instance = new Parser(test, false);
+        SymbolTable st = instance.getSymbolTable();
+        st.addVarName("foo");
+        StatementNode statementNode = instance.statement();
+        String expected = "Assignment\n" +
+                "|-- Variable Name: foo\n" +
+                "|-- Value: 3\n";
+        String actual = statementNode.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Parsed a statement");
+        System.out.println("The statement for foo := 3 is: ");
+        System.out.println(actual);
+    }
+    
 }
