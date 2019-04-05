@@ -99,6 +99,35 @@ public class ParserTest
     }
 
     /**
+     * This method uses JUnit to test the subprogram_declaration method
+     * from the Parser class by testing to see if the indentedToString
+     * from the call to the subprogram_declaration method matches the
+     * expected indentedToString. This is a text string test.
+     */
+    @Test
+    public void testSubprogram_declaration()
+    {
+        System.out.println("\n" + "#################################" +
+                "\n" + "#  Test subprogram_declaration  #" + "\n" +
+                "#################################" + "\n");
+
+        //Pascal string test.
+        String test = "procedure fooz (identifier : integer) ;\n" +
+                "var declarations2 : integer ;\n" +
+                "begin read ( foo2 ) end";
+        Parser instance = new Parser(test, false);
+        SubProgramNode subProgramNode = instance.subprogram_declaration();
+        String expected = "SubProgramDeclarations\n" +
+                "|-- SubProgramDeclarations\n";
+        String actual = subProgramNode.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Parsed a subprogram declaration");
+        System.out.println("The for the subprogram declaration is: ");
+        System.out.println(actual);
+
+        }
+
+    /**
      * This method uses JUnit to test the program method from
      * the Parser class by testing to see if the indentedToString from the
      * call to the program method matches the expected
