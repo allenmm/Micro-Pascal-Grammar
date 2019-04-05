@@ -1,5 +1,10 @@
 package syntaxtree;
 
+/**
+ * The while statement node represents a while statement in Pascal.
+ *
+ * @author Marissa Allen
+ */
 public class WhileStatementNode extends StatementNode
 {
     private ExpressionNode whileTest;
