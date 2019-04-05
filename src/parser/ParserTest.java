@@ -124,8 +124,34 @@ public class ParserTest
         System.out.println("Parsed a subprogram declaration");
         System.out.println("The for the subprogram declaration is: ");
         System.out.println(actual);
+    }
 
-        }
+    /**
+     * This method uses JUnit to test the declarations method
+     * from the Parser class by testing to see if the indentedToString
+     * from the call to the declarations method matches the
+     * expected indentedToString. This is a text string test.
+     */
+    @Test
+    public void testDeclarations()
+    {
+        System.out.println("\n" + "######################" + "\n" +
+                "#  Test declarations #" + "\n" +
+                "######################" + "\n");
+
+        //Pascal string test. Happy path, with good pascal.
+        String test = "var declarations : integer ;";
+        Parser instance = new Parser(test, false);
+        DeclarationsNode declarationsNode = instance.declarations();
+        String expected = "Declarations\n" +
+                "|-- Variable Name: declarations\n";
+        String actual = declarationsNode.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Parsed a declaration");
+        System.out.println("The declaration for var declarations : " +
+                "integer ; is: ");
+        System.out.println(actual);
+    }
 
     /**
      * This method uses JUnit to test the program method from
@@ -154,6 +180,6 @@ public class ParserTest
         System.out.println("The program for program foo ; begin end . " +
                 "is: ");
         System.out.println(actual);
-
     }
+
 }
