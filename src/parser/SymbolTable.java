@@ -26,7 +26,8 @@ public class SymbolTable
     {
         if (!symbols.containsKey(name))
         {
-            symbols.put(name, new SymbolData(name, KindEnum.VAR_NAME));
+            symbols.put(name, new SymbolData(name, KindEnum.VAR_NAME,
+                    TypeEnum.INTEGER_TYPE));
         }
     }
 
@@ -41,7 +42,7 @@ public class SymbolTable
         if (!symbols.containsKey(name))
         {
             symbols.put(name, new SymbolData
-                    (name, KindEnum.PROGRAM_NAME));
+                    (name, KindEnum.PROGRAM_NAME, TypeEnum.REAL_TYPE));
         }
     }
 
@@ -55,7 +56,8 @@ public class SymbolTable
     {
         if (!symbols.containsKey(name))
         {
-            symbols.put(name, new SymbolData(name, KindEnum.ARRAY_NAME));
+            symbols.put(name, new SymbolData(name, KindEnum.ARRAY_NAME,
+                    TypeEnum.REAL_TYPE));
         }
     }
 
@@ -70,7 +72,7 @@ public class SymbolTable
         if (!symbols.containsKey(name))
         {
             symbols.put(name, new SymbolData
-                    (name, KindEnum.PROCEDURE_NAME));
+                    (name, KindEnum.PROCEDURE_NAME, TypeEnum.REAL_TYPE));
         }
     }
 
@@ -85,7 +87,7 @@ public class SymbolTable
         if (!symbols.containsKey(name))
         {
             symbols.put(name, new SymbolData
-                    (name, KindEnum.FUNCTION_NAME));
+                    (name, KindEnum.FUNCTION_NAME, TypeEnum.REAL_TYPE));
         }
     }
 
@@ -203,20 +205,22 @@ public class SymbolTable
     /**
      * The string displayed for the returned SymbolTable.
      *
-     * @return - returns the name and kind of the symbol table in a
+     * @return - returns the name, kind, and type of the symbol table in a
      * beautifully formatted toString().
      */
     @Override
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("\t\tSymbol Table\n\n" + "Symbols\t\t\t\t" +
-                " Kinds\n" +
-                "-------------------------------------\n");
+        sb.append(String.format("%35s%-20s %-20s%s%s",
+                "Symbol Table\n\n", "Symbols",
+                "Kinds", " Types\n",
+                "--------------------------------------------------------\n"));
         for(HashMap.Entry<String, SymbolData> entry: symbols.entrySet())
         {
-            String output = String.format("%-20s %-20s",
-                    entry.getValue().name, entry.getValue().kind);
+            String output = String.format("%-20s %-20s %-20s",
+                    entry.getValue().name, entry.getValue().kind,
+                    entry.getValue().type);
             sb.append(output);
             sb.append('\n');
         }
@@ -225,8 +229,8 @@ public class SymbolTable
     }
 
     /**
-     * Contains the datatype and kind information identifier attribute
-     * values that are stored in the hash map.
+     * Contains the name, datatype, and kind information identifier
+     * attribute values that are stored in the hash map.
      *
      * @author Marissa Allen
      */
@@ -234,22 +238,24 @@ public class SymbolTable
     {
         String name;
         KindEnum kind;
+        TypeEnum type;
 
-        SymbolData(String name, KindEnum kind)
+        SymbolData(String name, KindEnum kind, TypeEnum type)
         {
             this.name = name;
             this.kind = kind;
+            this.type = type;
         }
 
         /**
          * The string displayed for the returned SymbolData.
          *
-         * @return - returns the SymbolData's name and kind.
+         * @return - returns the SymbolData's name, kind, and type.
          */
         @Override
         public String toString()
         {
-            return  name + kind;
+            return  name + kind + type;
         }
     }
 
