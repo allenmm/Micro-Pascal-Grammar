@@ -602,8 +602,11 @@ public class Parser
      * Executes the rule for the procedure_statement non-terminal symbol
      * in the micro pascal grammar.
      */
-    public void procedure_statement()
+    public VariableNode procedure_statement()
     {
+        String varName = lookahead.lexeme;
+        VariableNode answer = new VariableNode(varName);
+
         match(TokenType.ID);
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
@@ -617,6 +620,7 @@ public class Parser
         {
             //Do nothing. The empty lambda option.
         }
+        return answer;
     }
 
     /**
