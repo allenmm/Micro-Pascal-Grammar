@@ -486,70 +486,80 @@ public class Parser
      */
     public StatementNode statement()
     {
-        AssignmentStatementNode answer = new AssignmentStatementNode();
+        StatementNode answer = null;
 
-        IfStatementNode ifAnswer = new IfStatementNode();
-
-        WhileStatementNode whileAnswer = new WhileStatementNode();
-
-        ReturnStatementNode returnAnswer = new ReturnStatementNode();
-
-        WriteStatementNode writeAnswer = new WriteStatementNode();
-        /*All if/else if statements compare the lookahead token with a
-        token type to see if it matches the same type. */
+    /*All if/else if statements compare the lookahead token with a
+    token type to see if it matches the same type. */
         if (lookahead.getType() == TokenType.ID)
         {
-            /*Checks to see if the current identifier is a variable
-            or a procedure name. */
+        /*Checks to see if the current identifier is a variable
+        or a procedure name. */
             if (symbols.isVarName(lookahead.lexeme))
             {
-                answer.setLvalue(variable());
+                AssignmentStatementNode an = new AssignmentStatementNode();
+                an.setLvalue(variable());
                 assignop();
-                answer.setExpression(expression());
+                an.setExpression(expression());
+                answer = an;
             }
             else
             {
-                procedure_statement();
+                //on sheet AssignmentStatementNode lvalue is set to be a variablenode
+                AssignmentStatementNode an = new AssignmentStatementNode();
+                an.setLvalue(procedure_statement());
+                answer = an;
             }
         }
         else if (lookahead.getType() == TokenType.BEGIN)
         {
-            compound_statement();
+            answer = compound_statement();
         }
         else if (lookahead.getType() == TokenType.IF)
         {
+            IfStatementNode ifAnswer = new IfStatementNode();
             match(TokenType.IF);
             ifAnswer.setTest(expression());
             match(TokenType.THEN);
-            statement();
+            ifAnswer.setThenStatement(statement());
             match(TokenType.ELSE);
-            statement();
+            ifAnswer.setElseStatement(statement());
+            answer = ifAnswer;
         }
         else if (lookahead.getType() == TokenType.WHILE)
         {
+            WhileStatementNode whileAnswer = new WhileStatementNode();
             match(TokenType.WHILE);
             whileAnswer.setWhileTest(expression());
             match(TokenType.DO);
-            statement();
+            whileAnswer.setStatement(statement());
+            answer = whileAnswer;
         }
         else if (lookahead.getType() == TokenType.READ)
         {
+            ReadStatementNode rsnAnswer = new ReadStatementNode();
             match(TokenType.READ);
             match(TokenType.LPAREN);
+            String varName = lookahead.lexeme;
+            rsnAnswer.setVarTest(new VariableNode(varName));
             match(TokenType.ID);
             match(TokenType.RPAREN);
+            answer = rsnAnswer;
         }
         else if (lookahead.getType() == TokenType.WRITE)
         {
+            WriteStatementNode writeAnswer = new WriteStatementNode();
             match(TokenType.WRITE);
             match(TokenType.LPAREN);
             writeAnswer.setWriteTest(expression());
             match(TokenType.RPAREN);
+            answer = writeAnswer;
         }
         else if (lookahead.getType() == TokenType.RETURN)
         {
+            ReturnStatementNode returnAnswer = new ReturnStatementNode();
             match(TokenType.RETURN);
             returnAnswer.setReturnTest(expression());
+            answer = returnAnswer;
         }
         else
         {
