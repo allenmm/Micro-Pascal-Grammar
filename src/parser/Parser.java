@@ -192,12 +192,11 @@ public class Parser
      * Executes the rule for the type non-terminal symbol in
      * the micro pascal grammar.
      *
-     * @return - A ArrayList of zero or more strings in the pascal
-     * program.
+     * @return - A real or integer TypeEnum.
      */
-    public ArrayList<String> type()
+    public TypeEnum type()
     {
-        ArrayList answer = new ArrayList();
+        TypeEnum answer = null;
 
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
@@ -217,7 +216,7 @@ public class Parser
             match(TokenType.NUMBER);
             match(TokenType.RBRACKET);
             match(TokenType.OF);
-            standard_type();
+            answer = standard_type();
         }
         else
         {
