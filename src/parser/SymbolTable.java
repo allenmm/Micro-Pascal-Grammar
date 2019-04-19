@@ -226,6 +226,15 @@ public class SymbolTable
         return sb.toString();
     }
 
+
+    public TypeEnum typeOf(String name)
+    {
+        TypeEnum answer = null;
+        SymbolData s = symbols.get(name);
+        answer = s.type;
+        return answer;
+    }
+
     /**
      * Contains the name, datatype, and kind information identifier
      * attribute values that are stored in the hash map.
