@@ -86,7 +86,7 @@ public class ParserTest
         String test = "foo := 3";
         Parser instance = new Parser(test, false);
         SymbolTable st = instance.getSymbolTable();
-        st.addVarName("foo");
+        st.addVarName("foo", null);
         StatementNode statementNode = instance.statement();
         String expected = "Assignment\n" +
                 "|-- Variable Name: foo\n" +
