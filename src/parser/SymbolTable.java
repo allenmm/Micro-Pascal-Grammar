@@ -22,12 +22,11 @@ public class SymbolTable
      *
      * @param name - lexeme containing a variable name.
      */
-    public void addVarName(String name)
+    public void addVarName(String name, TypeEnum type)
     {
         if (!symbols.containsKey(name))
         {
-            symbols.put(name, new SymbolData(name, KindEnum.VAR_NAME,
-                    TypeEnum.INTEGER_TYPE));
+            symbols.put(name, new SymbolData(name, KindEnum.VAR_NAME, type));
         }
     }
 
@@ -42,7 +41,7 @@ public class SymbolTable
         if (!symbols.containsKey(name))
         {
             symbols.put(name, new SymbolData
-                    (name, KindEnum.PROGRAM_NAME, TypeEnum.REAL_TYPE));
+                    (name, KindEnum.PROGRAM_NAME, null));
         }
     }
 
@@ -56,8 +55,7 @@ public class SymbolTable
     {
         if (!symbols.containsKey(name))
         {
-            symbols.put(name, new SymbolData(name, KindEnum.ARRAY_NAME,
-                    TypeEnum.REAL_TYPE));
+            symbols.put(name, new SymbolData(name, KindEnum.ARRAY_NAME, null));
         }
     }
 
@@ -72,7 +70,7 @@ public class SymbolTable
         if (!symbols.containsKey(name))
         {
             symbols.put(name, new SymbolData
-                    (name, KindEnum.PROCEDURE_NAME, TypeEnum.REAL_TYPE));
+                    (name, KindEnum.PROCEDURE_NAME, null));
         }
     }
 
@@ -87,7 +85,7 @@ public class SymbolTable
         if (!symbols.containsKey(name))
         {
             symbols.put(name, new SymbolData
-                    (name, KindEnum.FUNCTION_NAME, TypeEnum.REAL_TYPE));
+                    (name, KindEnum.FUNCTION_NAME, null));
         }
     }
 
@@ -239,6 +237,7 @@ public class SymbolTable
         String name;
         KindEnum kind;
         TypeEnum type;
+
 
         SymbolData(String name, KindEnum kind, TypeEnum type)
         {
