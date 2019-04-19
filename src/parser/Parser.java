@@ -798,13 +798,13 @@ public class Parser
             if (this.lookahead.getType() == TokenType.LBRACKET)
             {
                 match(TokenType.LBRACKET);
-                expression();
+                answer = expression();
                 match(TokenType.RBRACKET);
             }
             else if (this.lookahead.getType() == TokenType.LPAREN)
             {
                 match(TokenType.LPAREN);
-                expression_list();
+                answer = expression_list();
                 match(TokenType.RPAREN);
             }
             else
