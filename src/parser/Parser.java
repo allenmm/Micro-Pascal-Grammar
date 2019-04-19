@@ -137,9 +137,6 @@ public class Parser
         moves onto the next token */
         answer.add(varName);
         match(TokenType.ID);
-        /* Allows the current identifier to be added as a
-        variable in the symbol table. */
-        symbols.addVarName(varName);
         /*Comparing the current lookahead token with a token type to
         see if it matches the same type. */
         while (this.lookahead.getType() == TokenType.COMMA)
@@ -148,7 +145,6 @@ public class Parser
             varName = lookahead.lexeme;
             answer.add(varName);
             match(TokenType.ID);
-            symbols.addVarName(varName);
         }
 
         return answer;
@@ -171,12 +167,15 @@ public class Parser
 
             match(TokenType.VAR);
             ArrayList<String> answers = identifier_list();
+            match(TokenType.COLON);
+            TypeEnum type = type();
             for (String s : answers)
             {
+                symbols.addVarName(s, type);
+                VariableNode temp = new VariableNode(s);
+                temp.setType(type);
                 answer.addVariable(new VariableNode(s));
             }
-            match(TokenType.COLON);
-            type();
             match(TokenType.SEMI);
             declarations();
         }
