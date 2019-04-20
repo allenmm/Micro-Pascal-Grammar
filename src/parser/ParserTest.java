@@ -33,7 +33,7 @@ public class ParserTest
         Parser instance = new Parser
                 (test, false);
         ExpressionNode expressionNode = instance.factor();
-        String expected = "Value: 87654321\n";
+        String expected = "Value: 87654321 null\n";
         String actual = expressionNode.indentedToString(0);
         assertEquals(expected, actual);
         System.out.println("Parsed a factor");
@@ -58,11 +58,11 @@ public class ParserTest
         Parser instance = new Parser
                 (test, false);
         ExpressionNode expressionNode = instance.simple_expression();
-        String expected = "Operation: PLUS\n" +
-                "|-- Value: 34\n" +
-                "|-- Operation: MULTI\n" +
-                "|-- --- Value: 17\n" +
-                "|-- --- Value: 7\n";
+        String expected = "Operation: PLUS null\n" +
+                "|-- Value: 34 null\n" +
+                "|-- Operation: MULTI null\n" +
+                "|-- --- Value: 17 null\n" +
+                "|-- --- Value: 7 null\n";
         String actual = expressionNode.indentedToString(0);
         assertEquals(expected, actual);
         System.out.println("Parsed a simple_expression");
@@ -89,8 +89,8 @@ public class ParserTest
         st.addVarName("foo", null);
         StatementNode statementNode = instance.statement();
         String expected = "Assignment\n" +
-                "|-- Variable Name: foo\n" +
-                "|-- Value: 3\n";
+                "|-- Variable Name: foo null\n" +
+                "|-- Value: 3 null\n";
         String actual = statementNode.indentedToString(0);
         assertEquals(expected, actual);
         System.out.println("Parsed a statement");
@@ -144,7 +144,7 @@ public class ParserTest
         Parser instance = new Parser(test, false);
         DeclarationsNode declarationsNode = instance.declarations();
         String expected = "Declarations\n" +
-                "|-- Variable Name: declarations\n";
+                "|-- Variable Name: declarations null\n";
         String actual = declarationsNode.indentedToString(0);
         assertEquals(expected, actual);
         System.out.println("Parsed a declaration");
