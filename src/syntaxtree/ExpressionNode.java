@@ -1,5 +1,7 @@
 package syntaxtree;
 
+import parser.TypeEnum;
+
 /**
  * The expression node is the general representation of any expression.
  *
@@ -7,5 +9,15 @@ package syntaxtree;
  */
 public abstract class ExpressionNode extends SyntaxTreeNode
 {
+    private TypeEnum type = null;
 
+    public TypeEnum getType()
+    {
+        return type;
+    }
+
+    public void setType(TypeEnum type)
+    {
+        this.type = type;
+    }
 }
