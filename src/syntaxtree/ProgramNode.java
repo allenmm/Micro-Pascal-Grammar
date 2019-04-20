@@ -8,7 +8,6 @@ package syntaxtree;
 public class ProgramNode extends SyntaxTreeNode
 {
 
-
     private String name;
     private DeclarationsNode variables;
     private SubProgramDeclarationsNode functions;
