@@ -4,6 +4,7 @@ import parser.TypeEnum;
 
 /**
  * The expression node is the general representation of any expression.
+ * Assigns and gets the type of an ExpressionNode.
  *
  * @author Marissa Allen
  */
