@@ -8,6 +8,7 @@ import java.util.HashMap;
  * table. The symbol table will store identifier information such as the
  * character string (or lexeme), its datatype, and its kind. The kind of
  * identifier can be a program, variable, array, function, or procedure.
+ * The datatype of the identifier can be a integer or real.
  *
  * @author Marissa Allen
  */
@@ -17,8 +18,8 @@ public class SymbolTable
     private HashMap<String, SymbolData> symbols = new HashMap<>();
 
     /**
-     * Adds a variable identifier to the symbol table if the variable
-     * name doesn't exist in the table.
+     * Adds a variable identifier and its type to the symbol table if the
+     * variable name doesn't exist in the table.
      *
      * @param name - lexeme containing a variable name.
      */
@@ -26,7 +27,8 @@ public class SymbolTable
     {
         if (!symbols.containsKey(name))
         {
-            symbols.put(name, new SymbolData(name, KindEnum.VAR_NAME, type));
+            symbols.put(name, new SymbolData(name, KindEnum.VAR_NAME,
+                    type));
         }
     }
 
@@ -55,7 +57,8 @@ public class SymbolTable
     {
         if (!symbols.containsKey(name))
         {
-            symbols.put(name, new SymbolData(name, KindEnum.ARRAY_NAME, null));
+            symbols.put(name, new SymbolData(name, KindEnum.ARRAY_NAME,
+                    null));
         }
     }
 
@@ -213,7 +216,8 @@ public class SymbolTable
         sb.append(String.format("%35s%-20s %-20s%s%s",
                 "Symbol Table\n\n", "Symbols",
                 "Kinds", " Types\n",
-                "--------------------------------------------------------\n"));
+                "-------------------------------------------------" +
+                        "-------\n"));
         for(HashMap.Entry<String, SymbolData> entry: symbols.entrySet())
         {
             String output = String.format("%-20s %-20s %-20s",
