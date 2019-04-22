@@ -4,6 +4,7 @@ import parser.Parser;
 import parser.SymbolTable;
 import syntaxtree.ProgramNode;
 import analysis.SemanticAnalyzer;
+
 import java.io.PrintWriter;
 
 
@@ -45,6 +46,15 @@ public class CompilerMain
             SymbolTable st = instance.getSymbolTable();
             SemanticAnalyzer sa = new SemanticAnalyzer(pn, st);
             sa.analyze();
+            if (sa.goodToGo())
+            {
+                //placeholder for running code generator
+            }
+            else
+            {
+                System.out.println("Semantic Analyzer failed. No " +
+                        "assembly code generated.");
+            }
             /*Calls Parser Object method program. Constructor
             is automatically called when an object of the class is
             created. */
