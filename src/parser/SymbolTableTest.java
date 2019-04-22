@@ -93,7 +93,7 @@ public class SymbolTableTest
                 "#  Test IsVarName  #" + "\n" +
                 "####################" + "\n");
         SymbolTable symbol = new SymbolTable();
-        symbol.addVarName("foo");
+        symbol.addVarName("foo", TypeEnum.INTEGER_TYPE);
         /* Positive test to see if the identifier was added to the
          Symbol Table */
         assertTrue(symbol.isVarName("foo"));
@@ -107,6 +107,7 @@ public class SymbolTableTest
         assertFalse(symbol.isProcedureName("foo"));
         System.out.println("Passed, procedure name not recognized " +
                 "because it wasn't added to the SymbolTable.");
+        System.out.println(symbol.toString());
     }
 
     /**

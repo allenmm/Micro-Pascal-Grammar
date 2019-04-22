@@ -231,7 +231,7 @@ public class RecognizerTest
         Recognizer instance = new Recognizer(test, false);
         /*Adding the lexeme in the test as a variable name to the symbol
         table to test the statement method.*/
-        instance.getSymbolTable().addVarName("foo");
+        instance.getSymbolTable().addVarName("foo", null);
         try
         {
             instance.statement();
@@ -265,7 +265,7 @@ public class RecognizerTest
         instance = new Recognizer(test, false);
         /*Adding the lexeme in the test as a variable name to the symbol
         table to test the statement method.*/
-        instance.getSymbolTable().addVarName("fooz");
+        instance.getSymbolTable().addVarName("fooz", null);
         try
         {
             instance.statement();

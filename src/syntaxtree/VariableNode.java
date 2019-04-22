@@ -14,9 +14,9 @@ public class VariableNode extends ExpressionNode
     String name;
 
     /**
-     * Creates a ValueNode with the given attribute.
+     * Creates a VariableNode with the given attribute.
      *
-     * @param attr - The attribute for this value node.
+     * @param attr - The attribute for this variable node.
      */
     public VariableNode(String attr)
     {
@@ -54,7 +54,8 @@ public class VariableNode extends ExpressionNode
     public String indentedToString(int level)
     {
         String answer = this.indentation(level);
-        answer += "Name: " + this.name + "\n";
+        answer += "Variable Name: " + this.name + " " +
+                VariableNode.super.getType() + "\n";
         return answer;
     }
 
