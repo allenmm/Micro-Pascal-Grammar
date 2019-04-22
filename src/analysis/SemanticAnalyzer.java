@@ -126,7 +126,7 @@ public class SemanticAnalyzer
             {
                 flag = false;
                 System.out.println("Variable " + s +
-                        "  was used before it was declared.");
+                        " was used before it was declared.");
             }
 
         }
