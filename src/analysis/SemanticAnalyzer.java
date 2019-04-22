@@ -153,4 +153,70 @@ public class SemanticAnalyzer
         return type;
     }
 
+    /**
+     * A function that assigns a type to every StatementNode by finding
+     * all of the ExpressionNodes within a StatementNode.
+     * The type of each ExpressionNode is added to the syntax tree
+     * indentedToString.
+     * @param - A StatementNode that is either a CompoundStatementNode,
+     * AssignmentStatementNode, IfStatementNode, WriteStatementNode,
+     * ReadStatementNode, or ReturnStatementNode.
+     */
+    public void assignStatementTypes(StatementNode statement)
+    {
+        if (statement instanceof CompoundStatementNode)
+        {
+            CompoundStatementNode csn = (CompoundStatementNode) statement;
+            ArrayList<StatementNode> sn = csn.getStatements();
+            /*Iterating over the list of statement nodes to check each
+            StatementNode and assign its type.*/
+            for(StatementNode s: sn)
+            {
+                assignStatementTypes(s);
+            }
+        }
+
+        else if (statement instanceof AssignmentStatementNode)
+        {
+           TypeEnum varType = assignExpressionType((
+                    (AssignmentStatementNode) statement).getLvalue());
+           TypeEnum expressionType = assignExpressionType((
+                    (AssignmentStatementNode) statement).getExpression());
+
+           //Checking types across assignment.
+           if(checkType(varType, expressionType) == false)
+           {
+               System.out.println("Variable " +
+                       ((AssignmentStatementNode) statement).getLvalue()
+                       +" type " + varType + " does not match " +
+                       expressionType + " across assignment.");
+           }
+        }
+        else if (statement instanceof IfStatementNode)
+        {
+            assignExpressionType(((IfStatementNode) statement).getTest());
+            assignStatementTypes(
+                    ((IfStatementNode) statement).getThenStatement());
+            assignStatementTypes(
+                    ((IfStatementNode) statement).getElseStatement());
+        }
+
+        else if (statement instanceof WriteStatementNode)
+        {
+            assignExpressionType(
+                    ((WriteStatementNode) statement).getWriteTest());
+        }
+        else if (statement instanceof ReadStatementNode)
+        {
+            assignExpressionType(
+                    ((ReadStatementNode) statement).getVarTest());
+        }
+        else if (statement instanceof ReturnStatementNode)
+        {
+            assignExpressionType(
+                    ((ReturnStatementNode) statement).getReturnTest());
+        }
+
+    }
+
 }
