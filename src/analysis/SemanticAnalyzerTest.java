@@ -26,6 +26,9 @@ public class SemanticAnalyzerTest
     @Test
     public void testAssignExpressionType()
     {
+        System.out.println("\n" + "###############################" + "\n" +
+                "# Test assign expression type #" + "\n" +
+                "###############################" + "\n");
         Parser parser = new Parser("20 + 5", false);
         ExpressionNode test = parser.expression();
         SemanticAnalyzer analyze = new SemanticAnalyzer(null, null);
@@ -77,9 +80,9 @@ public class SemanticAnalyzerTest
     @Test
     public void testGoodToGo()
     {
-        System.out.println("\n" + "#########################" + "\n" +
-                "#     Test goodToGo     #" + "\n" +
-                "#########################" + "\n");
+        System.out.println("\n" + "###########################" + "\n" +
+                "#     Test good to go     #" + "\n" +
+                "###########################" + "\n");
         Parser parser = new Parser("fi", false);
         SymbolTable st = new SymbolTable();
         st.addVarName("fi", null);
@@ -110,6 +113,9 @@ public class SemanticAnalyzerTest
     @Test
     public void testAssignStatementTypes()
     {
+        System.out.println("\n" + "##############################" + "\n" +
+                "# Test assign statement type #" + "\n" +
+                "##############################" + "\n");
         //Negative test.
         AssignmentStatementNode asn = new AssignmentStatementNode();
         VariableNode vn = new VariableNode("foo");
