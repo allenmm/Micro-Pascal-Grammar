@@ -98,4 +98,37 @@ public class SemanticAnalyzerTest
 
     }
 
+    /* This method uses JUnit to test the assignStatementTypes method
+     * from the SemanticAnalyzer class by testing to see if a type is
+     * assigned to every StatementNode by finding all of the
+     * ExpressionNodes within a StatementNode.
+     */
+    @Test
+    public void testAssignStatementTypes()
+    {
+        //Negative test.
+        AssignmentStatementNode asn = new AssignmentStatementNode();
+        VariableNode vn = new VariableNode("foo");
+        ValueNode value = new ValueNode("4");
+        asn.setLvalue(vn);
+        asn.setExpression(value);
+        SymbolTable st = new SymbolTable();
+        st.addVarName("foo", TypeEnum.REAL_TYPE);
+        SemanticAnalyzer analyze = new SemanticAnalyzer(null, st);
+        analyze.assignStatementTypes(asn);
+        System.out.println("Passed! Message printed that types don't " +
+                "match across assignment.\n");
+
+        //Positive test.
+        asn = new AssignmentStatementNode();
+        vn = new VariableNode("fee");
+        value = new ValueNode("7");
+        asn.setLvalue(vn);
+        asn.setExpression(value);
+        st = new SymbolTable();
+        st.addVarName("fee", TypeEnum.INTEGER_TYPE);
+        analyze = new SemanticAnalyzer(null, st);
+        analyze.assignStatementTypes(asn);
+        System.out.println("Success! Types match across assignment.");
+    }
 }
