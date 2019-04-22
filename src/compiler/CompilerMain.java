@@ -1,6 +1,5 @@
 package compiler;
 
-
 import parser.Parser;
 import parser.SymbolTable;
 import syntaxtree.ProgramNode;
@@ -16,7 +15,11 @@ import java.io.PrintWriter;
  * it is read, passed into the program method in the Parser class
  * through its constructor, and a toString of the symbol table from the
  * pascal program and a indentedToString of the syntax tree is generated
- * and written to a file.
+ * and written to a file. The symbol table and a ProgramNode from the
+ * parser are then passed into the SemanticAnalyzer class to check that
+ * the declarations and statements of a program are semantically correct
+ * assign the type of each ExpressionNode, and make sure that the
+ * variable is declared before use.
  *
  * @author Marissa Allen
  */
