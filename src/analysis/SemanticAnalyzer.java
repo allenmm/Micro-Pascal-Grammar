@@ -219,4 +219,21 @@ public class SemanticAnalyzer
 
     }
 
+    /**
+     * Checks to see if the type of a declared variable matches across
+     * assignment.
+     * @param variable - The type of a VariableNode.
+     * @param expression - The type of an ExpressionNode.
+     * @return - Returns true if the TypeEnums match. Otherwise returns
+     * false if the types do not match across assignment.
+     */
+    public Boolean checkType(TypeEnum variable, TypeEnum expression)
+    {
+        if(variable == expression)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
