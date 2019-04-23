@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 import parser.Parser;
 import parser.SymbolTable;
 import parser.TypeEnum;
-import scanner.TokenType;
 import syntaxtree.*;
 
 /**
@@ -206,6 +205,40 @@ public class SemanticAnalyzerTest
         actual = asn.indentedToString(0);
         assertEquals(expected,actual);
         System.out.println("Success! Types match across assignment.");
+
+    }
+
+    /* This method uses JUnit to test the checkVar method
+     * from the SemanticAnalyzer class by testing to see if a type is
+     * assigned to every variable by checking to see if a variable
+     * has been declared.
+     */
+    @Test
+    public void testCheckVar()
+    {
+        //Positive test checking if variable was declared.
+        System.out.println("\n" + "##############################" +
+                "\n" + "#     Test check variable    #" + "\n" +
+                "##############################" + "\n");
+        Parser instance = new Parser("foo", false);
+        VariableNode test = instance.variable();
+        SymbolTable st = new SymbolTable();
+        st.addVarName("foo", TypeEnum.REAL_TYPE);
+        SemanticAnalyzer analyze = new SemanticAnalyzer(null, st);
+        TypeEnum expected = TypeEnum.REAL_TYPE;
+        TypeEnum actual = analyze.checkVar(test);
+        assertEquals(expected,actual);
+        System.out.println("Success! variable was declared.");
+
+        //Negative test checking if variable was declared.
+        instance = new Parser("fee", false);
+        test = instance.variable();
+        st = new SymbolTable();
+        st.addVarName("fi", TypeEnum.INTEGER_TYPE);
+        analyze = new SemanticAnalyzer(null, st);
+        actual = analyze.checkVar(test);
+        assertNull(actual);
+        System.out.println("Success! variable was not declared.");
 
     }
 }
