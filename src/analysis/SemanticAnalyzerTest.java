@@ -103,6 +103,7 @@ public class SemanticAnalyzerTest
     @Test
     public void testGoodToGo()
     {
+        //Negative null type test.
         System.out.println("\n" + "###########################" + "\n" +
                 "#     Test good to go     #" + "\n" +
                 "###########################" + "\n");
@@ -112,20 +113,30 @@ public class SemanticAnalyzerTest
         ExpressionNode test = parser.expression();
         SemanticAnalyzer analyze = new SemanticAnalyzer(null, st);
         analyze.assignExpressionType(test);
+        String expected = "Variable Name: fi null\n";
+        String actual = test.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Passed, variable name not declared in tree.");
         assertFalse(analyze.goodToGo());
         System.out.println("Passed, variable name not declared " +
-                "because it has no type.");
+                "because it has no type.\n");
 
+        //Negative null type test.
         parser = new Parser("fi - 5", false);
         test = parser.expression();
         st = new SymbolTable();
         st.addVarName("fi", null);
         analyze = new SemanticAnalyzer(null, st);
         analyze.assignExpressionType(test);
+        expected = "Operation: MINUS INTEGER_TYPE\n" +
+                "|-- Variable Name: fi null\n" +
+                "|-- Value: 5 INTEGER_TYPE\n";
+        actual = test.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Passed, variable name not declared in tree.");
         assertFalse(analyze.goodToGo());
         System.out.println("Passed, variable name not declared " +
                 "because it has no type.");
-
     }
 
     /* This method uses JUnit to test the assignStatementTypes method
