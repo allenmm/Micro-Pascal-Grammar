@@ -235,7 +235,12 @@ public class SymbolTable
     {
         TypeEnum answer = null;
         SymbolData s = symbols.get(name);
-        answer = s.type;
+        /*Checking to make sure that a name has been added to the
+        symbol table*/
+        if(s !=null)
+        {
+            answer = s.type;
+        }
         return answer;
     }
 
