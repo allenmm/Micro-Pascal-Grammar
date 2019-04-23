@@ -1,7 +1,9 @@
 package analysis;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import parser.Parser;
 import parser.SymbolTable;
 import parser.TypeEnum;
@@ -29,12 +31,16 @@ public class SemanticAnalyzerTest
         System.out.println("\n" + "###############################" + "\n" +
                 "# Test assign expression type #" + "\n" +
                 "###############################" + "\n");
-        Parser parser = new Parser("20 + 5", false);
+
+        //Negative null type test.
+        Parser parser = new Parser("fooz + 5", false);
         ExpressionNode test = parser.expression();
-        SemanticAnalyzer analyze = new SemanticAnalyzer(null, null);
+        SymbolTable st = new SymbolTable();
+        st.addVarName("fooz", null);
+        SemanticAnalyzer analyze = new SemanticAnalyzer(null, st);
         analyze.assignExpressionType(test);
         String expected = "Operation: PLUS INTEGER_TYPE\n" +
-                "|-- Value: 20 INTEGER_TYPE\n" +
+                "|-- Variable Name: fooz null\n" +
                 "|-- Value: 5 INTEGER_TYPE\n";
         String actual = test.indentedToString(0);
         assertEquals(expected, actual);
@@ -42,9 +48,25 @@ public class SemanticAnalyzerTest
         System.out.println("The expression for 20 + 5: ");
         System.out.println(actual);
 
+        //Positive, numbers only test.
+        parser = new Parser("20 + 5", false);
+        test = parser.expression();
+        analyze =
+                new SemanticAnalyzer(null, null);
+        analyze.assignExpressionType(test);
+        expected = "Operation: PLUS INTEGER_TYPE\n" +
+                "|-- Value: 20 INTEGER_TYPE\n" +
+                "|-- Value: 5 INTEGER_TYPE\n";
+        actual = test.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Parsed an expression");
+        System.out.println("The expression for 20 + 5: ");
+        System.out.println(actual);
+
+        //Positive test, variable declared as real.
         parser = new Parser("fee + 5", false);
         test = parser.expression();
-        SymbolTable st = new SymbolTable();
+        st = new SymbolTable();
         st.addVarName("fee", TypeEnum.REAL_TYPE);
         analyze = new SemanticAnalyzer(null, st);
         analyze.assignExpressionType(test);
@@ -57,6 +79,7 @@ public class SemanticAnalyzerTest
         System.out.println("The expression for fee + 5: ");
         System.out.println(actual);
 
+        //Positive test, variable declared as integer.
         parser = new Parser("foo + 5", false);
         test = parser.expression();
         st = new SymbolTable();
