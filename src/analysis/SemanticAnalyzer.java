@@ -186,7 +186,7 @@ public class SemanticAnalyzer
                     (AssignmentStatementNode) statement).getExpression());
 
             //Checking types across assignment.
-            if (checkType(varType, expressionType) == false)
+            if (!checkType(varType, expressionType))
             {
                 System.out.println("Variable " +
                         ((AssignmentStatementNode) statement).getLvalue()
@@ -223,7 +223,10 @@ public class SemanticAnalyzer
 
     /**
      * Checks to see if the type of a declared variable matches across
-     * assignment.
+     * assignment. A variable should be the same type as its expression,
+     * unless the variable is of type real. If a variable is declared as
+     * a real, then it is able to also hold an integer value, but not
+     * the other way around.
      *
      * @param variable   - The type of a VariableNode.
      * @param expression - The type of an ExpressionNode.
@@ -232,11 +235,22 @@ public class SemanticAnalyzer
      */
     public Boolean checkType(TypeEnum variable, TypeEnum expression)
     {
+        // If variable and expression type match.
         if (variable == expression)
         {
             return true;
         }
-
-        return false;
+        // A variable declared real should be able to take an integer value.
+        else if(variable == TypeEnum.REAL_TYPE &&
+                expression == TypeEnum.INTEGER_TYPE)
+        {
+            return true;
+        }
+        /* An integer value should not be able to hold a real and will
+        return false. */
+        else
+        {
+            return false;
+        }
     }
 }
