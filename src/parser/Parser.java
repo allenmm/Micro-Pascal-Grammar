@@ -130,7 +130,7 @@ public class Parser
      */
     public ArrayList<String> identifier_list()
     {
-        ArrayList answer = new ArrayList();
+        ArrayList<String> answer = new ArrayList<>();
 
         String varName = lookahead.lexeme;
         /* Must add before match because match confirms token type then

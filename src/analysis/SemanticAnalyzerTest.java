@@ -1,7 +1,9 @@
 package analysis;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import parser.Parser;
 import parser.SymbolTable;
 import parser.TypeEnum;
@@ -29,12 +31,16 @@ public class SemanticAnalyzerTest
         System.out.println("\n" + "###############################" + "\n" +
                 "# Test assign expression type #" + "\n" +
                 "###############################" + "\n");
-        Parser parser = new Parser("20 + 5", false);
+
+        //Negative null type test.
+        Parser parser = new Parser("fooz + 5", false);
         ExpressionNode test = parser.expression();
-        SemanticAnalyzer analyze = new SemanticAnalyzer(null, null);
+        SymbolTable st = new SymbolTable();
+        st.addVarName("fooz", null);
+        SemanticAnalyzer analyze = new SemanticAnalyzer(null, st);
         analyze.assignExpressionType(test);
         String expected = "Operation: PLUS INTEGER_TYPE\n" +
-                "|-- Value: 20 INTEGER_TYPE\n" +
+                "|-- Variable Name: fooz null\n" +
                 "|-- Value: 5 INTEGER_TYPE\n";
         String actual = test.indentedToString(0);
         assertEquals(expected, actual);
@@ -42,9 +48,25 @@ public class SemanticAnalyzerTest
         System.out.println("The expression for 20 + 5: ");
         System.out.println(actual);
 
+        //Positive, numbers only test.
+        parser = new Parser("20 + 5", false);
+        test = parser.expression();
+        analyze =
+                new SemanticAnalyzer(null, null);
+        analyze.assignExpressionType(test);
+        expected = "Operation: PLUS INTEGER_TYPE\n" +
+                "|-- Value: 20 INTEGER_TYPE\n" +
+                "|-- Value: 5 INTEGER_TYPE\n";
+        actual = test.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Parsed an expression");
+        System.out.println("The expression for 20 + 5: ");
+        System.out.println(actual);
+
+        //Positive test, variable declared as real.
         parser = new Parser("fee + 5", false);
         test = parser.expression();
-        SymbolTable st = new SymbolTable();
+        st = new SymbolTable();
         st.addVarName("fee", TypeEnum.REAL_TYPE);
         analyze = new SemanticAnalyzer(null, st);
         analyze.assignExpressionType(test);
@@ -57,6 +79,7 @@ public class SemanticAnalyzerTest
         System.out.println("The expression for fee + 5: ");
         System.out.println(actual);
 
+        //Positive test, variable declared as integer.
         parser = new Parser("foo + 5", false);
         test = parser.expression();
         st = new SymbolTable();
@@ -80,6 +103,7 @@ public class SemanticAnalyzerTest
     @Test
     public void testGoodToGo()
     {
+        //Negative null type test.
         System.out.println("\n" + "###########################" + "\n" +
                 "#     Test good to go     #" + "\n" +
                 "###########################" + "\n");
@@ -89,34 +113,45 @@ public class SemanticAnalyzerTest
         ExpressionNode test = parser.expression();
         SemanticAnalyzer analyze = new SemanticAnalyzer(null, st);
         analyze.assignExpressionType(test);
+        String expected = "Variable Name: fi null\n";
+        String actual = test.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Passed, variable name not declared in tree.");
         assertFalse(analyze.goodToGo());
         System.out.println("Passed, variable name not declared " +
-                "because it has no type.");
+                "because it has no type.\n");
 
+        //Negative null type test.
         parser = new Parser("fi - 5", false);
         test = parser.expression();
         st = new SymbolTable();
         st.addVarName("fi", null);
         analyze = new SemanticAnalyzer(null, st);
         analyze.assignExpressionType(test);
+        expected = "Operation: MINUS INTEGER_TYPE\n" +
+                "|-- Variable Name: fi null\n" +
+                "|-- Value: 5 INTEGER_TYPE\n";
+        actual = test.indentedToString(0);
+        assertEquals(expected, actual);
+        System.out.println("Passed, variable name not declared in tree.");
         assertFalse(analyze.goodToGo());
         System.out.println("Passed, variable name not declared " +
                 "because it has no type.");
-
     }
 
     /* This method uses JUnit to test the assignStatementTypes method
      * from the SemanticAnalyzer class by testing to see if a type is
      * assigned to every StatementNode by finding all of the
-     * ExpressionNodes within a StatementNode.
+     * ExpressionNodes within a StatementNode and assigning their types.
      */
     @Test
     public void testAssignStatementTypes()
     {
-        System.out.println("\n" + "##############################" + "\n" +
-                "# Test assign statement type #" + "\n" +
+        System.out.println("\n" + "##############################" +
+                "\n" + "# Test assign statement type #" + "\n" +
                 "##############################" + "\n");
-        //Negative test.
+
+        //Positive test.
         AssignmentStatementNode asn = new AssignmentStatementNode();
         VariableNode vn = new VariableNode("foo");
         ValueNode value = new ValueNode("4");
@@ -126,8 +161,34 @@ public class SemanticAnalyzerTest
         st.addVarName("foo", TypeEnum.REAL_TYPE);
         SemanticAnalyzer analyze = new SemanticAnalyzer(null, st);
         analyze.assignStatementTypes(asn);
-        System.out.println("Passed! Message printed that types don't " +
-                "match across assignment.\n");
+        String expected = "Assignment\n" +
+                "|-- Variable Name: foo REAL_TYPE\n" +
+                "|-- Value: 4 INTEGER_TYPE\n";
+        String actual = asn.indentedToString(0);
+        assertEquals(expected,actual);
+        System.out.println("Passed! Type assignment integer into " +
+                "declared real variable succeeded.\n");
+
+        /* Negative test. Reals can contain integers, but not the other
+        way around. Testing to make sure reals cannot be assigned to
+        variables declared as integers. */
+        asn = new AssignmentStatementNode();
+        vn = new VariableNode("fee");
+        value = new ValueNode("7.0");
+        asn.setLvalue(vn);
+        asn.setExpression(value);
+        st = new SymbolTable();
+        st.addVarName("fee", TypeEnum.INTEGER_TYPE);
+        analyze = new SemanticAnalyzer(null, st);
+        analyze.assignStatementTypes(asn);
+        expected = "Assignment\n" +
+                "|-- Variable Name: fee INTEGER_TYPE\n" +
+                "|-- Value: 7.0 REAL_TYPE\n";
+        actual = asn.indentedToString(0);
+        assertEquals(expected,actual);
+        System.out.println("Success! Type assignment real into " +
+                "declared integer variable doesn't match across " +
+                "assignment.\n");
 
         //Positive test.
         asn = new AssignmentStatementNode();
@@ -139,6 +200,12 @@ public class SemanticAnalyzerTest
         st.addVarName("fee", TypeEnum.INTEGER_TYPE);
         analyze = new SemanticAnalyzer(null, st);
         analyze.assignStatementTypes(asn);
+        expected = "Assignment\n" +
+                "|-- Variable Name: fee INTEGER_TYPE\n" +
+                "|-- Value: 7 INTEGER_TYPE\n";
+        actual = asn.indentedToString(0);
+        assertEquals(expected,actual);
         System.out.println("Success! Types match across assignment.");
+
     }
 }
