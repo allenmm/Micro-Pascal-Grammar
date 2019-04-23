@@ -142,15 +142,16 @@ public class SemanticAnalyzerTest
     /* This method uses JUnit to test the assignStatementTypes method
      * from the SemanticAnalyzer class by testing to see if a type is
      * assigned to every StatementNode by finding all of the
-     * ExpressionNodes within a StatementNode.
+     * ExpressionNodes within a StatementNode and assigning their types.
      */
     @Test
     public void testAssignStatementTypes()
     {
-        System.out.println("\n" + "##############################" + "\n" +
-                "# Test assign statement type #" + "\n" +
+        System.out.println("\n" + "##############################" +
+                "\n" + "# Test assign statement type #" + "\n" +
                 "##############################" + "\n");
-        //Negative test.
+
+        //Positive test.
         AssignmentStatementNode asn = new AssignmentStatementNode();
         VariableNode vn = new VariableNode("foo");
         ValueNode value = new ValueNode("4");
@@ -160,8 +161,34 @@ public class SemanticAnalyzerTest
         st.addVarName("foo", TypeEnum.REAL_TYPE);
         SemanticAnalyzer analyze = new SemanticAnalyzer(null, st);
         analyze.assignStatementTypes(asn);
-        System.out.println("Passed! Message printed that types don't " +
-                "match across assignment.\n");
+        String expected = "Assignment\n" +
+                "|-- Variable Name: foo REAL_TYPE\n" +
+                "|-- Value: 4 INTEGER_TYPE\n";
+        String actual = asn.indentedToString(0);
+        assertEquals(expected,actual);
+        System.out.println("Passed! Type assignment integer into " +
+                "declared real variable succeeded.\n");
+
+        /* Negative test. Reals can contain integers, but not the other
+        way around. Testing to make sure reals cannot be assigned to
+        variables declared as integers. */
+        asn = new AssignmentStatementNode();
+        vn = new VariableNode("fee");
+        value = new ValueNode("7.0");
+        asn.setLvalue(vn);
+        asn.setExpression(value);
+        st = new SymbolTable();
+        st.addVarName("fee", TypeEnum.INTEGER_TYPE);
+        analyze = new SemanticAnalyzer(null, st);
+        analyze.assignStatementTypes(asn);
+        expected = "Assignment\n" +
+                "|-- Variable Name: fee INTEGER_TYPE\n" +
+                "|-- Value: 7.0 REAL_TYPE\n";
+        actual = asn.indentedToString(0);
+        assertEquals(expected,actual);
+        System.out.println("Success! Type assignment real into " +
+                "declared integer variable doesn't match across " +
+                "assignment.\n");
 
         //Positive test.
         asn = new AssignmentStatementNode();
@@ -173,6 +200,12 @@ public class SemanticAnalyzerTest
         st.addVarName("fee", TypeEnum.INTEGER_TYPE);
         analyze = new SemanticAnalyzer(null, st);
         analyze.assignStatementTypes(asn);
+        expected = "Assignment\n" +
+                "|-- Variable Name: fee INTEGER_TYPE\n" +
+                "|-- Value: 7 INTEGER_TYPE\n";
+        actual = asn.indentedToString(0);
+        assertEquals(expected,actual);
         System.out.println("Success! Types match across assignment.");
+
     }
 }
