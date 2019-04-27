@@ -226,4 +226,41 @@ public class CodeGeneration
         return code;
     }
 
+    public String writeCode(StatementNode node)
+    {
+        if (node instanceof CompoundStatementNode)
+        {
+            for (StatementNode sNode :
+                    ((CompoundStatementNode) node).getStatements())
+            {
+                nodeCode = writeCode(sNode);
+            }
+        }
+        else if (node instanceof AssignmentStatementNode)
+        {
+            nodeCode += writeCode((AssignmentStatementNode) node);
+        }
+        else if (node instanceof IfStatementNode)
+        {
+            nodeCode += writeCode((IfStatementNode) node);
+        }
+        else if (node instanceof WriteStatementNode)
+        {
+            nodeCode += writeCode((WriteStatementNode) node);
+        }
+        else if (node instanceof WhileStatementNode)
+        {
+            nodeCode += writeCode((WhileStatementNode) node);
+        }
+        else if (node instanceof ReadStatementNode)
+        {
+            nodeCode += writeCode((ReadStatementNode) node);
+        }
+        else if (node instanceof ReturnStatementNode)
+        {
+            nodeCode += writeCode((ReturnStatementNode) node);
+        }
+        return nodeCode;
+    }
+
 }
