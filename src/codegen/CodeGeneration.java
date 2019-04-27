@@ -282,5 +282,14 @@ public class CodeGeneration
         currentTRegister--;
         return code;
     }
-    
+
+    //this is correct
+    public String writeCode(ReadStatementNode readNode)
+    {
+        String code = "li    $v0, 5\nsyscall\nsw     $v0, " +
+                readNode.getVarTest().getName() + "\n";
+        return code;
+    }
+
+
 }
