@@ -203,7 +203,13 @@ public class SemanticAnalyzer
             assignExpressionType(
                     ((ReturnStatementNode) statement).getReturnTest());
         }
-
+        else if(statement instanceof WhileStatementNode)
+        {
+            assignExpressionType(
+                    ((WhileStatementNode) statement).getWhileTest());
+            assignStatementTypes(
+                    ((WhileStatementNode) statement).getStatement());
+        }
     }
 
     /**
