@@ -167,9 +167,10 @@ public class CodeGeneration
             code += "bne    " + leftRegister + ",   " + rightRegister
                     + ", endLoop" + whileNumber + "\n";
         }
-        if( kindOfOp == TokenType.LTHAN)
+        if (kindOfOp == TokenType.LTHAN)
         {
-
+            code += "blt    " + rightRegister + ",   " + leftRegister
+                    + ", endLoop" + whileNumber + "\n";
         }
         if( kindOfOp == TokenType.LTHANEQUAL)
         {
