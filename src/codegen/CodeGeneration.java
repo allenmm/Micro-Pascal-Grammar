@@ -144,9 +144,10 @@ public class CodeGeneration
             code += "div    " + leftRegister + ",   " + rightRegister + "\n";
             code += "mflo   " + resultRegister + "\n";
         }
-        if( kindOfOp == TokenType.MOD)
+        if (kindOfOp == TokenType.MOD)
         {
-
+            code += "div    " + leftRegister + ",   " + rightRegister + "\n";
+            code += "mfhi   " + resultRegister + "\n";
         }
         if( kindOfOp == TokenType.AND)
         {
