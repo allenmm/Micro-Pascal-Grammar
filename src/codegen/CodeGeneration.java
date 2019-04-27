@@ -16,11 +16,10 @@ public class CodeGeneration
 
     private int currentTRegister = -1;
     private int whileCounter = 0;
-    private int ifCounter = 0;
     private ProgramNode program;
     private SymbolTable symbols;
     private String nodeCode ="";
-
+    int ifCounter = 0;
 
     /**
      * CodeGeneration constructor that takes and stores values from a
@@ -339,15 +338,39 @@ public class CodeGeneration
     public String writeCode(IfStatementNode statement)
     {
         String code;
+        /*Used to grab the last two lines of the Strings appended to
+        the then and else statements. Otherwise every
+        assignmentStatementNode is appended onto the then and else
+        statements.*/
+        ifCounter = ++ifCounter * 2;
+        String thenStatementResult = "";
+        String elseStatementResult = "";
         int whileNumber = this.whileCounter + 1;
         String reg = "$t" + ++currentTRegister;
         ExpressionNode en = statement.getTest();
         String ifExp = writeCode(en, reg);
+        System.out.println("IF strings: "+ifExp);
         String thenStatement = writeCode(statement.getThenStatement());
+        String[] arr = thenStatement.split("\n");
+        int arrlength = arr.length;
+        int arrStart = arrlength - ifCounter;
+        while(arrStart < arrlength)
+        {
+            thenStatementResult += arr[arrStart] + "\n";
+            arrStart++;
+        }
         String elseStatement = writeCode(statement.getElseStatement());
+        arr = elseStatement.split("\n");
+        arrlength = arr.length;
+        arrStart = arrlength - ifCounter;
+        while(arrStart < arrlength)
+        {
+            elseStatementResult += arr[arrStart] + "\n";
+            arrStart++;
+        }
         //code = ifExp + "\n" + thenStatement + "\n" +  elseStatement + "\n";
-        code = ifExp +"\n"+ thenStatement + "\n" + "j Next \n\n"+
-                "endLoop" + whileNumber + ":\n"+ elseStatement+"\n"+"Next: \n";
+        code = ifExp +"\n"+ thenStatementResult + "\n" + "j Next \n\n"+
+                "endLoop" + whileNumber + ":\n"+ elseStatementResult+"\n"+"Next: \n";
         currentTRegister--;
         return code;
     }
