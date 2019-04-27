@@ -48,15 +48,13 @@ public class CodeGeneration
         answer += "addi    $sp, $sp, -4\n";
         answer += "sw    $ra 0($sp)\n";
 
-        String nodeCode = null;
-        int tempTRegValue = this.currentTRegister;
-        nodeCode = writeCode( root, "$s0");
-        this.currentTRegister = tempTRegValue;
-        code.append( nodeCode);
-        code.append( "sw     $s0,   answer\n");
-        code.append( "addi   $v0,   10\n");
-        code.append( "syscall\n");
-        return( code.toString());
+        answer += writeCode(program.getMain());
+
+        answer += "lw    $ra 0($sp)\n";
+        answer += "addi    $sp, $sp, 4\n";
+        answer += "jr $ra\n";
+
+        return answer;
     }
 
     /**
