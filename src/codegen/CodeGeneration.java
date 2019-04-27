@@ -132,9 +132,17 @@ public class CodeGeneration
             //floating point division
 
         }
-        if( kindOfOp == TokenType.DIV)
-        {
+        /*
+        psuedocode for divide: div $d, $s, $t
 
+        expansion:
+        div $s, $t
+        mflo $d
+        */
+        if (kindOfOp == TokenType.DIV)
+        {
+            code += "div    " + leftRegister + ",   " + rightRegister + "\n";
+            code += "mflo   " + resultRegister + "\n";
         }
         if( kindOfOp == TokenType.MOD)
         {
