@@ -249,7 +249,8 @@ public class CodeGeneration
         }
         else if (node instanceof AssignmentStatementNode)
         {
-            nodeCode = writeCode((AssignmentStatementNode) node);
+            nodeCode += writeCode((AssignmentStatementNode) node);
+            System.out.println("printing: " + nodeCode);
         }
         else if (node instanceof IfStatementNode)
         {
@@ -335,6 +336,20 @@ public class CodeGeneration
         return code;
     }
 
+    /**
+     *
+     *
+     * Example code:
+     * beq s3, s4, True     # branch i==j
+     * sub s0, s1, s2       # f=g-h(false) In code comes before true.
+     * b Fin                # go to Fin
+     * True:
+     * add s0,s1,s2         # f=g+h (true). In code comes after true.
+     * Fin:
+     *
+     * @param statement
+     * @return
+     */
     public String writeCode(IfStatementNode statement)
     {
         String code;
@@ -369,8 +384,9 @@ public class CodeGeneration
             arrStart++;
         }
         //code = ifExp + "\n" + thenStatement + "\n" +  elseStatement + "\n";
-        code = ifExp +"\n"+ thenStatementResult + "\n" + "j Next \n\n"+
-                "endLoop" + whileNumber + ":\n"+ elseStatementResult+"\n"+"Next: \n";
+        code = ifExp +"\n"+ elseStatementResult + "\n" + "j Next \n\n"+
+                "endLoop" + whileNumber + ":\n"+ thenStatementResult+"\n"
+                +"Next: \n";
         currentTRegister--;
         return code;
     }
