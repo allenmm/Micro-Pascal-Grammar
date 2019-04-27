@@ -324,7 +324,7 @@ public class CodeGeneration
         String whileExp = writeCode(en, reg);
         String doStatement = writeCode(whileStatementNode.getStatement());
         code = "TopWhile" + whileNumber + ":\n" +  whileExp +"\n"+
-                doStatement + "\n" + "j TopWhile" + whileNumber + ":\n"
+                doStatement + "\n" + "j TopWhile" + whileNumber + "\n"
                 + "endLoop" + whileNumber + ":\n";
         currentTRegister--;
         return code;
