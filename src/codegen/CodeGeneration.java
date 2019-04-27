@@ -309,4 +309,19 @@ public class CodeGeneration
         return code;
     }
 
+    public String writeCode(WhileStatementNode whileStatementNode)
+    {
+        String code;
+        int whileNumber = this.whileCounter + 1;
+        String reg = "$s" + ++currentTRegister;
+        ExpressionNode en = (whileStatementNode.getWhileTest());
+        String whileExp = writeCode(en, reg);
+        String doStatement = writeCode(whileStatementNode.getStatement());
+        code = "TopWhile" + whileNumber + ":\n" +  whileExp +"\n"+
+                doStatement + "\n" + "j TopWhile" + whileNumber + ":\n"
+                + "endLoop" + whileNumber + ":\n";
+        currentTRegister--;
+        return code;
+    }
+
 }
