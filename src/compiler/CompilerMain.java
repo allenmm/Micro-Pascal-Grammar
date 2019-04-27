@@ -1,5 +1,6 @@
 package compiler;
 
+import codegen.CodeGeneration;
 import parser.Parser;
 import parser.SymbolTable;
 import syntaxtree.ProgramNode;
@@ -48,7 +49,28 @@ public class CompilerMain
             sa.analyze();
             if (sa.goodToGo())
             {
-                //placeholder for running code generator
+                CodeGeneration codeGen = new CodeGeneration(pn, st);
+                String code = codeGen.genCode();
+                //write to asm file
+
+                int dotIndex = fileName.indexOf(".");
+                /*The file name from the first letter of the file name up
+                to the dot. */
+                String baseFileName = fileName.substring(0, dotIndex);
+                /*Changing the file extension by adding the file extension
+                .table on to the file name. */
+                String fileOutName = baseFileName + ".asm";
+                try
+                {
+                    PrintWriter printWriter = new PrintWriter(fileOutName);
+                    //Writing symbol table toString out to the .table file
+                    printWriter.print(code);
+                    printWriter.close();
+                }
+                catch (Exception e)
+                {
+                    System.out.println("Failed to write to file");
+                }
             }
             else
             {
@@ -94,8 +116,6 @@ public class CompilerMain
             {
                 System.out.println("Failed to write to file");
             }
-
-
         }
     }
 }
