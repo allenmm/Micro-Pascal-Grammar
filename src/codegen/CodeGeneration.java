@@ -149,14 +149,17 @@ public class CodeGeneration
             code += "div    " + leftRegister + ",   " + rightRegister + "\n";
             code += "mfhi   " + resultRegister + "\n";
         }
-        if( kindOfOp == TokenType.AND)
+        if (kindOfOp == TokenType.AND)
         {
             // add resultregister, left, right
             code += "and    " + resultRegister + ",   " + leftRegister +
                     ",   " + rightRegister + "\n";
         }
-        if( kindOfOp == TokenType.EQUIV)
+        if (kindOfOp == TokenType.EQUIV)
         {
+            code += "beq    " + leftRegister + ",   " + rightRegister
+                    + ", endLoop" + whileNumber + "\n";
+            /*Use the label reglabelnum as a 'global' for the current generic lable to use outside for label placement?*/
 
         }
         if( kindOfOp == TokenType.NOTEQUAL)
