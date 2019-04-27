@@ -177,9 +177,11 @@ public class CodeGeneration
             code += "ble    " + rightRegister + ",   " + leftRegister
                     + ", endLoop" + whileNumber + "\n";
         }
-        if( kindOfOp == TokenType.GTHANEQUAL)
+        //$s = right reg, $t = left reg. Psuedocode: bge $s, $t, C
+        if (kindOfOp == TokenType.GTHANEQUAL)
         {
-
+            code += "bge    " + rightRegister + ",   " + leftRegister
+                    + ", endLoop" + whileNumber + "\n";
         }
         if( kindOfOp == TokenType.GTHAN)
         {
