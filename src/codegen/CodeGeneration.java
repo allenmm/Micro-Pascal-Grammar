@@ -172,9 +172,10 @@ public class CodeGeneration
             code += "blt    " + rightRegister + ",   " + leftRegister
                     + ", endLoop" + whileNumber + "\n";
         }
-        if( kindOfOp == TokenType.LTHANEQUAL)
+        if (kindOfOp == TokenType.LTHANEQUAL)
         {
-
+            code += "ble    " + rightRegister + ",   " + leftRegister
+                    + ", endLoop" + whileNumber + "\n";
         }
         if( kindOfOp == TokenType.GTHANEQUAL)
         {
