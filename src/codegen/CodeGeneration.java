@@ -300,5 +300,13 @@ public class CodeGeneration
         return code;
     }
 
+    //this is correct
+    public String writeCode(ReturnStatementNode returnNode)
+    {
+        String reg = "$v0";
+        String code = writeCode(returnNode.getReturnTest(), reg) +
+                "\t\t# Returns the function statements";
+        return code;
+    }
 
 }
