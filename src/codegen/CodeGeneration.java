@@ -175,23 +175,23 @@ public class CodeGeneration
         }
         if (kindOfOp == TokenType.LTHAN)
         {
-            code += "blt    " + rightRegister + ",   " + leftRegister
+            code += "blt    "  + leftRegister + ",   " + rightRegister
                     + ", endLoop" + whileNumber + "\n";
         }
         if (kindOfOp == TokenType.LTHANEQUAL)
         {
-            code += "ble    " + rightRegister + ",   " + leftRegister
+            code += "ble    " + leftRegister + ",   " + rightRegister
                     + ", endLoop" + whileNumber + "\n";
         }
         //$s = right reg, $t = left reg. Psuedocode: bge $s, $t, C
         if (kindOfOp == TokenType.GTHANEQUAL)
         {
-            code += "bge    " + rightRegister + ",   " + leftRegister
+            code += "bge    " + leftRegister + ",   " + rightRegister
                     + ", endLoop" + whileNumber + "\n";
         }
         if (kindOfOp == TokenType.GTHAN)
         {
-            code += "bgt    " + rightRegister + ",   " + leftRegister
+            code += "bgt    " + leftRegister + ",   " + rightRegister
                     + ", endLoop" + whileNumber + "\n";
         }
         this.currentTRegister -= 2;
@@ -204,9 +204,9 @@ public class CodeGeneration
      * into the destination register.
      * Writes code that looks like  addi $reg, $zero, value
      *
-     * @param valNode        The node containing the value.
-     * @param resultRegister The register in which to put the value.
-     * @return The code which executes this value node.
+     * @param valNode - The node containing the value.
+     * @param resultRegister - The register in which to put the value.
+     * @return - The code which executes this value node.
      */
     public String writeCode(ValueNode valNode, String resultRegister)
     {
@@ -221,9 +221,9 @@ public class CodeGeneration
      * into the destination register.
      * Writes code that looks like: addi $reg, $zero, variable
      *
-     * @param varNode        The node containing the variable.
-     * @param resultRegister The register in which to put the variable.
-     * @return The code which executes this variable node.
+     * @param varNode - The node containing the variable.
+     * @param resultRegister - The register in which to put the variable.
+     * @return - The code which executes this variable node.
      */
     public String writeCode(VariableNode varNode, String resultRegister)
     {
@@ -232,6 +232,12 @@ public class CodeGeneration
         return code;
     }
 
+    /**
+     *
+     *
+     * @param node -
+     * @return -
+     */
     public String writeCode(StatementNode node)
     {
         if (node instanceof CompoundStatementNode)
@@ -244,7 +250,7 @@ public class CodeGeneration
         }
         else if (node instanceof AssignmentStatementNode)
         {
-            nodeCode += writeCode((AssignmentStatementNode) node);
+            nodeCode = writeCode((AssignmentStatementNode) node);
         }
         else if (node instanceof IfStatementNode)
         {
