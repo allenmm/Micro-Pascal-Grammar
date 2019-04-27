@@ -324,4 +324,19 @@ public class CodeGeneration
         return code;
     }
 
+    public String writeCode(IfStatementNode statement)
+    {
+        String code;
+        int whileNumber = this.whileCounter + 1;
+        String reg = "$t" + ++currentTRegister;
+        ExpressionNode en = statement.getTest();
+        String ifExp = writeCode(en, reg);
+        String thenStatement = writeCode(statement.getThenStatement());
+        String elseStatement = writeCode(statement.getElseStatement());
+        //code = ifExp + "\n" + thenStatement + "\n" +  elseStatement + "\n";
+        code = ifExp +"\n"+ thenStatement + "\n" + "j Next \n\n"+
+                "endLoop" + whileNumber + ":\n"+ elseStatement+"\n"+"Next: \n";
+        currentTRegister--;
+        return code;
+    }
 }
