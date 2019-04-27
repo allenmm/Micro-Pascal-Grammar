@@ -291,5 +291,14 @@ public class CodeGeneration
         return code;
     }
 
+    public String writeCode(WriteStatementNode writeNode)
+    {
+        String reg = "$t" + ++currentTRegister;
+        String code = writeCode(writeNode.getWriteTest(), reg);
+        code = code + "li    $v0, 1\n" + "addi   $a0, " + reg + ", 0\nsyscall\n";
+        currentTRegister--;
+        return code;
+    }
+
 
 }
