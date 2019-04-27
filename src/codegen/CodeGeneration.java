@@ -61,23 +61,27 @@ public class CodeGeneration
      * Writes code for the given node.
      * This generic write code takes any ExpressionNode, and then
      * recasts according to subclass type for dispatching.
+     *
      * @param node The node for which to write code.
-     * @param reg The register in which to put the result.
+     * @param reg  The register in which to put the result.
      * @return
      */
-    public String writeCode( ExpressionNode node, String reg) {
+    public String writeCode(ExpressionNode node, String reg)
+    {
         String nodeCode = null;
-        if( node instanceof OperationNode) {
-            nodeCode = writeCode( (OperationNode)node, reg);
-        }
-        else if( node instanceof ValueNode) {
-            nodeCode = writeCode( (ValueNode)node, reg);
-        }
-        else if(node instanceof VariableNode)
+        if (node instanceof OperationNode)
         {
-            nodeCode = writeCode((VariableNode)node, reg);
+            nodeCode = writeCode((OperationNode) node, reg);
         }
-        return( nodeCode);
+        else if (node instanceof ValueNode)
+        {
+            nodeCode = writeCode((ValueNode) node, reg);
+        }
+        else if (node instanceof VariableNode)
+        {
+            nodeCode = writeCode((VariableNode) node, reg);
+        }
+        return nodeCode;
     }
 
     /**
@@ -85,45 +89,47 @@ public class CodeGeneration
      * The code is written by gathering the child nodes' answers into
      * a pair of registers, and then executing the op on those registers,
      * placing the result in the given result register.
-     * @param opNode The operation node to perform.
+     *
+     * @param opNode         The operation node to perform.
      * @param resultRegister The register in which to put the result.
      * @return The code which executes this operation.
      */
-    public String writeCode( OperationNode opNode, String resultRegister)
+    public String writeCode(OperationNode opNode, String resultRegister)
     {
         String code;
         ExpressionNode left = opNode.getLeft();
-        String leftRegister = "$t" + currentTRegister++;
-        code = writeCode( left, leftRegister);
+        String leftRegister = "$t" + ++currentTRegister;
+        code = writeCode(left, leftRegister);
         ExpressionNode right = opNode.getRight();
-        String rightRegister = "$t" + currentTRegister++;
-        code += writeCode( right, rightRegister);
+        String rightRegister = "$t" + ++currentTRegister;
+        code += writeCode(right, rightRegister);
         TokenType kindOfOp = opNode.getOperation();
-        if( kindOfOp == TokenType.PLUS)
+        if (kindOfOp == TokenType.PLUS)
         {
             // add resultregister, left, right
             code += "add    " + resultRegister + ",   " + leftRegister +
                     ",   " + rightRegister + "\n";
         }
-        if( kindOfOp == TokenType.MINUS)
+        if (kindOfOp == TokenType.MINUS)
         {
             // add resultregister, left, right
             code += "sub    " + resultRegister + ",   " + leftRegister +
                     ",   " + rightRegister + "\n";
         }
-        if( kindOfOp == TokenType.OR)
+        if (kindOfOp == TokenType.OR)
         {
             // add resultregister, left, right
             code += "or    " + resultRegister + ",   " + leftRegister +
                     ",   " + rightRegister + "\n";
         }
-        if( kindOfOp == TokenType.MULTI)
+        if (kindOfOp == TokenType.MULTI)
         {
             code += "mult   " + leftRegister + ",   " + rightRegister + "\n";
             code += "mflo   " + resultRegister + "\n";
         }
-        if( kindOfOp == TokenType.FSLASH)
+        if (kindOfOp == TokenType.FSLASH)
         {
+            //floating point division
 
         }
         if( kindOfOp == TokenType.DIV)
@@ -173,7 +179,8 @@ public class CodeGeneration
      * The code is written by executing an add immediate with the value
      * into the destination register.
      * Writes code that looks like  addi $reg, $zero, value
-     * @param valNode The node containing the value.
+     *
+     * @param valNode        The node containing the value.
      * @param resultRegister The register in which to put the value.
      * @return The code which executes this value node.
      */
