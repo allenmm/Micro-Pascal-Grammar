@@ -263,4 +263,24 @@ public class CodeGeneration
         return nodeCode;
     }
 
+    /**
+     * Writing to the data memory. The basic instruction to write an
+     * integer to memory is called store word. A integer value is moved
+     * to memory using the syntax sw $reg, label.
+     *
+     * @param asn - The name of the label of the value to be stored in
+     * memory.
+     * @return - A String of the assembly code.
+     */
+    //this is correct
+    public String writeCode(AssignmentStatementNode asn)
+    {
+        String reg = "$t" + ++currentTRegister;
+        String code = writeCode(asn.getExpression(), reg);
+        code = code + "sw     " + reg + ", " + asn.getLvalue().getName()
+                + "     # Memory[label] = $t0\n";
+        currentTRegister--;
+        return code;
+    }
+    
 }
