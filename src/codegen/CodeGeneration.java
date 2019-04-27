@@ -14,7 +14,12 @@ import java.util.ArrayList;
 public class CodeGeneration
 {
 
-    private int currentTRegister = 0;
+    private int currentTRegister = -1;
+    private int whileCounter = 0;
+    private int ifCounter = 0;
+    private ProgramNode program;
+    private SymbolTable symbols;
+    private String nodeCode ="";
 
 
     /**
@@ -96,6 +101,7 @@ public class CodeGeneration
      */
     public String writeCode(OperationNode opNode, String resultRegister)
     {
+        int whileNumber = ++this.whileCounter;
         String code;
         ExpressionNode left = opNode.getLeft();
         String leftRegister = "$t" + ++currentTRegister;
