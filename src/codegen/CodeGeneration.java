@@ -183,12 +183,13 @@ public class CodeGeneration
             code += "bge    " + rightRegister + ",   " + leftRegister
                     + ", endLoop" + whileNumber + "\n";
         }
-        if( kindOfOp == TokenType.GTHAN)
+        if (kindOfOp == TokenType.GTHAN)
         {
-
+            code += "bgt    " + rightRegister + ",   " + leftRegister
+                    + ", endLoop" + whileNumber + "\n";
         }
         this.currentTRegister -= 2;
-        return( code);
+        return code;
     }
 
     /**
