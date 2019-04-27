@@ -202,11 +202,28 @@ public class CodeGeneration
      * @param resultRegister The register in which to put the value.
      * @return The code which executes this value node.
      */
-    public String writeCode( ValueNode valNode, String resultRegister)
+    public String writeCode(ValueNode valNode, String resultRegister)
     {
         String value = valNode.getAttribute();
-        String code = "addi   " + resultRegister + ",   $zero, " + value + "\n";
-        return( code);
+        String code = "li     " + resultRegister + ",  " + value + "\n";
+        return code;
+    }
+
+    /**
+     * Writes code for a variable node.
+     * The code is written by executing an add immediate with the value
+     * into the destination register.
+     * Writes code that looks like: addi $reg, $zero, variable
+     *
+     * @param varNode        The node containing the variable.
+     * @param resultRegister The register in which to put the variable.
+     * @return The code which executes this variable node.
+     */
+    public String writeCode(VariableNode varNode, String resultRegister)
+    {
+        String code = "lw     " + resultRegister + ", " + varNode.getName() +
+                "\t#Loads the variable labels." + "\n";
+        return code;
     }
 
 }
