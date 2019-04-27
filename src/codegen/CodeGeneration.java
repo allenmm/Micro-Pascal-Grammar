@@ -162,9 +162,10 @@ public class CodeGeneration
             /*Use the label reglabelnum as a 'global' for the current generic lable to use outside for label placement?*/
 
         }
-        if( kindOfOp == TokenType.NOTEQUAL)
+        if (kindOfOp == TokenType.NOTEQUAL)
         {
-
+            code += "bne    " + leftRegister + ",   " + rightRegister
+                    + ", endLoop" + whileNumber + "\n";
         }
         if( kindOfOp == TokenType.LTHAN)
         {
