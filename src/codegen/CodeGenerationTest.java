@@ -18,7 +18,6 @@ import parser.TypeEnum;
  */
 public class CodeGenerationTest
 {
-
     /**
      * This method tests both the overall program and the declarations
      * in one test, because the declarations only occur in a program.
@@ -203,7 +202,8 @@ public class CodeGenerationTest
                 "add    $t0,   $t0,   $t1\n";
         String actual = gen.writeCode(expNode, "$t0");
         assertEquals(expected, actual);
-        System.out.println("Passed!");
+        System.out.println("Passed! Generated assembly code for" +
+                " the expression.");
     }
 
 }
