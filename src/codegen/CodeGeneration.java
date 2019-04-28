@@ -263,7 +263,7 @@ public class CodeGeneration
      * @param varNode - The node containing the variable to load
      * into the register.
      * @param resultRegister - The register the variable is placed in.
-     * @return - A String of the assembly code that executes the value
+     * @return - A String of the assembly code that executes the variable
      * node for the expression.
      */
     public String writeCode(VariableNode varNode, String resultRegister)
