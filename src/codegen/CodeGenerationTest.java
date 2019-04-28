@@ -172,7 +172,11 @@ public class CodeGenerationTest
     }
 
     /**
-     * This method tests the writeCode method that takes in expressions
+     * This method tests the writeCode method that takes in expressions.
+     * It tests the writeCode method from the CodeGeneration class by
+     * testing to see if the generated string of assembly code from the
+     * call to the writeCode method matches the expected assembly code
+     * string. This is a text string test.
      */
     @Test
     public void testWriteCodeExpression()
