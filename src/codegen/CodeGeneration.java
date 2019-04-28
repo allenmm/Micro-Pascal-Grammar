@@ -56,19 +56,25 @@ public class CodeGeneration
         for (VariableNode varNodes : vn)
         {
             //Mips assigns variables as varname: .word 0
-            answer += varNodes.getName() + " :   .word   0\n\n\n";
+            answer += varNodes.getName() + " :   .word   0\n";
         }
 
         answer += "\n.text\n";
         answer += "\nmain:\n";
-        answer += "addi    $sp, $sp, -4\n";
-        answer += "sw    $ra 0($sp)\n";
+        answer += "addi    $sp, $sp, -4   # Decrements 4 off the " +
+                "stack pointer register.\n";
+        answer += "sw    $ra 0($sp)       # Saves register $ra for use " +
+                "as a return register.\n";
 
         answer += writeCode(program.getMain());
 
-        answer += "lw    $ra 0($sp)\n";
-        answer += "addi    $sp, $sp, 4\n";
-        answer += "jr $ra\n";
+        answer += "lw    $ra 0($sp)       # Restores the original " +
+                "value $ra had in main. \n";
+        answer += "addi    $sp, $sp, 4    # Increments 4 onto the " +
+                "stack pointer register. \n";
+        answer += "jr $ra                 # Jumps back to the line after "
+                +"jal main in \n                       # the code. " +
+                "End.\n";
 
         return answer;
     }
@@ -222,7 +228,8 @@ public class CodeGeneration
     public String writeCode(ValueNode valNode, String resultRegister)
     {
         String value = valNode.getAttribute();
-        String code = "li     " + resultRegister + ",  " + value + "\n";
+        String code = "li     " + resultRegister + ",  " + value + "     " +
+                "    # Loads a register with a specific numeric value. \n";
         return code;
     }
 
@@ -239,7 +246,7 @@ public class CodeGeneration
     public String writeCode(VariableNode varNode, String resultRegister)
     {
         String code = "lw     " + resultRegister + ", " + varNode.getName() +
-                "\t#Loads the variable labels." + "\n";
+                "         # Loads the variable labels." + "\n";
         return code;
     }
 
@@ -301,7 +308,7 @@ public class CodeGeneration
         String reg = "$t" + ++currentTRegister;
         String code = writeCode(asn.getExpression(), reg);
         code = code + "sw     " + reg + ", " + asn.getLvalue().getName()
-                + "     # Memory[label] = $t0\n";
+                + "         # Memory[label] = $reg\n";
         currentTRegister--;
         return code;
     }
@@ -318,7 +325,11 @@ public class CodeGeneration
     {
         String reg = "$t" + ++currentTRegister;
         String code = writeCode(writeNode.getWriteTest(), reg);
-        code = code + "li    $v0, 1\n" + "addi   $a0, " + reg + ", 0\nsyscall\n";
+        code = code + "li    $v0, 1\n" + "addi   $a0, " + reg + ", 0   " +
+                "  # Adds the two registers together and \n" +
+                "                       # stores them in " +
+                "$a0 to be printed.\nsyscall     " +
+                "           # Prints the stored register value.\n";
         currentTRegister--;
         return code;
     }
@@ -393,7 +404,6 @@ public class CodeGeneration
             elseStatementResult += arr[arrStart] + "\n";
             arrStart++;
         }
-        //code = ifExp + "\n" + thenStatement + "\n" +  elseStatement + "\n";
         code = ifExp +"\n"+ elseStatementResult + "\n" + "j Next \n\n"+
                 "endLoop" + whileNumber + ":\n"+ thenStatementResult+"\n"
                 +"Next: \n";
