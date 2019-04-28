@@ -334,15 +334,17 @@ public class CodeGeneration
     }
 
     /**
+     * Generates the assembly code for an assignment statement node.
      * Writing to the data memory. The basic instruction to write an
      * integer to memory is called store word. A integer value is moved
-     * to memory using the syntax sw $reg, label.
+     * to memory using the syntax sw $reg, label. This assigns to the
+     * label the integer held in the register.
      *
      * @param asn - The name of the label of the value to be stored in
      * memory.
-     * @return - A String of the assembly code.
+     * @return - A String of the assembly code that executes the
+     * assignment statement node for the statement.
      */
-    //this is correct
     public String writeCode(AssignmentStatementNode asn)
     {
         String reg = "$t" + ++currentTRegister;
