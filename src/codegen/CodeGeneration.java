@@ -355,7 +355,19 @@ public class CodeGeneration
         return code;
     }
 
-    //this is correct
+    /**
+     * Generates the assembly code for the read statement node.
+     * Writes code for the given node. The code reads data from the
+     * console. $v0 is set to 5, which tells syscall to read an integer
+     * from the console. Syscall reads the integer. And sw moves the
+     * read integer into memory using the syntax sw $reg, label. This
+     * assigns the label the integer held in $v0.
+     *
+     * @param readNode - The node containing the variable name to be
+     * read and stored in memory.
+     * @return - A String of the assembly code that executes the
+     * read statement node for the statement.
+     */
     public String writeCode(ReadStatementNode readNode)
     {
         String code = "li    $v0, 5\nsyscall\nsw     $v0, " +
