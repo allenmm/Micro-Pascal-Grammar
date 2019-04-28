@@ -119,4 +119,49 @@ public class CodeGenerationTest {
                 "program, including its declarations.");
     }
 
+    /**
+     * This method tests the writeCode method that takes in statements
+     */
+    @Test
+    public void testWriteCodeStatement()
+    {
+        System.out.println("\n" + "#################################" +
+                "\n" +
+                "# Test statement assembly code #" + "\n" +
+                "#################################" + "\n");
+
+        String test = "if 3=3 then foo := 3 else return 0";
+        Parser parser = new Parser(test, false);
+        parser.getSymbolTable().addVarName("foo",
+                TypeEnum.INTEGER_TYPE);
+        parser.getSymbolTable().addVarName("fo",
+                TypeEnum.INTEGER_TYPE);
+        StatementNode stateNode = parser.statement();
+        CodeGeneration gen =
+                new CodeGeneration(null, null);
+        String expected = "li     $t1,  3        " +
+                " # Loads a register with a specific numeric value. \n" +
+                "li     $t2,  3         " +
+                "# Loads a register with a specific numeric value. \n" +
+                "beq    $t1,   $t2, endLoop1\n" +
+                "\n" +
+                "li     $v0,  0         " +
+                "# Loads a register with a specific numeric value. \n" +
+                "\t\t# Returns the function statements\n" +
+                "\n" +
+                "j Next \n" +
+                "\n" +
+                "endLoop1:\n" +
+                "li     $t1,  3         " +
+                "# Loads a register with a specific numeric value. \n" +
+                "sw     $t1, foo         " +
+                "# Memory[label] = $reg\n" +
+                "\n" +
+                "Next: \n";
+        String actual = gen.writeCode(stateNode);
+        assertEquals(expected, actual);
+        System.out.println("Passed! Generated assembly code for" +
+                " the statement.");
+    }
+
 }
