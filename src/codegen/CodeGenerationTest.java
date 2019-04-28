@@ -145,23 +145,23 @@ public class CodeGenerationTest
         StatementNode stateNode = parser.statement();
         CodeGeneration gen =
                 new CodeGeneration(null, null);
-        String expected = "li     $t1,  3        " +
-                " # Loads a register with a specific numeric value. \n" +
+        String expected = "li     $t1,  3         " +
+                "# Loads a register with a specific numeric value. \n" +
                 "li     $t2,  3         " +
                 "# Loads a register with a specific numeric value. \n" +
                 "beq    $t1,   $t2, endLoop1\n" +
                 "\n" +
                 "li     $v0,  0         " +
                 "# Loads a register with a specific numeric value. \n" +
-                "\t\t# Returns the function statements\n" +
+                "                       " +
+                "# Returns the function statements\n" +
                 "\n" +
                 "j Next \n" +
                 "\n" +
                 "endLoop1:\n" +
                 "li     $t1,  3         " +
                 "# Loads a register with a specific numeric value. \n" +
-                "sw     $t1, foo         " +
-                "# Memory[label] = $reg\n" +
+                "sw     $t1, foo         # Memory[label] = $reg\n" +
                 "\n" +
                 "Next: \n";
         String actual = gen.writeCode(stateNode);
