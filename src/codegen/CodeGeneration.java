@@ -14,13 +14,12 @@ import java.util.ArrayList;
  */
 public class CodeGeneration
 {
-
     private int currentTRegister = -1;
     private int whileCounter = 0;
     private ProgramNode program;
     private SymbolTable symbols;
     private String nodeCode ="";
-    int ifCounter = 0;
+    private int ifCounter = 0;
 
     /**
      * CodeGeneration constructor that takes and stores values from a
@@ -48,17 +47,22 @@ public class CodeGeneration
      */
     public String genCode()
     {
+        //Program overall section. Writes .data section and a .ascizz.
         String answer = "# The .data section of the MIPS assembly\n";
         answer += ".data\n";
         answer += "newline:    .asciiz     \"\\" + "n" + "\" \n";
+
+        //Declarations section
         DeclarationsNode dn = program.getVariables();
         ArrayList<VariableNode> vn = dn.getVar();
         for (VariableNode varNodes : vn)
         {
-            //Mips assigns variables as varname: .word 0
+            /*Mips assigns variables as varname: .word 0
+            * and*/
             answer += varNodes.getName() + " :   .word   0\n";
         }
 
+        //Program overall section. Writes beginning of main.
         answer += "\n.text\n";
         answer += "\nmain:\n";
         answer += "addi    $sp, $sp, -4   # Decrements 4 off the " +
@@ -66,8 +70,10 @@ public class CodeGeneration
         answer += "sw    $ra 0($sp)       # Saves register $ra for use " +
                 "as a return register.\n";
 
+        //Statement section
         answer += writeCode(program.getMain());
 
+        //Program overall section. Writes end of main.
         answer += "lw    $ra 0($sp)       # Restores the original " +
                 "value $ra had in main. \n";
         answer += "addi    $sp, $sp, 4    # Increments 4 onto the " +
@@ -80,27 +86,38 @@ public class CodeGeneration
     }
 
     /**
-     * Writes code for the given node.
-     * This generic write code takes any ExpressionNode, and then
-     * recasts according to subclass type for dispatching.
+     * Writes code for the given node. This generic write code takes any
+     * ExpressionNode, and then recasts according to subclass type for
+     * dispatching where the method checks to see if an ExpressionNode
+     * is an instance of either an OperationNode, ValueNode, or
+     * VariableNode. Passes the instance of an ExpressionNode to other
+     * expression methods to generate assembly code to fill in the
+     * missing pieces of the blueprint and complete the program. The
+     * generated expression portion of the assembly code for all of the
+     * expressions is then returned and added to the blueprint to help
+     * write the full pascal program.
      *
-     * @param node The node for which to write code.
-     * @param reg  The register in which to put the result.
-     * @return
+     * @param node - The node for which to write code.
+     * @param reg - The register in which to put the result.
+     * @return - A String of the assembly code for all of the expressions.
      */
     public String writeCode(ExpressionNode node, String reg)
     {
         String nodeCode = null;
+
         if (node instanceof OperationNode)
         {
+            //Pass in node and register to generate assembly code.
             nodeCode = writeCode((OperationNode) node, reg);
         }
         else if (node instanceof ValueNode)
         {
+            //Pass in node and register to generate assembly code.
             nodeCode = writeCode((ValueNode) node, reg);
         }
         else if (node instanceof VariableNode)
         {
+            //Pass in node and register to generate assembly code.
             nodeCode = writeCode((VariableNode) node, reg);
         }
         return nodeCode;
