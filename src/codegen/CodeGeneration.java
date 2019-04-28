@@ -511,7 +511,7 @@ public class CodeGeneration
         /* Iterates over the stored array of appended statements to
         remove appends before the arrStart index. This is done to
         stop every single AssignmentStatementNode from being appended in
-        an if statement, and give the MIPS assembly code a
+        an if statement, and give the MIPS assembly a assembly code a
         cleaner apperance. */
         while(arrStart < arrlength)
         {
