@@ -122,6 +122,59 @@ public class CodeGenerationTest
     }
 
     /**
+     * This method tests the genCode method by testing to make sure
+     * declarations are generated for the blueprint of the assembly code.
+     * Then testing to make sure the generated string of assembly code
+     * from the call to the genCode method matches the expected assembly
+     * code string. This is a text string test.
+     */
+    @Test
+    public void testDecs()
+    {
+        System.out.println("\n" + "#####################" +
+                "\n" + "# Test Declarations #" + "\n" +
+                "#####################" + "\n");
+        ProgramNode pn = new ProgramNode("percentageformula");
+        DeclarationsNode dn = new DeclarationsNode();
+        pn.setVariables(dn);
+        VariableNode vn = new VariableNode("percentinput");
+        VariableNode vn2 = new VariableNode("giveninteger");
+        VariableNode vn3 = new VariableNode("output");
+        //Adding the name of the variable associated with the node.
+        dn.addVariable(vn);
+        dn.addVariable(vn2);
+        dn.addVariable(vn3);
+        //Symbol table isn't used yet in this iteration so it is null.
+        CodeGeneration gen =
+                new CodeGeneration(pn, null);
+        String expected = "# The .data section of the MIPS assembly\n" +
+                ".data\n" +
+                "newline:    .asciiz     \"\\n\" \n" +
+                "percentinput :   .word   0\n" +
+                "giveninteger :   .word   0\n" +
+                "output :   .word   0\n" +
+                "\n" +
+                ".text\n" +
+                "\n" +
+                "main:\n" +
+                "addi    $sp, $sp, -4   " +
+                "# Decrements 4 off the stack pointer register.\n" +
+                "sw    $ra 0($sp)       " +
+                "# Saves register $ra for use as a return register.\n" +
+                "lw    $ra 0($sp)       " +
+                "# Restores the original value $ra had in main. \n" +
+                "addi    $sp, $sp, 4    " +
+                "# Increments 4 onto the stack pointer register. \n" +
+                "jr $ra                 " +
+                "# Jumps back to the line after jal main in \n" +
+                "                       # the code. End.\n";
+        String actual = gen.genCode();
+        assertEquals(expected, actual);
+        System.out.println("Passed! Generated assembly code for the " +
+                "declarations in the program.");
+    }
+
+    /**
      * This method tests the writeCode method that takes in statements.
      * It tests the writeCode method from the CodeGeneration class by
      * testing to see if the generated string of assembly code from the
@@ -180,7 +233,6 @@ public class CodeGenerationTest
     @Test
     public void testWriteCodeExpression()
     {
-        //one test that writes code JUST for expressions
 
         System.out.println("\n" + "#################################" +
                 "\n" +
