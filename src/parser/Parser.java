@@ -1022,7 +1022,7 @@ public class Parser
      */
     protected void match(TokenType expected)
     {
-        System.out.println("match( " + expected + ")");
+       // System.out.println("match( " + expected + ")");
         /*Compares the lookahead token with a token type to see if it
          matches the same expected type. */
         if (this.lookahead.getType() == expected)
