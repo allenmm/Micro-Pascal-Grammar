@@ -232,20 +232,25 @@ public class CodeGeneration
     }
 
     /**
-     * Writes code for a value node.
-     * The code is written by executing an add immediate with the value
-     * into the destination register.
+     * Generates the assembly code for a value node. The code is
+     * written by executing an add immediate with the value into the
+     * destination register.
      * Writes code that looks like  addi $reg, $zero, value
      *
-     * @param valNode - The node containing the value.
-     * @param resultRegister - The register in which to put the value.
-     * @return - The code which executes this value node.
+     * @param valNode - The node containing the numeric value to load
+     * into the register.
+     * @param resultRegister - The register the numeric value is placed
+     * in.
+     * @return - A String of the assembly code that executes the value
+     * node for the expression.
      */
     public String writeCode(ValueNode valNode, String resultRegister)
     {
         String value = valNode.getAttribute();
-        String code = "li     " + resultRegister + ",  " + value + "     " +
-                "    # Loads a register with a specific numeric value. \n";
+        String code = "li     " + resultRegister + ",  " + value + "     "
+                +
+                "    # Loads a register with a specific numeric value. " +
+                "\n";
         return code;
     }
 
