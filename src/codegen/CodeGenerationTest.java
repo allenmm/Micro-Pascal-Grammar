@@ -1,7 +1,9 @@
 package codegen;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import parser.Parser;
 import syntaxtree.*;
 import parser.TypeEnum;
@@ -14,7 +16,8 @@ import parser.TypeEnum;
  *
  * @author Marissa
  */
-public class CodeGenerationTest {
+public class CodeGenerationTest
+{
 
     /**
      * This method tests both the overall program and the declarations
@@ -27,8 +30,8 @@ public class CodeGenerationTest {
     @Test
     public void testGenCode()
     {
-        System.out.println("\n" + "#################################" + "\n" +
-                "# Test Program and Declarations #" + "\n" +
+        System.out.println("\n" + "#################################" +
+                "\n" + "# Test Program and Declarations #" + "\n" +
                 "#################################" + "\n");
 
         String test = "program foo;\n" +
@@ -120,7 +123,11 @@ public class CodeGenerationTest {
     }
 
     /**
-     * This method tests the writeCode method that takes in statements
+     * This method tests the writeCode method that takes in statements.
+     * It tests the writeCode method from the CodeGeneration class by
+     * testing to see if the generated string of assembly code from the
+     * call to the writeCode method matches the expected assembly code
+     * string. This is a text string test.
      */
     @Test
     public void testWriteCodeStatement()
@@ -194,5 +201,5 @@ public class CodeGenerationTest {
         assertEquals(expected, actual);
         System.out.println("Passed!");
     }
-    
+
 }
