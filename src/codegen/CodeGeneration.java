@@ -129,9 +129,10 @@ public class CodeGeneration
      * a pair of registers, and then executing the op on those registers,
      * placing the result in the given result register.
      *
-     * @param opNode         The operation node to perform.
-     * @param resultRegister The register in which to put the result.
-     * @return The code which executes this operation.
+     * @param opNode - The operation node to perform.
+     * @param resultRegister - The register in which to put the result.
+     * @return - A String of the assembly code that executes
+     * this operation.
      */
     public String writeCode(OperationNode opNode, String resultRegister)
     {
@@ -199,8 +200,6 @@ public class CodeGeneration
         {
             code += "beq    " + leftRegister + ",   " + rightRegister
                     + ", endLoop" + whileNumber + "\n";
-            /*Use the label reglabelnum as a 'global' for the current generic lable to use outside for label placement?*/
-
         }
         if (kindOfOp == TokenType.NOTEQUAL)
         {
@@ -217,7 +216,7 @@ public class CodeGeneration
             code += "ble    " + leftRegister + ",   " + rightRegister
                     + ", endLoop" + whileNumber + "\n";
         }
-        //$s = right reg, $t = left reg. Psuedocode: bge $s, $t, C
+        //$s = left reg, $t = right reg. pseudocode: bge $s, $t, C
         if (kindOfOp == TokenType.GTHANEQUAL)
         {
             code += "bge    " + leftRegister + ",   " + rightRegister
