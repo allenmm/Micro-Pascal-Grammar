@@ -468,15 +468,21 @@ public class CodeGeneration
     }
 
     /**
-     *
+     * Generates the assembly code for the if statement node.
+     * Writes code for the given node. An if statement has a branch
+     * condition expression, a statements section, a jump section, a
+     * label for the branch condition expression, and another statements
+     * section. A counter number for the if statement and branch condition
+     * are appended onto every label to generate unique labels for
+     * multiple if statements and their exit labels.
      *
      * Example code:
-     * beq s3, s4, True     # branch i==j
+     * beq s3, s4, True     # branch if true
      * sub s0, s1, s2       # f=g-h(false) In code comes before true.
-     * b Fin                # go to Fin
+     * j endLoop            # go to endLoop
      * True:
      * add s0,s1,s2         # f=g+h (true). In code comes after true.
-     * Fin:
+     * endLoop:
      *
      * @param statement
      * @return
@@ -499,6 +505,11 @@ public class CodeGeneration
         String[] arr = thenStatement.split("\n");
         int arrlength = arr.length;
         int arrStart = arrlength - ifCounter;
+        /* Iterates over the stored array of appended statements to
+        remove appends before the arrStart index. This is done to
+        stop every single AssignmentStatementNode from being appended in
+        an if statement, and give the MIPS assembly a assembly code a
+        cleaner apperance. */
         while(arrStart < arrlength)
         {
             thenStatementResult += arr[arrStart] + "\n";
@@ -508,6 +519,7 @@ public class CodeGeneration
         arr = elseStatement.split("\n");
         arrlength = arr.length;
         arrStart = arrlength - ifCounter;
+        //Gives else section of if statement a cleaner appearance.
         while(arrStart < arrlength)
         {
             elseStatementResult += arr[arrStart] + "\n";
