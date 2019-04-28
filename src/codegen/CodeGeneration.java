@@ -255,18 +255,21 @@ public class CodeGeneration
     }
 
     /**
-     * Writes code for a variable node.
-     * The code is written by executing an add immediate with the value
+     * Generates the assembly code for a variable node.
+     * The code is written by executing a load word with the variable
      * into the destination register.
-     * Writes code that looks like: addi $reg, $zero, variable
+     * Writes code that looks like: lw $reg, variable
      *
-     * @param varNode - The node containing the variable.
-     * @param resultRegister - The register in which to put the variable.
-     * @return - The code which executes this variable node.
+     * @param varNode - The node containing the variable to load
+     * into the register.
+     * @param resultRegister - The register the variable is placed in.
+     * @return - A String of the assembly code that executes the value
+     * node for the expression.
      */
     public String writeCode(VariableNode varNode, String resultRegister)
     {
-        String code = "lw     " + resultRegister + ", " + varNode.getName() +
+        String code = "lw     " + resultRegister + ", " +
+                varNode.getName() +
                 "         # Loads the variable labels." + "\n";
         return code;
     }
