@@ -10,7 +10,7 @@ import java.io.StringReader;
 import org.junit.Test;
 
 /**
- * A Java Program that illustrates reading from a text file and strings
+ * A Java class that illustrates reading from a text file and strings
  * using a scanner class using JUnit testing. This program creates a
  * StringReader, passing a String as parameter to the StringReader
  * constructor. It then reads the characters, one character at a time,

@@ -6,7 +6,7 @@ import scanner.TokenType;
 import static org.junit.Assert.assertEquals;
 
 /**
- * A JUnit Java Program that illustrates building a syntax tree using the
+ * A JUnit Java class that illustrates building a syntax tree using the
  * nodes from the classes in the syntaxtree package. The resulting
  * syntax tree is then printed out as an indentedToString.
  *

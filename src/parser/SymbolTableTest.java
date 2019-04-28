@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * A JUnit Java Program that illustrates adding a symbol/identifier to the
+ * A JUnit Java class that illustrates adding a symbol/identifier to the
  * Symbol Table and checking to see if it is either a program, variable,
  * function, or procedure identifier.
  *
