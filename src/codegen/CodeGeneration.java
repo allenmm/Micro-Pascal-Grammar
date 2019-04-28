@@ -275,10 +275,20 @@ public class CodeGeneration
     }
 
     /**
+     * Writes code for the given node. This generic write code takes any
+     * StatementNode and checks to see if it is an instance of either a
+     * CompoundStatementNode, AssignmentStatementNode, IfStatementNode,
+     * WriteStatementNode, ReadStatementNode, or ReturnStatementNode.
+     * Passes the instance of a StatementNode to other statement methods
+     * to generate assembly code to fill in the missing pieces of the
+     * blueprint and complete the program. The generated statement
+     * portion of the assembly code for all of the statements is then
+     * returned and added to the blueprint to help write the full
+     * pascal program.
      *
-     *
-     * @param node -
-     * @return -
+     * @param node - The node containing the statement to check the
+     * instance of.
+     * @return - A String of the assembly code for all of the statements.
      */
     public String writeCode(StatementNode node)
     {
@@ -292,26 +302,32 @@ public class CodeGeneration
         }
         else if (node instanceof AssignmentStatementNode)
         {
+            //Pass in node to generate assembly code.
             nodeCode += writeCode((AssignmentStatementNode) node);
         }
         else if (node instanceof IfStatementNode)
         {
+            //Pass in node to generate assembly code.
             nodeCode += writeCode((IfStatementNode) node);
         }
         else if (node instanceof WriteStatementNode)
         {
+            //Pass in node to generate assembly code.
             nodeCode += writeCode((WriteStatementNode) node);
         }
         else if (node instanceof WhileStatementNode)
         {
+            //Pass in node to generate assembly code.
             nodeCode += writeCode((WhileStatementNode) node);
         }
         else if (node instanceof ReadStatementNode)
         {
+            //Pass in node to generate assembly code.
             nodeCode += writeCode((ReadStatementNode) node);
         }
         else if (node instanceof ReturnStatementNode)
         {
+            //Pass in node to generate assembly code.
             nodeCode += writeCode((ReturnStatementNode) node);
         }
         return nodeCode;
