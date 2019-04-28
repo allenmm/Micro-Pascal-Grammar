@@ -164,4 +164,35 @@ public class CodeGenerationTest {
                 " the statement.");
     }
 
+    /**
+     * This method tests the writeCode method that takes in expressions
+     */
+    @Test
+    public void testWriteCodeExpression()
+    {
+        //one test that writes code JUST for expressions
+
+        System.out.println("\n" + "#################################" +
+                "\n" +
+                "# Test expression assembly code #" + "\n" +
+                "#################################" + "\n");
+
+        String test = "3+4+5";
+        Parser parser = new Parser(test, false);
+        ExpressionNode expNode = parser.expression();
+        CodeGeneration gen =
+                new CodeGeneration(null, null);
+        String expected = "li     $t1,  3         " +
+                "# Loads a register with a specific numeric value. \n" +
+                "li     $t2,  4         " +
+                "# Loads a register with a specific numeric value. \n" +
+                "add    $t0,   $t1,   $t2\n" +
+                "li     $t1,  5         " +
+                "# Loads a register with a specific numeric value. \n" +
+                "add    $t0,   $t0,   $t1\n";
+        String actual = gen.writeCode(expNode, "$t0");
+        assertEquals(expected, actual);
+        System.out.println("Passed!");
+    }
+    
 }
