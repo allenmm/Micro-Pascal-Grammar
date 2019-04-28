@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import scanner.TokenType;
 
 /**
- * A JUnit Java Program that illustrates reading from a text file or
+ * A JUnit Java class that illustrates reading from a text file or
  * strings using the Recognizer class in JUnit testing. Either a string
  * or a file path name will be passed into the constructor from the
  * Recognizer class when a method of the class is called. If the string

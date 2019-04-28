@@ -7,7 +7,7 @@ import syntaxtree.*;
 import java.util.ArrayList;
 
 /**
- * This program takes in a ProgramNode and a symbol table and checks to
+ * This class takes in a ProgramNode and a symbol table and checks to
  * make sure the declarations and statements of a program are correct
  * according to the micro pascal grammar. It also checks to see if
  * variables have been declared before they are used, checks if the type

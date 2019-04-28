@@ -13,7 +13,7 @@ import scanner.TokenType;
 import syntaxtree.*;
 
 /**
- * This program is a Java program that illustrates reading from a text
+ * This is a Java program class that illustrates reading from a text
  * file or strings. Either a string or a file path name will be passed
  * into the constructor in the Parser class when a method of the class
  * is called. This class creates a parser, implemented as a top-down

@@ -11,7 +11,7 @@ import scanner.Token;
 import scanner.TokenType;
 
 /**
- * This program creates a recognizer, implemented as a top-down
+ * This class creates a recognizer, implemented as a top-down
  * recursive descent parser. The recognizer doesn’t perform any
  * syntax-directed translation. It will only say whether the input
  * string is from the language described by the micro pascal grammar.

@@ -10,7 +10,7 @@ import parser.TypeEnum;
 import syntaxtree.*;
 
 /**
- * A JUnit Java Program that illustrates checking to see if all variables
+ * A JUnit Java class that illustrates checking to see if all variables
  * are declared before they are used, testing to see if a type is
  * assigned to every StatementNode, and adding a type onto the
  * ExpressionNodes of the syntax tree.
