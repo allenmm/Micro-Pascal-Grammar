@@ -487,8 +487,10 @@ public class CodeGeneration
      * add s0,s1,s2         # f=g+h (true). In code comes after true.
      * endLoop:
      *
-     * @param statement
-     * @return
+     * @param statement - The node containing the expression and
+     * statements for the if statement to be returned.
+     * @return - A String of the assembly code that executes the
+     * if statement node for the statement.
      */
     public String writeCode(IfStatementNode statement)
     {

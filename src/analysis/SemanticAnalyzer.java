@@ -77,7 +77,7 @@ public class SemanticAnalyzer
      * The type of each ExpressionNode is added to the syntax tree
      * indentedToString.
      *
-     * @param - An ExpressionNode that is either an OperationNode,
+     * @param express - An ExpressionNode that is either an OperationNode,
      *          VariableNode, or a ValueNode.
      * @return - The real or integer TypeEnum.
      */
@@ -145,9 +145,9 @@ public class SemanticAnalyzer
      * The type of each ExpressionNode is added to the syntax tree
      * indentedToString.
      *
-     * @param - A StatementNode that is either a CompoundStatementNode,
-     * AssignmentStatementNode, IfStatementNode, WriteStatementNode,
-     * ReadStatementNode, or ReturnStatementNode.
+     * @param statement - A StatementNode that is either a
+     * CompoundStatementNode, AssignmentStatementNode, IfStatementNode,
+     * WriteStatementNode, ReadStatementNode, or ReturnStatementNode.
      */
     public void assignStatementTypes(StatementNode statement)
     {
